@@ -1,21 +1,26 @@
 import { React, useState } from "react";
-import { NavLink, withRouter } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 import { HiX, HiOutlineUser, HiOutlineMenuAlt4 } from "react-icons/hi";
 
 function Header() {
   const [open, setOpen] = useState(false);
-  const [animation1, setAnimation1] = useState("openAnimation1");
-  const [animation2, setAnimation2] = useState("openAnimation2");
+  const [animation0, setAnimation0] = useState("");
+  const [animation00, setAnimation00] = useState("");
+  const [animation1, setAnimation1] = useState("");
+  const [animation2, setAnimation2] = useState("");
 
   const onToggle = () => {
     if (open) {
+      setAnimation0("closeAnimation0");
+      setAnimation00("openAnimation0");
       setAnimation1("closeAnimation1");
       setAnimation2("closeAnimation2");
       setTimeout(() => {
         setOpen(false);
-      }, 500);
+      }, 270);
     } else {
+      setAnimation0("openAnimation0");
       setAnimation1("openAnimation1");
       setAnimation2("openAnimation2");
       setOpen(true);
@@ -32,9 +37,13 @@ function Header() {
       >
         <div className="div-header-wrap">
           {open ? (
-            <HiX size="25" onClick={onToggle} />
+            <HiX size="25" onClick={onToggle} className={`${animation0}`} />
           ) : (
-            <HiOutlineMenuAlt4 size="25" onClick={onToggle} />
+            <HiOutlineMenuAlt4
+              size="25"
+              onClick={onToggle}
+              className={`${animation00}`}
+            />
           )}
           <div
             className="div-header-logo"
@@ -71,6 +80,7 @@ function Header() {
               ATTENDANCE
             </NavLink>
             <br />
+            ㅡ
             <br />
             <NavLink
               className="link-header"
@@ -82,6 +92,7 @@ function Header() {
               RANKING
             </NavLink>
             <br />
+            ㅡ
             <br />
             <NavLink
               className="link-header"

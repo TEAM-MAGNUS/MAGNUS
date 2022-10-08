@@ -39,7 +39,7 @@ body {
   top: 0;
   left: 5%;
   z-index: 200;
-  border-bottom: 1px solid black;
+  border-bottom: 1.5px solid black;
 }
 .div-header-wrap {
   width: 100%;
@@ -54,6 +54,7 @@ body {
 .div-header-menu {
   position: fixed;
   top: 0;
+  left: 0;
   background-color: #d2000f;
   border-radius: 0 0 20px 20px;
   padding-top: 90px;
@@ -72,23 +73,29 @@ body {
 .div-header-menu-wrap {
   position: fixed;
   top: 0;
-  height: 100%;
-  width: 100%;
+  left: 0;
+  height: 100vh;
+  width: 100vw;
   z-index: 50;
   background-color: rgba(0, 0, 0, 0.8);
 }
-
+.openAnimation0 {
+  animation: open0 0.3s ease-out;
+}
+.closeAnimation0 {
+  animation: close0 0.3s ease-out;
+}
 .openAnimation1 {
-  animation: fadein 0.5s ease-out;
+  animation: fadein 0.3s ease-out;
 }
 .closeAnimation1 {
-  animation: fadeout 0.5s ease-out;
+  animation: fadeout 0.3s ease-out;
 }
 .openAnimation2 {
-  animation: down 0.5s ease-out;
+  animation: down 0.3s ease-out;
 }
 .closeAnimation2 {
-  animation: up 0.5s ease-out;
+  animation: up 0.3s ease-out;
 }
 
 @keyframes down {
@@ -123,5 +130,68 @@ body {
     opacity: 0;
   }
 }
-
+@keyframes open0 {
+  from {
+    transform: scaleY(0);
+  }
+  to {
+    transform: scaleY(1);
+  }
+}
+@keyframes close0 {
+  from {
+    transform: scaleY(1);
+  }
+  to {
+    transform: scaleY(0);
+  }
+}
 /*------------------------------*/ /* Header.js */
+
+/* Attendance.js */ /*------------------------------*/
+.div-attendance-profile {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: 30px;
+  font-weight: 900;
+}
+.img-attendance-profile {
+  width: 30vw;
+  padding-bottom: 15px;
+}
+.div-attendance-date {
+  position: absolute;
+  bottom: 60px;
+  left: 0;
+  width: 100vw;
+  height: 60px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: 25px;
+  font-weight: 900;
+}
+.div-attendance-check {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100vw;
+  height: 60px;
+  background-color: #d2000f;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: 25px;
+  font-weight: 900;
+}
+
+/*------------------------------*/ /* Attendance.js */
