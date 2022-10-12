@@ -13,13 +13,54 @@ function KaKaoLogin() {
         })
             .then(res => res.json())
             .then(data => {
-                
+                console.log(data);
+                getUserInfo(data.access_token);
             });
+
+        return 
     }
+
+    const getUserInfo = (ACCESS_TOKEN) => {
+        console.log(ACCESS_TOKEN);
+        fetch("https://kapi.kakao.com/v2/user/me", {
+            headers: { 
+                "Authorization": `Bearer ${ACCESS_TOKEN}`
+            }
+        })
+            .then(res => res.json())
+            .then(data => saveKakaoUserInfo(data.id, data.kakao_account.profile.nickname));
+    }
+
+    function saveKakaoUserInfo(id, name) {
+        const post = {
+          query:
+            "INSERT INTO magnus_user (id, name) VALUES (" +
+            id + ", '" +
+            name + "');"
+        };
+      
+        console.log(post);
+        fetch("https://hansori.net:443/SQL1", {
+            method: "post",
+            headers: { "content-type": "application/json" },
+            body: JSON.stringify(post),
+        })
+            .then(() => {
+                console.log("success");
+            })
+      }
 
     return (
         <>
-            KaKaoLogin
+            <div
+                style={{
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                }}
+            >
+                {getKakaoToken()}
+            </div>
         </>
     );
 }
