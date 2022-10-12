@@ -4,29 +4,6 @@ import dayjs from "dayjs";
 const today = dayjs(new Date());
 const td = new Date();
 
-function write(ip, date) {
-  console.log(`ip: ${ip === "210.94.182.243" ? "true" : "false"}`);
-  console.log(`날짜: ${date.getMonth()}월 ${date.getDate()}일`);
-  const post = {
-    query:
-      "INSERT INTO magnus_attendance (ip, date) VALUES ('" +
-      ip + "', '" +
-
-      date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate() + " " +
-      date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds() +
-      "');"
-  };
-
-  console.log(post.query);
-  fetch("https://hansori.net:443/SQL1", {
-    method: "post",
-    headers: { "content-type": "application/json" },
-    body: JSON.stringify(post),
-  }).then(() => {
-    console.log("success");
-  });
-}
-
 function Attendance() {
   const year = td.getFullYear();
   const month = td.getMonth();
@@ -37,26 +14,41 @@ function Attendance() {
       fri: null,
       sat: null,
       sun: null,
+      fri_schedule: "a",
+      sat_schedule: "b",
+      sun_schedule: "c",
     },
     {
       fri: null,
       sat: null,
       sun: null,
+      fri_schedule: "d",
+      sat_schedule: "e",
+      sun_schedule: "f",
     },
     {
       fri: null,
       sat: null,
       sun: null,
+      fri_schedule: "g",
+      sat_schedule: "h",
+      sun_schedule: "i",
     },
     {
       fri: null,
       sat: null,
       sun: null,
+      fri_schedule: "j",
+      sat_schedule: "k",
+      sun_schedule: "l",
     },
     {
       fri: null,
       sat: null,
       sun: null,
+      fri_schedule: "m",
+      sat_schedule: "n",
+      sun_schedule: "o",
     },
   ];
 
@@ -106,8 +98,11 @@ function Attendance() {
   };
   setCalendar();
 
+  const [isOpen, setOpen] = useState(false);
+  const [now, setNow] = useState({ week: 0, date: 0, day: "" });
+
   const showCalendar = (
-    <table className="div-attendance">
+    <table className="div-calendar">
       <thead>
         <tr>
           <th>FRI</th>
@@ -119,19 +114,19 @@ function Attendance() {
         {calendar.map((w, index) => (
           <tr>
             {w.fri < date ? (
-              <th className="attendance-p">{w.fri}</th>
+              <th className="calendar-p">{w.fri}</th>
             ) : (
-              <th className="attendance-f">{w.fri}</th>
+              <th className="calendar-f">{w.fri}</th>
             )}
             {w.sat < date ? (
-              <th className="attendance-p">{w.sat}</th>
+              <th className="calendar-p">{w.sat}</th>
             ) : (
-              <th className="attendance-f">{w.sat}</th>
+              <th className="calendar-f">{w.sat}</th>
             )}
             {w.sun < date ? (
-              <th className="attendance-p">{w.sun}</th>
+              <th className="calendar-p">{w.sun}</th>
             ) : (
-              <th className="attendance-f">{w.sun}</th>
+              <th className="calendar-f">{w.sun}</th>
             )}
           </tr>
         ))}
@@ -140,35 +135,10 @@ function Attendance() {
   );
 
   return (
-<<<<<<< Updated upstream
-    <>
-      <div className="div-attendance-profile">
-        <img className="img-attendance-profile" src={profile} alt="" />
-        name1
-      </div>
-      <div className="div-attendance-date">{today.toLocaleDateString()}</div>
-      {today.getDay() === 0 || today.getDay() === 5 || today.getDay() === 6 ? (
-        <div 
-          className="div-attendance-check"
-          onClick={async (e) => {
-            const Location = await fetch("https://geolocation-db.com/json/")
-            const location = await Location.json();
-            today = new Date();
-            location.IPv4 === "210.94.182.243" ? write(location.IPv4, today) : console.log("ip가 다릅니다.");
-          }}
-        >
-          출석
-        </div>
-      ) : (
-        <div className="div-attendance-check">ㅡ</div>
-      )}
-    </>
-=======
     <div className="div-ranking">
       <div className="div-month">{today.format("YYYY.MM")}</div>
       <div className="div-attendance-section-01">{showCalendar}</div>
     </div>
->>>>>>> Stashed changes
   );
 }
 
