@@ -231,6 +231,8 @@ function Calendar() {
     </>
   );
 
+  const [clicked, setClicked] = useState({ week: null, date: null });
+
   const showCalendar = (
     <table className="div-calendar">
       <thead>
@@ -247,8 +249,15 @@ function Calendar() {
               <th className="calendar-p">{w[0].date}</th>
             ) : (
               <th
-                className="calendar-f"
-                onClick={() => openSchedule(index, w[0].date, 0)}
+                className={
+                  clicked.week === index && clicked.date === w[0].date
+                    ? "calendar-t"
+                    : "calendar-f"
+                }
+                onClick={() => {
+                  openSchedule(index, w[0].date, 0);
+                  setClicked({ week: index, date: w[0].date });
+                }}
               >
                 {w[0].date}
               </th>
@@ -257,8 +266,15 @@ function Calendar() {
               <th className="calendar-p">{w[1].date}</th>
             ) : (
               <th
-                className="calendar-f"
-                onClick={() => openSchedule(index, w[1].date, 1)}
+                className={
+                  clicked.week === index && clicked.date === w[1].date
+                    ? "calendar-t"
+                    : "calendar-f"
+                }
+                onClick={() => {
+                  openSchedule(index, w[1].date, 1);
+                  setClicked({ week: index, date: w[1].date });
+                }}
               >
                 {w[1].date}
               </th>
@@ -267,8 +283,15 @@ function Calendar() {
               <th className="calendar-p">{w[2].date}</th>
             ) : (
               <th
-                className="calendar-f"
-                onClick={() => openSchedule(index, w[2].date, 2)}
+                className={
+                  clicked.week === index && clicked.date === w[2].date
+                    ? "calendar-t"
+                    : "calendar-f"
+                }
+                onClick={() => {
+                  openSchedule(index, w[2].date, 2);
+                  setClicked({ week: index, date: w[2].date });
+                }}
               >
                 {w[2].date}
               </th>

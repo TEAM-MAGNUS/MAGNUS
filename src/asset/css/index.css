@@ -44,7 +44,7 @@ body {
   top: 0;
   left: 5%;
   z-index: 200;
-  border-bottom: 1.5px solid black;
+  /* border-bottom: 1.5px solid black; */
 }
 .div-header-wrap {
   width: 100%;
@@ -242,7 +242,71 @@ body {
 .div-attendance-section-01 {
   position: absolute;
   top: 200px;
+  display: flex;
+  flex-direction: column;
 }
+
+.icon-attendance-info {
+  width: 20px;
+  height: 20px;
+  margin: 5px;
+}
+
+.div-attendance-section-info {
+  position: absolute;
+  bottom: 0;
+  right: 10vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  z-index: 100;
+  width: 120px;
+  padding: 10px;
+  border-radius: 10px;
+}
+
+.div-attendance-info {
+  height: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 15px;
+  margin: 2px;
+}
+
+.div-attendance-info-01 {
+  width: 20px;
+  background-color: #d2000f;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+}
+.div-attendance-info-02 {
+  width: 20px;
+  background-color: #d2000f;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: black;
+}
+.div-attendance-info-03 {
+  width: 20px;
+  background-color: black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+}
+.div-attendance-info-04 {
+  width: 20px;
+  background-color: black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #d2000f;
+}
+
 /*------------------------------*/ /* Attendance.js */
 
 .div-calendar-section {
@@ -280,9 +344,6 @@ th {
 }
 .calendar-f {
   background-color: white;
-}
-.calendar-f:hover {
-  background-color: #d2000f;
 }
 
 .div-calendar-schedule-section {
@@ -352,9 +413,14 @@ th {
 }
 
 .div-attendance {
-  width: 80vw;
-  font-size: 20px;
-  text-align: center;
+  width: 100vw;
+  height: 100vh;
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 thead th {
   text-align: center;
@@ -366,7 +432,8 @@ th {
   height: 10vh;
   background-color: rgba(0, 0, 0, 0.4);
 }
-.attendance-t {
+
+.attendance-n {
   background-color: #d2000f;
 }
 .attendance-p {
@@ -375,4 +442,41 @@ th {
 }
 .attendance-f {
   background-color: white;
+}
+
+.attendance-0 {
+  background-color: #d2000f;
+  color: white;
+}
+.attendance-1 {
+  background-color: #d2000f;
+}
+.attendance-2 {
+  background-color: black;
+  color: white;
+}
+.attendance-3 {
+  background-color: black;
+  color: #d2000f;
+}
+
+.div-attendance-piechart-01 {
+  position: absolute;
+  top: 30vh;
+  width: 80vw;
+  height: 40vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.div-attendance-piechart-02 {
+  position: absolute;
+  bottom: 100px;
+  width: 80vw;
+  height: 20vh;
+  font-size: 40px;
+  display: flex;
+  /* background-color: pink; */
+  justify-content: center;
+  align-items: center;
 }

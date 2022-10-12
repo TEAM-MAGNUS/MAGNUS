@@ -18,6 +18,7 @@ function Ranking() {
         month +
         ");",
     };
+    console.log(post1.query);
     fetch("http://localhost:8080/SQL1", {
       method: "post",
       headers: { "content-type": "application/json" },
