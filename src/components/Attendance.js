@@ -1,5 +1,9 @@
-import React, { useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import dayjs from "dayjs";
+import { AiOutlineInfoCircle } from "react-icons/ai";
+import { PieChart, Pie, Sector, Cell } from "recharts";
+import ReactFullpage from "@fullpage/react-fullpage";
+import { IoIosArrowUp, IoIosArrowDown } from "react-icons/io";
 
 const today = dayjs(new Date());
 const td = new Date();
@@ -10,49 +14,112 @@ function Attendance() {
   const date = td.getDate();
 
   var calendar = [
-    {
-      fri: null,
-      sat: null,
-      sun: null,
-      fri_schedule: "a",
-      sat_schedule: "b",
-      sun_schedule: "c",
-    },
-    {
-      fri: null,
-      sat: null,
-      sun: null,
-      fri_schedule: "d",
-      sat_schedule: "e",
-      sun_schedule: "f",
-    },
-    {
-      fri: null,
-      sat: null,
-      sun: null,
-      fri_schedule: "g",
-      sat_schedule: "h",
-      sun_schedule: "i",
-    },
-    {
-      fri: null,
-      sat: null,
-      sun: null,
-      fri_schedule: "j",
-      sat_schedule: "k",
-      sun_schedule: "l",
-    },
-    {
-      fri: null,
-      sat: null,
-      sun: null,
-      fri_schedule: "m",
-      sat_schedule: "n",
-      sun_schedule: "o",
-    },
+    [
+      { date: null, attendance: null },
+      { date: null, attendance: null },
+      { date: null, attendance: null },
+    ],
+    [
+      { date: null, attendance: null },
+      { date: null, attendance: null },
+      { date: null, attendance: null },
+    ],
+    [
+      { date: null, attendance: null },
+      { date: null, attendance: null },
+      { date: null, attendance: null },
+    ],
+    [
+      { date: null, attendance: null },
+      { date: null, attendance: null },
+      { date: null, attendance: null },
+    ],
+    [
+      { date: null, attendance: null },
+      { date: null, attendance: null },
+      { date: null, attendance: null },
+    ],
   ];
 
   //   const monthLastDate = new Date(year, month, 0).getDate();
+
+  const [attendance, setAttendance] = useState([
+    { attendance_date: null, attendance: null },
+  ]);
+
+  // const [attendance0, set0] = useState(0);
+  // const [attendance1, set1] = useState(0);
+  // const [attendance2, set2] = useState(0);
+  // const [attendance3, set3] = useState(0);
+  var attendance0 = 0;
+  var attendance1 = 0;
+  var attendance2 = 0;
+  var attendance3 = 0;
+
+  const getAttendance = () => {
+    const post = {
+      query:
+        "SELECT attendance_date, attendance from magnus_attendance WHERE (YEAR(attendance_date) = " +
+        year +
+        " AND MONTH(attendance_date) = " +
+        (month + 1) +
+        " AND id = '" +
+        "id0" +
+        "');",
+    };
+    fetch("http://localhost:8080/SQL2", {
+      method: "post",
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify(post),
+    })
+      .then((res) => res.json())
+      .then((json) => {
+        json.map((j) => {
+          j.attendance_date = dayjs(j.attendance_date).format("D");
+        });
+
+        setAttendance(json);
+      });
+  };
+  console.log(attendance);
+  attendance.map((a) => {
+    switch (a.attendance) {
+      case 0:
+        attendance0++;
+        break;
+      case 1:
+        attendance1++;
+        break;
+      case 2:
+        attendance2++;
+        break;
+      case 3:
+        attendance3++;
+        break;
+      default:
+    }
+  });
+
+  useEffect(() => {
+    getAttendance();
+  }, []);
+
+  const setColor = (date) => {
+    var t = attendance.find((a) => a.attendance_date == date);
+    if (t) {
+      switch (t.attendance) {
+        case 0:
+          return "attendance-0";
+        case 1:
+          return "attendance-1";
+        case 2:
+          return "attendance-2";
+        case 3:
+          return "attendance-3";
+        default:
+      }
+    } else return "attendance-f";
+  };
 
   const setCalendar = () => {
     var tmp;
@@ -67,20 +134,20 @@ function Attendance() {
 
     switch (first.day) {
       case 5: {
-        calendar[0].fri = first.date;
-        calendar[0].sat = first.date + 1;
-        calendar[0].sun = first.date + 2;
+        calendar[0][0].date = first.date;
+        calendar[0][1].date = first.date + 1;
+        calendar[0][2].date = first.date + 2;
         first.date += 7;
         break;
       }
       case 6: {
-        calendar[0].sat = first.date;
-        calendar[0].sun = first.date + 1;
+        calendar[0][1].date = first.date;
+        calendar[0][2].date = first.date + 1;
         first.date += 6;
         break;
       }
       case 0: {
-        calendar[0].sun = first.date;
+        calendar[0][2].date = first.date;
         first.date += 5;
         break;
       }
@@ -89,17 +156,14 @@ function Attendance() {
 
     var week = 1;
     while (week < 5) {
-      calendar[week].fri = first.date;
-      calendar[week].sat = first.date + 1;
-      calendar[week].sun = first.date + 2;
+      calendar[week][0].date = first.date;
+      calendar[week][1].date = first.date + 1;
+      calendar[week][2].date = first.date + 2;
       first.date += 7;
       week += 1;
     }
   };
   setCalendar();
-
-  const [isOpen, setOpen] = useState(false);
-  const [now, setNow] = useState({ week: 0, date: 0, day: "" });
 
   const showCalendar = (
     <table className="div-calendar">
@@ -113,32 +177,191 @@ function Attendance() {
       <tbody>
         {calendar.map((w, index) => (
           <tr>
-            {w.fri < date ? (
-              <th className="calendar-p">{w.fri}</th>
-            ) : (
-              <th className="calendar-f">{w.fri}</th>
-            )}
-            {w.sat < date ? (
-              <th className="calendar-p">{w.sat}</th>
-            ) : (
-              <th className="calendar-f">{w.sat}</th>
-            )}
-            {w.sun < date ? (
-              <th className="calendar-p">{w.sun}</th>
-            ) : (
-              <th className="calendar-f">{w.sun}</th>
-            )}
+            <th className={setColor(w[0].date)}>{w[0].date}</th>
+            <th className={setColor(w[1].date)}>{w[1].date}</th>
+            <th className={setColor(w[2].date)}>{w[2].date}</th>
           </tr>
         ))}
       </tbody>
     </table>
   );
 
-  return (
-    <div className="div-ranking">
-      <div className="div-month">{today.format("YYYY.MM")}</div>
-      <div className="div-attendance-section-01">{showCalendar}</div>
+  const [isOpen, setIsOpen] = useState(false);
+  const info = (
+    <div className="div-attendance-section-info">
+      <div className="div-attendance-info ">
+        <div className="div-attendance-info-01">O</div>출석
+      </div>
+      <div className="div-attendance-info ">
+        <div className="div-attendance-info-02">O</div>지각
+      </div>
+      <div className="div-attendance-info ">
+        <div className="div-attendance-info-03">O</div>불참
+      </div>
+      <div className="div-attendance-info ">
+        <div className="div-attendance-info-04">O</div>미통보불참
+      </div>
     </div>
+  );
+  console.log(attendance);
+  const data = [
+    { name: "출석", value: attendance0 },
+    { name: "지각", value: attendance1 },
+    { name: "불참", value: attendance2 },
+    { name: "미통보불참", value: attendance3 },
+  ];
+  const COLORS = ["#d2000f", "#d2000f", "black", "black"];
+
+  const [activeIndex, setActiveIndex] = useState(0);
+
+  const onPieEnter = useCallback(
+    (_, index) => {
+      setActiveIndex(index);
+    },
+    [setActiveIndex]
+  );
+
+  const renderActiveShape = (props: any) => {
+    const RADIAN = Math.PI / 180;
+    const {
+      cx,
+      cy,
+      midAngle,
+      innerRadius,
+      outerRadius,
+      startAngle,
+      endAngle,
+      fill,
+      payload,
+      percent,
+      value,
+    } = props;
+    const sin = Math.sin(-RADIAN * midAngle);
+    const cos = Math.cos(-RADIAN * midAngle);
+    const sx = cx + (outerRadius + 10) * cos;
+    const sy = cy + (outerRadius + 10) * sin;
+    const mx = cx + (outerRadius + 30) * cos;
+    const my = cy + (outerRadius + 30) * sin;
+    const ex = mx + (cos >= 0 ? 1 : -1) * 10;
+    const ey = my;
+    const textAnchor = cos >= 0 ? "start" : "end";
+
+    return (
+      <g>
+        <text x={cx} y={cy} dy={4} textAnchor="middle" fill={fill}>
+          {payload.name}
+        </text>
+        <Sector
+          cx={cx}
+          cy={cy}
+          innerRadius={innerRadius}
+          outerRadius={outerRadius}
+          startAngle={startAngle}
+          endAngle={endAngle}
+          fill={fill}
+        />
+        <Sector
+          cx={cx}
+          cy={cy}
+          startAngle={startAngle}
+          endAngle={endAngle}
+          innerRadius={outerRadius + 4}
+          outerRadius={outerRadius + 8}
+          fill={fill}
+        />
+        <path
+          d={`M${sx},${sy}L${mx},${my}L${ex},${ey}`}
+          stroke={fill}
+          fill="none"
+        />
+        <circle cx={ex} cy={ey} r={2} fill={fill} stroke="none" />
+        <text
+          x={ex + (cos >= 0 ? 1 : -1) * 12}
+          y={ey}
+          textAnchor={textAnchor}
+          fill="black"
+        >
+          {value}
+        </text>
+        <text
+          x={ex + (cos >= 0 ? 1 : -1)}
+          y={ey}
+          dy={18}
+          textAnchor={textAnchor}
+          fill="black"
+        >
+          ({(percent * 100).toFixed(1)}%)
+        </text>
+      </g>
+    );
+  };
+
+  const pieChart = (
+    <PieChart width={400} height={400}>
+      <Pie
+        activeIndex={activeIndex}
+        activeShape={renderActiveShape}
+        data={data}
+        innerRadius={90}
+        outerRadius={110}
+        paddingAngle={5}
+        dataKey="value"
+        isAnimationActive={true}
+        onClick={onPieEnter}
+      >
+        {data.map((entry, index) => (
+          <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+        ))}
+      </Pie>
+    </PieChart>
+  );
+
+  return (
+    <>
+      <ReactFullpage
+        scrollOverflow={true}
+        render={({ fullpageApi }) => (
+          <div id="fullpage-wrapper">
+            <div className="section">
+              <div className="div-attendance">
+                <div className="div-month">{today.format("YYYY.MM")}</div>
+                <IoIosArrowDown
+                  className="icon-main-arrow-down"
+                  size="20"
+                  onClick={() => fullpageApi.moveSectionDown()}
+                />
+                <div className="div-attendance-piechart-01">{pieChart}</div>
+                <div className="div-attendance-piechart-02">
+                  {(
+                    ((attendance0 + attendance1) / attendance.length) *
+                    100
+                  ).toFixed(1)}
+                  %
+                </div>
+              </div>
+            </div>
+            <div className="section">
+              <div className="div-attendance">
+                <div className="div-month">{today.format("YYYY.MM")}</div>
+                {isOpen ? info : <></>}
+                <div className="div-attendance-section-01">
+                  {showCalendar}
+                  <AiOutlineInfoCircle
+                    className="icon-attendance-info"
+                    onClick={() => setIsOpen(!isOpen)}
+                  />
+                </div>
+              </div>
+              <IoIosArrowUp
+                className="icon-main-arrow-up"
+                size="20"
+                onClick={() => fullpageApi.moveSectionUp()}
+              />
+            </div>
+          </div>
+        )}
+      />
+    </>
   );
 }
 
