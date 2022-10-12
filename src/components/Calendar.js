@@ -1,5 +1,11 @@
 import React, { useState } from "react";
 import dayjs from "dayjs";
+import {
+  AiOutlinePlus,
+  AiOutlineClose,
+  AiOutlineMinus,
+  AiOutlineCheck,
+} from "react-icons/ai";
 
 const today = dayjs(new Date());
 const td = new Date();
@@ -138,12 +144,10 @@ function Calendar() {
       {text === "" ? (
         <></>
       ) : (
-        <div
+        <AiOutlineCheck
           className="button-calendar-schedule-add"
           onClick={() => addSchedule(now.date, text)}
-        >
-          v
-        </div>
+        />
       )}
     </>
   );
@@ -169,6 +173,25 @@ function Calendar() {
     }).then(window.location.reload());
   };
 
+  const removeSchedule = (date) => {
+    const post = {
+      query:
+        "DELETE FROM magnus_schedule WHERE ( schedule_date = '" +
+        year +
+        "-" +
+        (month + 1) +
+        "-" +
+        date +
+        "');",
+    };
+    console.log(post.query);
+    fetch("http://localhost:8080/SQL1", {
+      method: "post",
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify(post),
+    }).then(window.location.reload());
+  };
+
   const showSchedule = (
     <>
       <div className="div-calendar-schedule-section">
@@ -178,17 +201,33 @@ function Calendar() {
         <div className="div-calendar-schedule-02">{schedule}</div>
       </div>
       {isOpen2 ? writeSchedule : <></>}
-      <div
-        className="button-calendar-schedule-write"
-        onClick={() => {
-          if (isOpen2) {
-            setOpen2(false);
-            setText("");
-          } else setOpen2(true);
-        }}
-      >
-        +
-      </div>
+      {schedule === "등록된 일정이 없습니다." ? (
+        isOpen2 ? (
+          <AiOutlineClose
+            className="button-calendar-schedule-write"
+            onClick={() => {
+              setOpen2(false);
+              setText("");
+            }}
+          />
+        ) : (
+          <AiOutlinePlus
+            className="button-calendar-schedule-write"
+            onClick={() => {
+              setOpen2(true);
+            }}
+          />
+        )
+      ) : (
+        <AiOutlineMinus
+          className="button-calendar-schedule-write"
+          onClick={() => {
+            if (window.confirm("정말 삭제하시겠습니까?")) {
+              removeSchedule(now.date);
+            }
+          }}
+        />
+      )}
     </>
   );
 
