@@ -208,7 +208,7 @@ function Attendance() {
     { name: "출석", value: attendance0 },
     { name: "지각", value: attendance1 },
     { name: "불참", value: attendance2 },
-    { name: "미통보불참", value: attendance3 },
+    { name: "미통불", value: attendance3 },
   ];
   const COLORS = ["#d2000f", "#d2000f", "black", "black"];
 
@@ -248,9 +248,6 @@ function Attendance() {
 
     return (
       <g>
-        <text x={cx} y={cy} dy={4} textAnchor="middle" fill={fill}>
-          {payload.name}
-        </text>
         <Sector
           cx={cx}
           cy={cy}
@@ -281,7 +278,7 @@ function Attendance() {
           textAnchor={textAnchor}
           fill="black"
         >
-          {value}
+          {payload.name}
         </text>
         <text
           x={ex + (cos >= 0 ? 1 : -1)}
@@ -290,7 +287,7 @@ function Attendance() {
           textAnchor={textAnchor}
           fill="black"
         >
-          ({(percent * 100).toFixed(1)}%)
+          {value}({(percent * 100).toFixed(1)}%)
         </text>
       </g>
     );
@@ -302,9 +299,9 @@ function Attendance() {
         activeIndex={activeIndex}
         activeShape={renderActiveShape}
         data={data}
-        innerRadius={90}
+        innerRadius={85}
         outerRadius={110}
-        paddingAngle={5}
+        paddingAngle={3}
         dataKey="value"
         isAnimationActive={true}
         onClick={onPieEnter}
