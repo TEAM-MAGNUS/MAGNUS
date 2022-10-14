@@ -45,12 +45,16 @@ function Header() {
               className={`${animation00}`}
             />
           )}
-          <NavLink className="link-header div-header-logo" to="/">
+          <div
+            className="div-header-logo"
+            onClick={() => (window.location.href = "/")}
+          >
             TEAM MAGNUS
-          </NavLink>
-          <NavLink className="link-header" to="/profile">
-            <HiOutlineUser size="25" />
-          </NavLink>
+          </div>
+          <HiOutlineUser
+            size="25"
+            onClick={() => (window.location.href = "/profile")}
+          />
         </div>
       </div>
       {open && (

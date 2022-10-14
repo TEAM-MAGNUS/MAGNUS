@@ -1,13 +1,7 @@
 body {
   background-color: #ede9d0;
-  font-weight: 900;
 }
 
-.div-month {
-  position: absolute;
-  top: 100px;
-  font-size: 40px;
-}
 /* Main.js */ /*------------------------------*/
 .div-main-section-01 {
   width: 100vw;
@@ -17,6 +11,7 @@ body {
   align-items: center;
   justify-content: center;
   font-size: 30px;
+  font-weight: 900;
 }
 .img-main {
   width: 70vw;
@@ -37,14 +32,14 @@ body {
 
 /* Header.js */ /*------------------------------*/
 .div-header {
-  width: 90vw;
+  width: 90%;
   height: 60px;
   display: flex;
   position: fixed;
   top: 0;
   left: 5%;
   z-index: 200;
-  /* border-bottom: 1.5px solid black; */
+  border-bottom: 1.5px solid black;
 }
 .div-header-wrap {
   width: 100%;
@@ -54,6 +49,7 @@ body {
 }
 .div-header-logo {
   font-size: 25px;
+  font-weight: 900;
 }
 .div-header-menu {
   position: fixed;
@@ -68,6 +64,7 @@ body {
   z-index: 100;
   text-align: center;
   font-size: 20px;
+  font-weight: 900;
 }
 .link-header {
   text-decoration: none;
@@ -151,8 +148,8 @@ body {
 }
 /*------------------------------*/ /* Header.js */
 
-/* Profile.js */ /*------------------------------*/
-.div-profile-profile {
+/* Attendance.js */ /*------------------------------*/
+.div-attendance-profile {
   position: absolute;
   top: 0;
   left: 0;
@@ -163,12 +160,13 @@ body {
   align-items: center;
   justify-content: center;
   font-size: 30px;
+  font-weight: 900;
 }
-.img-profile-profile {
+.img-attendance-profile {
   width: 30vw;
   padding-bottom: 15px;
 }
-.div-profile-date {
+.div-attendance-date {
   position: absolute;
   bottom: 60px;
   left: 0;
@@ -179,8 +177,9 @@ body {
   align-items: center;
   justify-content: center;
   font-size: 25px;
+  font-weight: 900;
 }
-.div-profile-check {
+.div-attendance-check {
   position: absolute;
   bottom: 0;
   left: 0;
@@ -192,291 +191,7 @@ body {
   align-items: center;
   justify-content: center;
   font-size: 25px;
-}
-
-/*------------------------------*/ /* Profile.js */
-
-/* Ranking.js */ /*------------------------------*/
-.div-ranking {
-  width: 100vw;
-  height: 100vh;
-  position: absolute;
-  top: 0;
-  left: 0;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-.div-ranking-section-01 {
-  position: absolute;
-  top: 200px;
-}
-.div-ranking-section-02 {
-  width: 80vw;
-  height: 5vh;
-  padding: 0 5vw 0 5vw;
-  border-bottom: 1.5px solid black;
-
-  font-size: 20px;
-  display: flex;
-  justify-content: space-between;
-  margin-top: 20px;
-}
-
-.div-ranking-percent {
-  color: #d2000f;
-  width: 40px;
-  display: flex;
-  justify-content: right;
-}
-/*------------------------------*/ /* Ranking.js */
-
-/* Calendar.js */ /*------------------------------*/
-.div-calendar-section-01 {
-  position: absolute;
-  top: 200px;
-}
-/*------------------------------*/ /* Calendar.js */
-
-/* Attendance.js */ /*------------------------------*/
-.div-attendance-section-01 {
-  position: absolute;
-  top: 200px;
-  display: flex;
-  flex-direction: column;
-}
-
-.icon-attendance-info {
-  width: 20px;
-  height: 20px;
-  margin: 5px;
-}
-
-.div-attendance-section-info {
-  position: absolute;
-  bottom: 0;
-  right: 10vw;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  z-index: 100;
-  width: 120px;
-  padding: 10px;
-  border-radius: 10px;
-}
-
-.div-attendance-info {
-  height: 20px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  font-size: 15px;
-  margin: 2px;
-}
-
-.div-attendance-info-01 {
-  width: 20px;
-  background-color: #d2000f;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  color: white;
-}
-.div-attendance-info-02 {
-  width: 20px;
-  background-color: #d2000f;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  color: black;
-}
-.div-attendance-info-03 {
-  width: 20px;
-  background-color: black;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  color: white;
-}
-.div-attendance-info-04 {
-  width: 20px;
-  background-color: black;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  color: #d2000f;
+  font-weight: 900;
 }
 
 /*------------------------------*/ /* Attendance.js */
-
-.div-calendar-section {
-  width: 100vw;
-  height: 100vh;
-  position: absolute;
-  top: 0;
-  left: 0;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.div-calendar {
-  width: 80vw;
-  font-size: 20px;
-  text-align: center;
-}
-thead th {
-  text-align: center;
-  height: 4vh;
-  background-color: #d2000f;
-}
-th {
-  width: 30vw;
-  height: 10vh;
-  background-color: rgba(0, 0, 0, 0.4);
-}
-.calendar-t {
-  background-color: #d2000f;
-}
-.calendar-p {
-  background-color: black;
-  color: white;
-}
-.calendar-f {
-  background-color: white;
-}
-
-.div-calendar-schedule-section {
-  text-align: center;
-  width: 80vw;
-  position: absolute;
-  bottom: 0;
-  padding: 4vh;
-}
-.div-calendar-schedule-01 {
-  font-size: 30px;
-  color: #d2000f;
-  margin-bottom: 2vh;
-}
-.div-calendar-schedule-02 {
-  font-size: 20px;
-  text-align: center;
-}
-
-.div-calendar-schedule-write {
-  width: 80vw;
-  height: 6vh;
-  background-color: white;
-  position: absolute;
-  bottom: 2vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.input-calendar-schedule-write {
-  width: 80%;
-  height: 80%;
-  border: none;
-  font-size: 20px;
-  font-weight: 900;
-  text-align: center;
-}
-:focus {
-  outline: none;
-}
-
-.button-calendar-schedule-write {
-  position: absolute;
-  right: 0;
-  bottom: 2vh;
-  width: 20px;
-  height: 20px;
-  padding: 5px;
-  background-color: #d2000f;
-  text-align: center;
-  font-size: 20px;
-  border-radius: 20px 0 0 20px;
-}
-
-.button-calendar-schedule-add {
-  position: absolute;
-  right: 0;
-  bottom: 6vh;
-  width: 20px;
-  height: 20px;
-  padding: 5px;
-  background-color: #d2000f;
-  text-align: center;
-  font-size: 20px;
-  border-radius: 20px 0 0 20px;
-}
-
-.div-attendance {
-  width: 100vw;
-  height: 100vh;
-  position: absolute;
-  top: 0;
-  left: 0;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-thead th {
-  text-align: center;
-  height: 4vh;
-  background-color: #d2000f;
-}
-th {
-  width: 30vw;
-  height: 10vh;
-  background-color: rgba(0, 0, 0, 0.4);
-}
-
-.attendance-n {
-  background-color: #d2000f;
-}
-.attendance-p {
-  background-color: black;
-  color: white;
-}
-.attendance-f {
-  background-color: white;
-}
-
-.attendance-0 {
-  background-color: #d2000f;
-  color: white;
-}
-.attendance-1 {
-  background-color: #d2000f;
-}
-.attendance-2 {
-  background-color: black;
-  color: white;
-}
-.attendance-3 {
-  background-color: black;
-  color: #d2000f;
-}
-
-.div-attendance-piechart-01 {
-  position: absolute;
-  top: 30vh;
-  width: 80vw;
-  height: 40vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-.div-attendance-piechart-02 {
-  position: absolute;
-  bottom: 100px;
-  width: 80vw;
-  height: 20vh;
-  font-size: 40px;
-  display: flex;
-  /* background-color: pink; */
-  justify-content: center;
-  align-items: center;
-}
