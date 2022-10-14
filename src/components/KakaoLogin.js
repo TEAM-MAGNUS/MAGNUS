@@ -1,5 +1,5 @@
-import React from 'react';
-import { REST_API_KEY, REDIRECT_URI } from './Login';
+import React, { useEffect } from 'react';
+import { REST_API_KEY, REDIRECT_URI } from './LoginData';
 
 function KaKaoLogin() {
     const PARAMS = new URL(document.location).searchParams; // URL에 있는 파라미터(code) 받아오기
@@ -14,21 +14,19 @@ function KaKaoLogin() {
             .then(res => res.json())
             .then(data => {
                 console.log(data);
-                getUserInfo(data.access_token);
             });
-
-        return 
     }
 
     const getUserInfo = (ACCESS_TOKEN) => {
         console.log(ACCESS_TOKEN);
+
         fetch("https://kapi.kakao.com/v2/user/me", {
             headers: { 
                 "Authorization": `Bearer ${ACCESS_TOKEN}`
             }
         })
             .then(res => res.json())
-            .then(data => saveKakaoUserInfo(data.id, data.kakao_account.profile.nickname));
+            // .then(data => saveKakaoUserInfo(data.id, data.kakao_account.profile.nickname))
     }
 
     function saveKakaoUserInfo(id, name) {
@@ -49,6 +47,10 @@ function KaKaoLogin() {
                 console.log("success");
             })
       }
+    
+    useEffect(() => {
+        getKakaoToken();
+    }, []);
 
     return (
         <>
@@ -59,7 +61,6 @@ function KaKaoLogin() {
                     alignItems: "center",
                 }}
             >
-                {getKakaoToken()}
             </div>
         </>
     );
