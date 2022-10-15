@@ -114,7 +114,8 @@ function Calendar() {
         date +
         "');",
     };
-    fetch("http://localhost:8080/SQL1", {
+    fetch("http://15.165.207.25:80/SQL1", {
+      // fetch("http://localhost:80/SQL1", {
       method: "post",
       headers: { "content-type": "application/json" },
       body: JSON.stringify(post),
@@ -166,7 +167,8 @@ function Calendar() {
         "');",
     };
     console.log(post.query);
-    fetch("http://localhost:8080/SQL1", {
+    fetch("http://15.165.207.25:80/SQL1", {
+      // fetch("http://localhost:80/SQL1", {
       method: "post",
       headers: { "content-type": "application/json" },
       body: JSON.stringify(post),
@@ -185,7 +187,8 @@ function Calendar() {
         "');",
     };
     console.log(post.query);
-    fetch("http://localhost:8080/SQL1", {
+    fetch("http://15.165.207.25:80/SQL1", {
+      // fetch("http://localhost:80/SQL1", {
       method: "post",
       headers: { "content-type": "application/json" },
       body: JSON.stringify(post),
