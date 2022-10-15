@@ -19,7 +19,7 @@ function Ranking() {
         ");",
     };
     console.log(post1.query);
-    fetch("http://localhost:8080/SQL1", {
+    fetch("http://15.165.207.25:80/SQL1", {
       method: "post",
       headers: { "content-type": "application/json" },
       body: JSON.stringify(post1),
@@ -38,7 +38,7 @@ function Ranking() {
         month +
         ") AND (attendance = 0 OR attendance = 1) GROUP BY id ORDER BY c DESC;",
     };
-    fetch("http://localhost:8080/SQL2", {
+    fetch("http://15.165.207.25:80/SQL2", {
       method: "post",
       headers: { "content-type": "application/json" },
       body: JSON.stringify(post2),
