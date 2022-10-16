@@ -3,7 +3,7 @@ import dayjs from "dayjs";
 import { AiOutlineInfoCircle } from "react-icons/ai";
 import { PieChart, Pie, Sector, Cell } from "recharts";
 import ReactFullpage from "@fullpage/react-fullpage";
-import { IoIosArrowUp, IoIosArrowDown } from "react-icons/io";
+import { IoIosArrowDown } from "react-icons/io";
 
 const today = dayjs(new Date());
 const td = new Date();
@@ -11,7 +11,6 @@ const td = new Date();
 function Attendance() {
   const year = td.getFullYear();
   const month = td.getMonth();
-  const date = td.getDate();
 
   var calendar = [
     [
@@ -47,10 +46,6 @@ function Attendance() {
     { attendance_date: null, attendance: null },
   ]);
 
-  // const [attendance0, set0] = useState(0);
-  // const [attendance1, set1] = useState(0);
-  // const [attendance2, set2] = useState(0);
-  // const [attendance3, set3] = useState(0);
   var attendance0 = 0;
   var attendance1 = 0;
   var attendance2 = 0;
@@ -82,7 +77,6 @@ function Attendance() {
         setAttendance(json);
       });
   };
-  console.log(attendance);
   attendance.map((a) => {
     switch (a.attendance) {
       case 0:
@@ -204,7 +198,6 @@ function Attendance() {
       </div>
     </div>
   );
-  console.log(attendance);
   const data = [
     { name: "출석", value: attendance0 },
     { name: "지각", value: attendance1 },
@@ -222,7 +215,7 @@ function Attendance() {
     [setActiveIndex]
   );
 
-  const renderActiveShape = (props: any) => {
+  const renderActiveShape = (props) => {
     const RADIAN = Math.PI / 180;
     const {
       cx,
@@ -274,10 +267,11 @@ function Attendance() {
         />
         <circle cx={ex} cy={ey} r={2} fill={fill} stroke="none" />
         <text
-          x={ex + (cos >= 0 ? 1 : -1) * 12}
+          x={ex + (cos >= 0 ? 1 : -1) * 10}
           y={ey}
           textAnchor={textAnchor}
           fill="black"
+          style={{ fontSize: "15px" }}
         >
           {payload.name}
         </text>
@@ -287,6 +281,7 @@ function Attendance() {
           dy={18}
           textAnchor={textAnchor}
           fill="black"
+          style={{ fontSize: "12px" }}
         >
           {value}({(percent * 100).toFixed(1)}%)
         </text>
@@ -321,13 +316,8 @@ function Attendance() {
         render={({ fullpageApi }) => (
           <div id="fullpage-wrapper">
             <div className="section">
-              <div className="div-attendance">
+              <div className="div-attendance-section">
                 <div className="div-month">{today.format("YYYY.MM")}</div>
-                <IoIosArrowDown
-                  className="icon-main-arrow-down"
-                  size="20"
-                  onClick={() => fullpageApi.moveSectionDown()}
-                />
                 <div className="div-attendance-piechart-01">{pieChart}</div>
                 <div className="div-attendance-piechart-02">
                   {(
@@ -337,9 +327,14 @@ function Attendance() {
                   %
                 </div>
               </div>
+              <IoIosArrowDown
+                className="icon-main-arrow-down"
+                size="20"
+                onClick={() => fullpageApi.moveSectionDown()}
+              />
             </div>
             <div className="section">
-              <div className="div-attendance">
+              <div className="div-attendance-section">
                 <div className="div-month">{today.format("YYYY.MM")}</div>
                 {isOpen ? info : <></>}
                 <div className="div-attendance-section-01">
@@ -350,11 +345,6 @@ function Attendance() {
                   />
                 </div>
               </div>
-              <IoIosArrowUp
-                className="icon-main-arrow-up"
-                size="20"
-                onClick={() => fullpageApi.moveSectionUp()}
-              />
             </div>
           </div>
         )}

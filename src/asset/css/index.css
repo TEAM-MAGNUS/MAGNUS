@@ -1,17 +1,29 @@
 body {
   background-color: #ede9d0;
-  font-weight: 900;
+  font-family: "Nh";
 }
 
 .div-month {
-  position: absolute;
-  top: 100px;
-  font-size: 40px;
+  margin-top: 100px;
+  font-size: 30px;
+  text-align: center;
+}
+
+@font-face {
+  font-family: "Nh";
+  src: url("./NanumSquareNeo-eHv.ttf");
+}
+
+@font-face {
+  font-family: "Neb";
+  src: url("./NanumSquareNeo-dEb.ttf");
 }
 /* Main.js */ /*------------------------------*/
 .div-main-section-01 {
   width: 100vw;
   height: 100vh;
+  position: absolute;
+  top: 0;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -21,15 +33,10 @@ body {
 .img-main {
   width: 70vw;
 }
-.icon-main-arrow-up {
-  position: absolute;
-  top: 10%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-}
+
 .icon-main-arrow-down {
   position: absolute;
-  top: 95%;
+  bottom: 2.5vh;
   left: 50%;
   transform: translate(-50%, -50%);
 }
@@ -53,21 +60,20 @@ body {
   align-items: center;
 }
 .div-header-logo {
-  font-size: 25px;
+  font-size: 22px;
 }
 .div-header-menu {
   position: fixed;
   top: 0;
   left: 0;
   background-color: #d2000f;
-  border-radius: 0 0 20px 20px;
+  border-radius: 0 0 10px 10px;
   padding-top: 90px;
-  padding-bottom: 30px;
-  height: 130px;
+  padding-bottom: 40px;
   width: 100vw;
   z-index: 100;
   text-align: center;
-  font-size: 20px;
+  font-size: 18px;
 }
 .link-header {
   text-decoration: none;
@@ -79,7 +85,7 @@ body {
   left: 0;
   height: 100vh;
   width: 100vw;
-  z-index: 50;
+  z-index: 100;
   background-color: rgba(0, 0, 0, 0.8);
 }
 .openAnimation0 {
@@ -162,7 +168,7 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  font-size: 30px;
+  font-size: 20px;
 }
 .img-profile-profile {
   width: 30vw;
@@ -197,6 +203,9 @@ body {
 /*------------------------------*/ /* Profile.js */
 
 /* Ranking.js */ /*------------------------------*/
+::-webkit-scrollbar {
+  display: none;
+}
 .div-ranking {
   width: 100vw;
   height: 100vh;
@@ -217,7 +226,7 @@ body {
   padding: 0 5vw 0 5vw;
   border-bottom: 1.5px solid black;
 
-  font-size: 20px;
+  font-size: 18px;
   display: flex;
   justify-content: space-between;
   margin-top: 20px;
@@ -232,16 +241,101 @@ body {
 /*------------------------------*/ /* Ranking.js */
 
 /* Calendar.js */ /*------------------------------*/
-.div-calendar-section-01 {
+.div-calendar-section {
+  width: 100vw;
+  height: 100vh;
   position: absolute;
-  top: 200px;
+  top: 0;
+  left: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.div-calendar {
+  width: 80vw;
+  font-size: 18px;
+  text-align: center;
+}
+thead th {
+  text-align: center;
+  height: 4vh;
+  background-color: #d2000f;
+}
+th {
+  width: 30vw;
+  height: 10vh;
+  background-color: rgba(0, 0, 0, 0.4);
+}
+.calendar-t {
+  background-color: #d2000f;
+}
+.calendar-p {
+  background-color: black;
+  color: white;
+}
+.calendar-f {
+  background-color: white;
+}
+
+.div-calendar-schedule-section {
+  text-align: center;
+  width: 80vw;
+  margin-top: 20px;
+}
+.div-calendar-schedule-01 {
+  font-size: 20px;
+  color: #d2000f;
+  margin-top: 50px;
+}
+.div-calendar-schedule-02 {
+  font-size: 20px;
+  text-align: center;
+}
+
+.div-calendar-schedule-write {
+  width: 80vw;
+  background-color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.input-calendar-schedule-write {
+  width: 80%;
+  border: none;
+  font-size: 20px;
+  font-weight: 900;
+  text-align: center;
+}
+:focus {
+  outline: none;
+}
+
+.button-calendar-schedule-write {
+  margin-top: 20px;
+  width: 20px;
+  height: 20px;
+  padding: 5px;
+  background-color: #d2000f;
+  text-align: center;
+  font-size: 20px;
+  border-radius: 100%;
+}
+
+.button-calendar-schedule-add {
+  width: 20px;
+  height: 20px;
+  padding: 5px;
+  background-color: #d2000f;
+  text-align: center;
+  font-size: 20px;
 }
 /*------------------------------*/ /* Calendar.js */
 
 /* Attendance.js */ /*------------------------------*/
 .div-attendance-section-01 {
-  position: absolute;
-  top: 200px;
+  margin-top: 20px;
   display: flex;
   flex-direction: column;
 }
@@ -254,14 +348,15 @@ body {
 
 .div-attendance-section-info {
   position: absolute;
-  bottom: 0;
-  right: 10vw;
+  top: 40vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
   z-index: 100;
   width: 120px;
-  padding: 10px;
+  padding: 60px 30px 60px 30px;
+  background-color: rgba(0, 0, 0, 0.8);
+  color: white;
   border-radius: 10px;
 }
 
@@ -271,6 +366,7 @@ body {
   justify-content: space-between;
   align-items: center;
   font-size: 15px;
+  font-family: "Neb";
   margin: 2px;
 }
 
@@ -309,115 +405,11 @@ body {
 
 /*------------------------------*/ /* Attendance.js */
 
-.div-calendar-section {
+.div-attendance-section {
   width: 100vw;
   height: 100vh;
   position: absolute;
   top: 0;
-  left: 0;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.div-calendar {
-  width: 80vw;
-  font-size: 20px;
-  text-align: center;
-}
-thead th {
-  text-align: center;
-  height: 4vh;
-  background-color: #d2000f;
-}
-th {
-  width: 30vw;
-  height: 10vh;
-  background-color: rgba(0, 0, 0, 0.4);
-}
-.calendar-t {
-  background-color: #d2000f;
-}
-.calendar-p {
-  background-color: black;
-  color: white;
-}
-.calendar-f {
-  background-color: white;
-}
-
-.div-calendar-schedule-section {
-  text-align: center;
-  width: 80vw;
-  position: absolute;
-  bottom: 0;
-  padding: 4vh;
-}
-.div-calendar-schedule-01 {
-  font-size: 30px;
-  color: #d2000f;
-  margin-bottom: 2vh;
-}
-.div-calendar-schedule-02 {
-  font-size: 20px;
-  text-align: center;
-}
-
-.div-calendar-schedule-write {
-  width: 80vw;
-  height: 6vh;
-  background-color: white;
-  position: absolute;
-  bottom: 2vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.input-calendar-schedule-write {
-  width: 80%;
-  height: 80%;
-  border: none;
-  font-size: 20px;
-  font-weight: 900;
-  text-align: center;
-}
-:focus {
-  outline: none;
-}
-
-.button-calendar-schedule-write {
-  position: absolute;
-  right: 0;
-  bottom: 2vh;
-  width: 20px;
-  height: 20px;
-  padding: 5px;
-  background-color: #d2000f;
-  text-align: center;
-  font-size: 20px;
-  border-radius: 20px 0 0 20px;
-}
-
-.button-calendar-schedule-add {
-  position: absolute;
-  right: 0;
-  bottom: 6vh;
-  width: 20px;
-  height: 20px;
-  padding: 5px;
-  background-color: #d2000f;
-  text-align: center;
-  font-size: 20px;
-  border-radius: 20px 0 0 20px;
-}
-
-.div-attendance {
-  width: 100vw;
-  height: 100vh;
-  position: absolute;
-  top: 0;
-  left: 0;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -474,9 +466,134 @@ th {
   bottom: 100px;
   width: 80vw;
   height: 20vh;
-  font-size: 40px;
+  font-size: 30px;
   display: flex;
   /* background-color: pink; */
   justify-content: center;
   align-items: center;
 }
+
+/* Notice.js */ /*------------------------------*/
+.div-notice-section-01 {
+  margin-top: 50px;
+  display: flex;
+  flex-direction: column;
+}
+.div-notice-section-02 {
+  width: 80vw;
+  height: 60px;
+  border-bottom: 1px solid black;
+  font-size: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 5vw 20px 5vw;
+  margin-bottom: 20px;
+}
+.div-notice-section-03 {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: #ede9d0;
+  z-index: 50;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.div-month-title {
+  margin-top: 100px;
+  font-size: 30px;
+  padding: 0 5vw 0 5vw;
+}
+.icon-notice-close {
+  width: 20px;
+  height: 20px;
+  background-color: #d2000f;
+  padding: 5px;
+  border-radius: 100%;
+  margin-top: 20px;
+}
+
+.scrollLock {
+  overflow: hidden;
+}
+.div-notice-title {
+  width: 60vw;
+  display: block;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.div-notice-time {
+  text-align: right;
+  width: 20vw;
+  font-size: 10px;
+}
+.div-notice-content {
+  margin-top: 20px;
+  width: 80vw;
+  height: 50vh;
+  background-color: rgba(255, 255, 255, 0.5);
+  word-wrap: break-word;
+  font-size: 20px;
+  padding: 5vw;
+}
+.div-ranking-percent {
+  color: #d2000f;
+  width: 40px;
+  display: flex;
+  justify-content: right;
+}
+
+.button-notice-write {
+  position: absolute;
+  top: 100px;
+  right: 10vw;
+  width: 20px;
+  height: 20px;
+  padding: 5px;
+  background-color: #d2000f;
+  text-align: center;
+  font-size: 20px;
+  border-radius: 100%;
+}
+
+.div-notice-write-section {
+  margin-top: 50px;
+  display: flex;
+  flex-direction: column;
+}
+
+.input-notice-write-title {
+  width: 80%;
+  border: none;
+  font-size: 30px;
+  font-weight: 900;
+  text-align: center;
+  background-color: rgba(255, 255, 255, 0.5);
+}
+::placeholder {
+  color: rgba(0, 0, 0, 0.2);
+}
+.textarea-notice-write-content {
+  font-size: 20px;
+  width: 100%;
+  height: 100%;
+  border: none;
+  background: none;
+  font-family: "Neb";
+}
+::placeholder {
+  color: rgba(0, 0, 0, 0.2);
+}
+.div-notice-header {
+  width: 100vw;
+  height: 60px;
+  background-color: #ede9d0;
+  position: fixed;
+  top: 0;
+  z-index: 10;
+}
+/*------------------------------*/ /* Notice.js */

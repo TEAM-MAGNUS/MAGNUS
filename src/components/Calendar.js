@@ -1,11 +1,6 @@
 import React, { useState } from "react";
 import dayjs from "dayjs";
-import {
-  AiOutlinePlus,
-  AiOutlineClose,
-  AiOutlineMinus,
-  AiOutlineCheck,
-} from "react-icons/ai";
+import { HiPlus, HiX, HiMinus, HiCheck } from "react-icons/hi";
 
 const today = dayjs(new Date());
 const td = new Date();
@@ -141,15 +136,15 @@ function Calendar() {
           onChange={onChange}
           value={text}
         ></input>
+        {text === "" ? (
+          <></>
+        ) : (
+          <HiCheck
+            className="button-calendar-schedule-add"
+            onClick={() => addSchedule(now.date, text)}
+          />
+        )}
       </div>
-      {text === "" ? (
-        <></>
-      ) : (
-        <AiOutlineCheck
-          className="button-calendar-schedule-add"
-          onClick={() => addSchedule(now.date, text)}
-        />
-      )}
     </>
   );
 
@@ -188,7 +183,6 @@ function Calendar() {
     };
     console.log(post.query);
     fetch("http://15.165.207.25:80/SQL1", {
-      // fetch("http://localhost:80/SQL1", {
       method: "post",
       headers: { "content-type": "application/json" },
       body: JSON.stringify(post),
@@ -198,15 +192,17 @@ function Calendar() {
   const showSchedule = (
     <>
       <div className="div-calendar-schedule-section">
-        <div className="div-calendar-schedule-01">
+        {/* <div className="div-calendar-schedule-01">
           {year + "." + (month + 1) + "." + now.date}
+        </div> */}
+        <div className="div-calendar-schedule-02">
+          {isOpen2 ? writeSchedule : schedule}
         </div>
-        <div className="div-calendar-schedule-02">{schedule}</div>
       </div>
-      {isOpen2 ? writeSchedule : <></>}
+
       {schedule === "등록된 일정이 없습니다." ? (
         isOpen2 ? (
-          <AiOutlineClose
+          <HiX
             className="button-calendar-schedule-write"
             onClick={() => {
               setOpen2(false);
@@ -214,7 +210,7 @@ function Calendar() {
             }}
           />
         ) : (
-          <AiOutlinePlus
+          <HiPlus
             className="button-calendar-schedule-write"
             onClick={() => {
               setOpen2(true);
@@ -222,7 +218,7 @@ function Calendar() {
           />
         )
       ) : (
-        <AiOutlineMinus
+        <HiMinus
           className="button-calendar-schedule-write"
           onClick={() => {
             if (window.confirm("정말 삭제하시겠습니까?")) {
