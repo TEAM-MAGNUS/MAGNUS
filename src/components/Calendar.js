@@ -1,14 +1,49 @@
 import React, { useState } from "react";
 import dayjs from "dayjs";
-import { HiPlus, HiX, HiMinus, HiCheck } from "react-icons/hi";
+import {
+  HiPlus,
+  HiX,
+  HiMinus,
+  HiCheck,
+  HiChevronLeft,
+  HiChevronRight,
+} from "react-icons/hi";
 
-const today = dayjs(new Date());
 const td = new Date();
 
 function Calendar() {
-  const year = td.getFullYear();
-  const month = td.getMonth();
+  const thisYear = td.getFullYear();
+  const thisMonth = td.getMonth();
   const date = td.getDate();
+
+  const [year, setYear] = useState(thisYear);
+  const [month, setMonth] = useState(thisMonth);
+
+  const preMonth = () => {
+    if (month == 0) {
+      setYear(year - 1);
+      setMonth(11);
+    } else {
+      setMonth(month - 1);
+    }
+    setOpen1(false);
+    setClicked({ week: null, date: null });
+  };
+  const nextMonth = () => {
+    if (month == 11) {
+      setYear(year + 1);
+      setMonth(0);
+    } else {
+      setMonth(month + 1);
+    }
+    setOpen1(false);
+    setClicked({ week: null, date: null });
+  };
+
+  const isNow = () => {
+    if (year == thisYear && month == thisMonth) return true;
+    else return false;
+  };
 
   var calendar = [
     [
@@ -71,11 +106,13 @@ function Calendar() {
       default:
     }
 
+    const lastDate = new Date(year, month + 1, 0).getDate();
     var week = 1;
     while (week < 5) {
-      calendar[week][0].date = first.date;
-      calendar[week][1].date = first.date + 1;
-      calendar[week][2].date = first.date + 2;
+      if (first.date <= lastDate) calendar[week][0].date = first.date;
+      if (first.date + 1 <= lastDate) calendar[week][1].date = first.date + 1;
+      if (first.date + 2 <= lastDate) calendar[week][2].date = first.date + 2;
+
       first.date += 7;
       week += 1;
     }
@@ -239,7 +276,7 @@ function Calendar() {
       <tbody>
         {calendar.map((w, index) => (
           <tr>
-            {w[0].date < date ? (
+            {w[0].date < date && isNow() ? (
               <th className="calendar-p">{w[0].date}</th>
             ) : (
               <th
@@ -256,7 +293,7 @@ function Calendar() {
                 {w[0].date}
               </th>
             )}
-            {w[1].date < date ? (
+            {w[1].date < date && isNow() ? (
               <th className="calendar-p">{w[1].date}</th>
             ) : (
               <th
@@ -273,7 +310,7 @@ function Calendar() {
                 {w[1].date}
               </th>
             )}
-            {w[2].date < date ? (
+            {w[2].date < date && isNow() ? (
               <th className="calendar-p">{w[2].date}</th>
             ) : (
               <th
@@ -298,7 +335,23 @@ function Calendar() {
 
   return (
     <div className="div-calendar-section">
-      <div className="div-month">{today.format("YYYY.MM")}</div>
+      <div className="div-month">
+        {year == thisYear && month == thisMonth ? (
+          <></>
+        ) : (
+          <HiChevronLeft
+            className="icon-left"
+            size="20"
+            onClick={() => preMonth()}
+          />
+        )}
+        {year}.{month + 1}
+        <HiChevronRight
+          className="icon-right"
+          size="20"
+          onClick={() => nextMonth()}
+        />
+      </div>
       <div className="div-attendance-section-01">{showCalendar}</div>
       {isOpen1 ? showSchedule : <></>}
     </div>

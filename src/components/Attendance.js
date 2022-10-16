@@ -192,11 +192,13 @@ function Attendance() {
       default:
     }
 
+    const lastDate = new Date(year, month + 1, 0).getDate();
     var week = 1;
     while (week < 5) {
-      calendar[week][0].date = first.date;
-      calendar[week][1].date = first.date + 1;
-      calendar[week][2].date = first.date + 2;
+      if (first.date <= lastDate) calendar[week][0].date = first.date;
+      if (first.date + 1 <= lastDate) calendar[week][1].date = first.date + 1;
+      if (first.date + 2 <= lastDate) calendar[week][2].date = first.date + 2;
+
       first.date += 7;
       week += 1;
     }
