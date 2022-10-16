@@ -8,6 +8,18 @@ body {
   font-size: 30px;
   text-align: center;
 }
+.icon-left {
+  position: absolute;
+  top: 100px;
+  left: 90px;
+  transform: translateY(50%);
+}
+.icon-right {
+  position: absolute;
+  top: 100px;
+  right: 90px;
+  transform: translateY(50%);
+}
 
 @font-face {
   font-family: "Nh";
@@ -348,7 +360,9 @@ th {
 
 .div-attendance-section-info {
   position: absolute;
-  top: 40vh;
+  top: 50vh;
+  transform: translate(0, -50%);
+
   display: flex;
   flex-direction: column;
   justify-content: center;

@@ -1,16 +1,43 @@
 import React, { useCallback, useEffect, useState } from "react";
 import dayjs from "dayjs";
-import { AiOutlineInfoCircle } from "react-icons/ai";
+import {
+  HiChevronDown,
+  HiChevronLeft,
+  HiChevronRight,
+  HiOutlineInformationCircle,
+} from "react-icons/hi";
 import { PieChart, Pie, Sector, Cell } from "recharts";
 import ReactFullpage from "@fullpage/react-fullpage";
-import { IoIosArrowDown } from "react-icons/io";
 
-const today = dayjs(new Date());
 const td = new Date();
 
 function Attendance() {
-  const year = td.getFullYear();
-  const month = td.getMonth();
+  const thisYear = td.getFullYear();
+  const thisMonth = td.getMonth();
+
+  const [year, setYear] = useState(thisYear);
+  const [month, setMonth] = useState(thisMonth);
+
+  const preMonth = () => {
+    if (month == 0) {
+      getAttendance(year - 1, 11);
+      setYear(year - 1);
+      setMonth(11);
+    } else {
+      getAttendance(year, month - 1);
+      setMonth(month - 1);
+    }
+  };
+  const nextMonth = () => {
+    if (month == 11) {
+      getAttendance(year + 1, 0);
+      setYear(year + 1);
+      setMonth(0);
+    } else {
+      getAttendance(year, month + 1);
+      setMonth(month + 1);
+    }
+  };
 
   var calendar = [
     [
@@ -51,7 +78,12 @@ function Attendance() {
   var attendance2 = 0;
   var attendance3 = 0;
 
-  const getAttendance = () => {
+  const getAttendance = (year, month) => {
+    attendance0 = 0;
+    attendance1 = 0;
+    attendance2 = 0;
+    attendance3 = 0;
+
     const post = {
       query:
         "SELECT attendance_date, attendance from magnus_attendance WHERE (YEAR(attendance_date) = " +
@@ -62,8 +94,8 @@ function Attendance() {
         "id0" +
         "');",
     };
-    fetch("http://15.165.207.25:80/SQL2", {
-      // fetch("http://localhost:80/SQL2", {
+    console.log(post.query);
+    fetch("https://teammagnus.net/SQL2", {
       method: "post",
       headers: { "content-type": "application/json" },
       body: JSON.stringify(post),
@@ -75,28 +107,39 @@ function Attendance() {
         });
 
         setAttendance(json);
+        update();
       });
   };
-  attendance.map((a) => {
-    switch (a.attendance) {
-      case 0:
-        attendance0++;
-        break;
-      case 1:
-        attendance1++;
-        break;
-      case 2:
-        attendance2++;
-        break;
-      case 3:
-        attendance3++;
-        break;
-      default:
-    }
-  });
+
+  const update = () => {
+    console.log("update");
+    attendance.map((a) => {
+      switch (a.attendance) {
+        case 0:
+          attendance0++;
+          break;
+        case 1:
+          attendance1++;
+          break;
+        case 2:
+          attendance2++;
+          break;
+        case 3:
+          attendance3++;
+          break;
+        default:
+      }
+    });
+  };
+  update();
+
+  console.log("0: " + attendance0);
+  console.log("1: " + attendance1);
+  console.log("2: " + attendance2);
+  console.log("3: " + attendance3);
 
   useEffect(() => {
-    getAttendance();
+    getAttendance(thisYear, thisMonth);
   }, []);
 
   const setColor = (date) => {
@@ -234,8 +277,8 @@ function Attendance() {
     const cos = Math.cos(-RADIAN * midAngle);
     const sx = cx + (outerRadius + 10) * cos;
     const sy = cy + (outerRadius + 10) * sin;
-    const mx = cx + (outerRadius + 30) * cos;
-    const my = cy + (outerRadius + 30) * sin;
+    const mx = cx + (outerRadius + 20) * cos;
+    const my = cy + (outerRadius + 40) * sin;
     const ex = mx + (cos >= 0 ? 1 : -1) * 10;
     const ey = my;
     const textAnchor = cos >= 0 ? "start" : "end";
@@ -274,16 +317,17 @@ function Attendance() {
           style={{ fontSize: "15px" }}
         >
           {payload.name}
+          {value}
         </text>
         <text
-          x={ex + (cos >= 0 ? 1 : -1)}
+          x={ex + (cos >= 0 ? -1 : 1)}
           y={ey}
-          dy={18}
+          dy={20}
           textAnchor={textAnchor}
           fill="black"
           style={{ fontSize: "12px" }}
         >
-          {value}({(percent * 100).toFixed(1)}%)
+          ({(percent * 100).toFixed(1)}%)
         </text>
       </g>
     );
@@ -317,7 +361,23 @@ function Attendance() {
           <div id="fullpage-wrapper">
             <div className="section">
               <div className="div-attendance-section">
-                <div className="div-month">{today.format("YYYY.MM")}</div>
+                <div className="div-month">
+                  <HiChevronLeft
+                    className="icon-left"
+                    size="20"
+                    onClick={() => preMonth()}
+                  />
+                  {year}.{month + 1}
+                  {year == thisYear && month == thisMonth ? (
+                    <></>
+                  ) : (
+                    <HiChevronRight
+                      className="icon-right"
+                      size="20"
+                      onClick={() => nextMonth()}
+                    />
+                  )}
+                </div>
                 <div className="div-attendance-piechart-01">{pieChart}</div>
                 <div className="div-attendance-piechart-02">
                   {(
@@ -327,7 +387,7 @@ function Attendance() {
                   %
                 </div>
               </div>
-              <IoIosArrowDown
+              <HiChevronDown
                 className="icon-main-arrow-down"
                 size="20"
                 onClick={() => fullpageApi.moveSectionDown()}
@@ -335,11 +395,27 @@ function Attendance() {
             </div>
             <div className="section">
               <div className="div-attendance-section">
-                <div className="div-month">{today.format("YYYY.MM")}</div>
+                <div className="div-month">
+                  <HiChevronLeft
+                    className="icon-left"
+                    size="20"
+                    onClick={() => preMonth()}
+                  />
+                  {year}.{month + 1}
+                  {year == thisYear && month == thisMonth ? (
+                    <></>
+                  ) : (
+                    <HiChevronRight
+                      className="icon-right"
+                      size="20"
+                      onClick={() => nextMonth()}
+                    />
+                  )}
+                </div>
                 {isOpen ? info : <></>}
                 <div className="div-attendance-section-01">
                   {showCalendar}
-                  <AiOutlineInfoCircle
+                  <HiOutlineInformationCircle
                     className="icon-attendance-info"
                     onClick={() => setIsOpen(!isOpen)}
                   />

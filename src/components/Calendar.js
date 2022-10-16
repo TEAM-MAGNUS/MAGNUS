@@ -109,8 +109,7 @@ function Calendar() {
         date +
         "');",
     };
-    fetch("http://15.165.207.25:80/SQL1", {
-      // fetch("http://localhost:80/SQL1", {
+    fetch("https://teammagnus.net/SQL1", {
       method: "post",
       headers: { "content-type": "application/json" },
       body: JSON.stringify(post),
@@ -162,8 +161,7 @@ function Calendar() {
         "');",
     };
     console.log(post.query);
-    fetch("http://15.165.207.25:80/SQL1", {
-      // fetch("http://localhost:80/SQL1", {
+    fetch("https://teammagnus.net/SQL1", {
       method: "post",
       headers: { "content-type": "application/json" },
       body: JSON.stringify(post),
@@ -182,7 +180,7 @@ function Calendar() {
         "');",
     };
     console.log(post.query);
-    fetch("http://15.165.207.25:80/SQL1", {
+    fetch("https://teammagnus.net/SQL1", {
       method: "post",
       headers: { "content-type": "application/json" },
       body: JSON.stringify(post),
@@ -192,9 +190,6 @@ function Calendar() {
   const showSchedule = (
     <>
       <div className="div-calendar-schedule-section">
-        {/* <div className="div-calendar-schedule-01">
-          {year + "." + (month + 1) + "." + now.date}
-        </div> */}
         <div className="div-calendar-schedule-02">
           {isOpen2 ? writeSchedule : schedule}
         </div>
