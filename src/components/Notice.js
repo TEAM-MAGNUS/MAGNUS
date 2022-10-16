@@ -9,8 +9,7 @@ function Notice() {
   const getNotice = () => {
     const post = {
       query:
-        "SELECT title, content, DATE_FORMAT(notice_time, '%Y.%m.%d') as time FROM magnus_notice ORDER BY notice_time DESC;",
-      // "SELECT title, content, DATE_FORMAT(notice_time, '%Y-%m-%d %H:%i:%S') as time FROM magnus_notice ORDER BY notice_time DESC;",
+        "SELECT num, title, content, DATE_FORMAT(notice_time, '%Y.%m.%d') as time FROM magnus_notice ORDER BY num DESC;",
     };
 
     fetch("https://teammagnus.net/SQL2", {
@@ -34,7 +33,7 @@ function Notice() {
   const writeNotice = () => {
     const post = {
       query:
-        "INSERT INTO magnus_notice VALUES ('" +
+        "INSERT INTO magnus_notice (title, content, notice_time) VALUES ('" +
         newTitle +
         "','" +
         newContent +
@@ -50,14 +49,9 @@ function Notice() {
     window.location.reload();
   };
 
-  const removeNotice = (title, content) => {
+  const removeNotice = (num) => {
     const post = {
-      query:
-        "DELETE FROM magnus_notice WHERE ( title = '" +
-        title +
-        "' AND content = '" +
-        content +
-        "');",
+      query: "DELETE FROM magnus_notice WHERE ( num = " + num + ");",
     };
     fetch("https://teammagnus.net/SQL1", {
       method: "post",
@@ -66,6 +60,7 @@ function Notice() {
     }).then(window.location.reload());
   };
 
+  const [num, setNum] = useState("");
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
 
@@ -73,6 +68,7 @@ function Notice() {
     <div
       className="div-notice-section-02"
       onClick={() => {
+        setNum(n.num);
         setTitle(n.title);
         setContent(n.content);
         setContentOpen(true);
@@ -95,7 +91,7 @@ function Notice() {
         className="icon-notice-close"
         onClick={() => {
           if (window.confirm("정말 삭제하시겠습니까?")) {
-            removeNotice(title, content);
+            removeNotice(num);
           }
         }}
       />
