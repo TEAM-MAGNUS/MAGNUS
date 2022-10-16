@@ -24,7 +24,6 @@ function write(ip, date) {
       "');",
   };
 
-  console.log(post.query);
   fetch("http://15.165.207.25:80/SQL1", {
     // fetch("https://hansori.net:443/SQL1", {
     method: "post",

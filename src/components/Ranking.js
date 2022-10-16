@@ -67,6 +67,7 @@ function Ranking() {
 
   return (
     <div className="div-ranking">
+      <div className="div-notice-header"></div>
       <div className="div-month">{today.format("YYYY.MM")}</div>
       <div className="div-ranking-section-01"> {showRanking}</div>
     </div>
