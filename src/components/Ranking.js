@@ -1,25 +1,49 @@
 import React, { useEffect, useState } from "react";
-import dayjs from "dayjs";
-
-const today = dayjs(new Date());
+import { HiChevronLeft, HiChevronRight } from "react-icons/hi";
+const td = new Date();
 
 function Ranking() {
   const [total, setTotal] = useState([{}]);
   const [ranking, setRanking] = useState([{}]);
 
-  const getRanking = () => {
-    const year = today.format("YYYY");
-    const month = today.format("MM");
+  const thisYear = td.getFullYear();
+  const thisMonth = td.getMonth();
+
+  const [year, setYear] = useState(thisYear);
+  const [month, setMonth] = useState(thisMonth);
+
+  const preMonth = () => {
+    if (month == 0) {
+      getRanking(year - 1, 11);
+      setYear(year - 1);
+      setMonth(11);
+    } else {
+      getRanking(year, month - 1);
+      setMonth(month - 1);
+    }
+  };
+  const nextMonth = () => {
+    if (month == 11) {
+      getRanking(year + 1, 0);
+      setYear(year + 1);
+      setMonth(0);
+    } else {
+      getRanking(year, month + 1);
+      setMonth(month + 1);
+    }
+  };
+
+  const getRanking = (year, month) => {
     const post1 = {
       query:
         "SELECT COUNT(DISTINCT attendance_date) as t from magnus_attendance WHERE (YEAR(attendance_date) = " +
         year +
         " AND MONTH(attendance_date) = " +
-        month +
+        (month + 1) +
         ");",
     };
     console.log(post1.query);
-    fetch("http://15.165.207.25:80/SQL1", {
+    fetch("https://teammagnus.net/SQL1", {
       method: "post",
       headers: { "content-type": "application/json" },
       body: JSON.stringify(post1),
@@ -35,10 +59,10 @@ function Ranking() {
         "SELECT id, name, COUNT(id) AS c from magnus_attendance WHERE (YEAR(attendance_date) = " +
         year +
         " AND MONTH(attendance_date) = " +
-        month +
+        (month + 1) +
         ") AND (attendance = 0 OR attendance = 1) GROUP BY id ORDER BY c DESC;",
     };
-    fetch("http://15.165.207.25:80/SQL2", {
+    fetch("https://teammagnus.net/SQL2", {
       method: "post",
       headers: { "content-type": "application/json" },
       body: JSON.stringify(post2),
@@ -51,7 +75,7 @@ function Ranking() {
   };
 
   useEffect(() => {
-    getRanking();
+    getRanking(thisYear, thisMonth);
   }, []);
 
   const showRanking = ranking.map((user, idx) => (
@@ -68,7 +92,23 @@ function Ranking() {
   return (
     <div className="div-ranking">
       <div className="div-notice-header"></div>
-      <div className="div-month">{today.format("YYYY.MM")}</div>
+      <div className="div-month">
+        <HiChevronLeft
+          className="icon-left"
+          size="20"
+          onClick={() => preMonth()}
+        />
+        {year}.{month + 1}
+        {year == thisYear && month == thisMonth ? (
+          <></>
+        ) : (
+          <HiChevronRight
+            className="icon-right"
+            size="20"
+            onClick={() => nextMonth()}
+          />
+        )}
+      </div>
       <div className="div-ranking-section-01"> {showRanking}</div>
     </div>
   );

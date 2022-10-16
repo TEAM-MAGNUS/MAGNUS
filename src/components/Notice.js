@@ -9,11 +9,11 @@ function Notice() {
   const getNotice = () => {
     const post = {
       query:
-        "SELECT title, content, DATE_FORMAT(notice_time, '%Y-%m-%d') as time FROM magnus_notice ORDER BY notice_time DESC;",
+        "SELECT title, content, DATE_FORMAT(notice_time, '%Y.%m.%d') as time FROM magnus_notice ORDER BY notice_time DESC;",
       // "SELECT title, content, DATE_FORMAT(notice_time, '%Y-%m-%d %H:%i:%S') as time FROM magnus_notice ORDER BY notice_time DESC;",
     };
 
-    fetch("http://15.165.207.25:80/SQL2", {
+    fetch("https://teammagnus.net/SQL2", {
       method: "post",
       headers: { "content-type": "application/json" },
       body: JSON.stringify(post),
@@ -41,7 +41,7 @@ function Notice() {
         "', NOW());",
     };
 
-    fetch("http://15.165.207.25:80/SQL1", {
+    fetch("https://teammagnus.net/SQL1", {
       method: "post",
       headers: { "content-type": "application/json" },
       body: JSON.stringify(post),
@@ -59,7 +59,7 @@ function Notice() {
         content +
         "');",
     };
-    fetch("http://15.165.207.25:80/SQL1", {
+    fetch("https://teammagnus.net/SQL1", {
       method: "post",
       headers: { "content-type": "application/json" },
       body: JSON.stringify(post),
@@ -159,7 +159,7 @@ function Notice() {
       }
     >
       <div className="div-notice-header"></div>
-      <div className="div-month">NOTICE</div>
+      <div className="div-month">공지사항</div>
       <div className="div-notice-section-01"> {showTitle}</div>
       {contentOpen ? showContent : <></>}
       {writeOpen ? writePage : <></>}
