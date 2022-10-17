@@ -18,7 +18,6 @@ function App() {
           <Route path="/" exact={true} element={<Main />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/attendance" element={<Attendance />} />
-          <Route path="/login" element={<Login />} />
           <Route path="/kakaoLogin" element={<KakaoLogin />} />
           <Route path="/ranking" element={<Ranking />} />
           <Route path="/calendar" element={<Calendar />} />

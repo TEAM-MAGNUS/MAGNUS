@@ -1,36 +1,6 @@
-import React from "react";
-import loginbtn from "../asset/login/kakao_login.png";
-import { REST_API_KEY, REDIRECT_URI } from "./LoginData";
-
-function Login() {
-    const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}&response_type=code`;
-
-    const handleLogin = () => {
-        window.location.href = KAKAO_AUTH_URL;
-    }
-
-    return (
-        <>
-            <div
-                style={{
-                    width: "100vw",
-                    height: "100vh",
-
-                    postion: "relative",
-                }}>
-                <img
-                    style={{
-                        position: "absolute",
-                        top: "50%",
-                        left: "50%",
-                        transform: "translate(-50%, -50%)"
-                    }}
-                    src={loginbtn}
-                    onClick={handleLogin}
-                />
-            </div>
-        </>
-    );
+function isLogin() {
+    if (window.sessionStorage.getItem("ID")) return true;
+    else return false;
 }
 
-export default Login;
+export default isLogin;
