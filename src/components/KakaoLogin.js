@@ -32,6 +32,10 @@ function KaKaoLogin() {
                 window.sessionStorage.setItem("userName", data.kakao_account.profile.nickname);
                 window.sessionStorage.setItem("imageUrl", data.kakao_account.profile.profile_image_url);
             })
+            .catch(() => {
+                window.sessionStorage.clear();
+                window.location.href = "/";
+            })
             .then(() => {searchUser(window.sessionStorage.getItem("ID"))});
     }
 
