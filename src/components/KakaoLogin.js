@@ -1,11 +1,11 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect, startTransition } from 'react';
 import { REST_API_KEY, REDIRECT_URI } from './LoginData';
 
 function KaKaoLogin() {
     const PARAMS = new URL(document.location).searchParams; // URL에 있는 파라미터(code) 받아오기
     const KAKAO_CODE = PARAMS.get('code');
-    
-    const getKakaoToken = () => {
+
+    const getKakaoToken = async () => {
         fetch("https://kauth.kakao.com/oauth/token", {
             method: "post",
             headers: { "content-type": "application/x-www-form-urlencoded;charset=utf-8" },
@@ -13,7 +13,7 @@ function KaKaoLogin() {
         })
             .then(res => res.json())
             .then(data => {
-                console.log(data);
+                getUserInfo(data.access_token);
             });
     }
 
@@ -26,13 +26,43 @@ function KaKaoLogin() {
             }
         })
             .then(res => res.json())
-            // .then(data => saveKakaoUserInfo(data.id, data.kakao_account.profile.nickname))
+            .then(data => {
+                console.log(data);
+                window.sessionStorage.setItem("ID", data.id);
+                window.sessionStorage.setItem("userName", data.kakao_account.profile.nickname);
+                window.sessionStorage.setItem("imageUrl", data.kakao_account.profile.profile_image_url);
+            })
+            .then(() => {searchUser(window.sessionStorage.getItem("ID"))});
+    }
+
+    function searchUser(id) {
+        const post = {
+            query:
+                "SELECT EXISTS (SELECT id FROM test_user WHERE id = " +
+                id + 
+                ") AS ISLOGIN;"
+        }
+
+        console.log(post.query);
+        fetch("https://hansori.net:443/SQL1", {
+            method: "post",
+            headers: { "content-type": "application/json" },
+            body: JSON.stringify(post)
+        })
+            .then(res => res.json())
+            .then(data => {
+                console.log(data);
+                data.ISLOGIN ? window.location.replace("/") :
+                saveKakaoUserInfo(window.sessionStorage.getItem("ID"), 
+                window.sessionStorage.getItem("userName"));
+            })
     }
 
     function saveKakaoUserInfo(id, name) {
+        console.log("start");
         const post = {
           query:
-            "INSERT INTO magnus_user (id, name) VALUES (" +
+            "INSERT INTO test_user (id, name) VALUES (" +
             id + ", '" +
             name + "');"
         };
@@ -44,10 +74,11 @@ function KaKaoLogin() {
             body: JSON.stringify(post),
         })
             .then(() => {
-                console.log("success");
+                alert("회원가입이 완료되었습니다.")
             })
+            .then(() => {window.location.replace("/")});
       }
-    
+
     useEffect(() => {
         getKakaoToken();
     }, []);
