@@ -78,10 +78,12 @@ function Ranking() {
     getRanking(thisYear, thisMonth);
   }, []);
 
+  var rank = 1;
   const showRanking = ranking.map((user, idx) => (
     <div key={idx} className="div-ranking-section-02">
-      <div>{idx + 1}</div>
-      <div> {user.id}</div>
+      <div>
+        {idx > 0 && ranking[idx].c < ranking[idx - 1].c ? ++rank : rank}
+      </div>
       <div> {user.name}</div>
       <div className="div-ranking-percent">
         {((user.c / total) * 100).toFixed(1)}%
