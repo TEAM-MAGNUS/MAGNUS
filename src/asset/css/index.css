@@ -236,7 +236,7 @@ body {
   width: 80vw;
   height: 5vh;
   padding: 0 5vw 0 5vw;
-  border-bottom: 1.5px solid black;
+  border-bottom: 1.5px solid rgba(0, 0, 0, 0.2);
 
   font-size: 18px;
   display: flex;
@@ -496,7 +496,7 @@ th {
 .div-notice-section-02 {
   width: 80vw;
   height: 60px;
-  border-bottom: 1px solid black;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
   font-size: 20px;
   display: flex;
   justify-content: space-between;

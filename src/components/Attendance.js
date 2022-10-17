@@ -90,8 +90,8 @@ function Attendance() {
         year +
         " AND MONTH(attendance_date) = " +
         (month + 1) +
-        " AND id = '" +
-        "id0" +
+        " AND name = '" +
+        "이다연" +
         "');",
     };
     console.log(post.query);
