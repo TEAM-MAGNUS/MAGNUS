@@ -1,19 +1,49 @@
 import React, { useState } from "react";
 import dayjs from "dayjs";
 import {
-  AiOutlinePlus,
-  AiOutlineClose,
-  AiOutlineMinus,
-  AiOutlineCheck,
-} from "react-icons/ai";
+  HiPlus,
+  HiX,
+  HiMinus,
+  HiCheck,
+  HiChevronLeft,
+  HiChevronRight,
+} from "react-icons/hi";
 
-const today = dayjs(new Date());
 const td = new Date();
 
 function Calendar() {
-  const year = td.getFullYear();
-  const month = td.getMonth();
+  const thisYear = td.getFullYear();
+  const thisMonth = td.getMonth();
   const date = td.getDate();
+
+  const [year, setYear] = useState(thisYear);
+  const [month, setMonth] = useState(thisMonth);
+
+  const preMonth = () => {
+    if (month == 0) {
+      setYear(year - 1);
+      setMonth(11);
+    } else {
+      setMonth(month - 1);
+    }
+    setOpen1(false);
+    setClicked({ week: null, date: null });
+  };
+  const nextMonth = () => {
+    if (month == 11) {
+      setYear(year + 1);
+      setMonth(0);
+    } else {
+      setMonth(month + 1);
+    }
+    setOpen1(false);
+    setClicked({ week: null, date: null });
+  };
+
+  const isNow = () => {
+    if (year == thisYear && month == thisMonth) return true;
+    else return false;
+  };
 
   var calendar = [
     [
@@ -76,11 +106,13 @@ function Calendar() {
       default:
     }
 
+    const lastDate = new Date(year, month + 1, 0).getDate();
     var week = 1;
     while (week < 5) {
-      calendar[week][0].date = first.date;
-      calendar[week][1].date = first.date + 1;
-      calendar[week][2].date = first.date + 2;
+      if (first.date <= lastDate) calendar[week][0].date = first.date;
+      if (first.date + 1 <= lastDate) calendar[week][1].date = first.date + 1;
+      if (first.date + 2 <= lastDate) calendar[week][2].date = first.date + 2;
+
       first.date += 7;
       week += 1;
     }
@@ -114,7 +146,7 @@ function Calendar() {
         date +
         "');",
     };
-    fetch("http://localhost:8080/SQL1", {
+    fetch("https://teammagnus.net/SQL1", {
       method: "post",
       headers: { "content-type": "application/json" },
       body: JSON.stringify(post),
@@ -140,15 +172,15 @@ function Calendar() {
           onChange={onChange}
           value={text}
         ></input>
+        {text === "" ? (
+          <></>
+        ) : (
+          <HiCheck
+            className="button-calendar-schedule-add"
+            onClick={() => addSchedule(now.date, text)}
+          />
+        )}
       </div>
-      {text === "" ? (
-        <></>
-      ) : (
-        <AiOutlineCheck
-          className="button-calendar-schedule-add"
-          onClick={() => addSchedule(now.date, text)}
-        />
-      )}
     </>
   );
 
@@ -166,7 +198,7 @@ function Calendar() {
         "');",
     };
     console.log(post.query);
-    fetch("http://localhost:8080/SQL1", {
+    fetch("https://teammagnus.net/SQL1", {
       method: "post",
       headers: { "content-type": "application/json" },
       body: JSON.stringify(post),
@@ -185,7 +217,7 @@ function Calendar() {
         "');",
     };
     console.log(post.query);
-    fetch("http://localhost:8080/SQL1", {
+    fetch("https://teammagnus.net/SQL1", {
       method: "post",
       headers: { "content-type": "application/json" },
       body: JSON.stringify(post),
@@ -195,15 +227,14 @@ function Calendar() {
   const showSchedule = (
     <>
       <div className="div-calendar-schedule-section">
-        <div className="div-calendar-schedule-01">
-          {year + "." + (month + 1) + "." + now.date}
+        <div className="div-calendar-schedule-02">
+          {isOpen2 ? writeSchedule : schedule}
         </div>
-        <div className="div-calendar-schedule-02">{schedule}</div>
       </div>
-      {isOpen2 ? writeSchedule : <></>}
+
       {schedule === "등록된 일정이 없습니다." ? (
         isOpen2 ? (
-          <AiOutlineClose
+          <HiX
             className="button-calendar-schedule-write"
             onClick={() => {
               setOpen2(false);
@@ -211,7 +242,7 @@ function Calendar() {
             }}
           />
         ) : (
-          <AiOutlinePlus
+          <HiPlus
             className="button-calendar-schedule-write"
             onClick={() => {
               setOpen2(true);
@@ -219,7 +250,7 @@ function Calendar() {
           />
         )
       ) : (
-        <AiOutlineMinus
+        <HiMinus
           className="button-calendar-schedule-write"
           onClick={() => {
             if (window.confirm("정말 삭제하시겠습니까?")) {
@@ -245,7 +276,7 @@ function Calendar() {
       <tbody>
         {calendar.map((w, index) => (
           <tr>
-            {w[0].date < date ? (
+            {w[0].date < date && isNow() ? (
               <th className="calendar-p">{w[0].date}</th>
             ) : (
               <th
@@ -262,7 +293,7 @@ function Calendar() {
                 {w[0].date}
               </th>
             )}
-            {w[1].date < date ? (
+            {w[1].date < date && isNow() ? (
               <th className="calendar-p">{w[1].date}</th>
             ) : (
               <th
@@ -279,7 +310,7 @@ function Calendar() {
                 {w[1].date}
               </th>
             )}
-            {w[2].date < date ? (
+            {w[2].date < date && isNow() ? (
               <th className="calendar-p">{w[2].date}</th>
             ) : (
               <th
@@ -304,7 +335,23 @@ function Calendar() {
 
   return (
     <div className="div-calendar-section">
-      <div className="div-month">{today.format("YYYY.MM")}</div>
+      <div className="div-month">
+        {year == thisYear && month == thisMonth ? (
+          <></>
+        ) : (
+          <HiChevronLeft
+            className="icon-left"
+            size="20"
+            onClick={() => preMonth()}
+          />
+        )}
+        {year}.{month + 1}
+        <HiChevronRight
+          className="icon-right"
+          size="20"
+          onClick={() => nextMonth()}
+        />
+      </div>
       <div className="div-attendance-section-01">{showCalendar}</div>
       {isOpen1 ? showSchedule : <></>}
     </div>
