@@ -1,7 +1,7 @@
 import React from "react";
 import ReactFullpage from "@fullpage/react-fullpage";
 
-import { IoIosArrowUp, IoIosArrowDown } from "react-icons/io";
+import { HiChevronDown } from "react-icons/hi";
 
 import logo from "../asset/main/logo.png";
 
@@ -16,31 +16,21 @@ function Main() {
               <div className="div-main-section-01">
                 <img className="img-main" src={logo} alt="" />
               </div>
-              <IoIosArrowDown
+              <HiChevronDown
                 className="icon-main-arrow-down"
                 size="20"
                 onClick={() => fullpageApi.moveSectionDown()}
               />
             </div>
             <div className="section">
-              <IoIosArrowUp
-                className="icon-main-arrow-up"
-                size="20"
-                onClick={() => fullpageApi.moveSectionUp()}
-              />
               <div className="div-main-section-01">홍보페이지1</div>
-              <IoIosArrowDown
+              <HiChevronDown
                 className="icon-main-arrow-down"
                 size="20"
                 onClick={() => fullpageApi.moveSectionDown()}
               />
             </div>
             <div className="section">
-              <IoIosArrowUp
-                className="icon-main-arrow-up"
-                size="20"
-                onClick={() => fullpageApi.moveSectionUp()}
-              />
               <div className="div-main-section-01">홍보페이지2</div>
             </div>
           </div>

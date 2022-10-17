@@ -76,7 +76,19 @@ function Header() {
               ATTENDANCE
             </NavLink>
             <br />
-            ㅡ
+            -
+            <br />
+            <NavLink
+              className="link-header"
+              to="/calendar"
+              onClick={() => {
+                onToggle();
+              }}
+            >
+              CALENDAR
+            </NavLink>
+            <br />
+            -
             <br />
             <NavLink
               className="link-header"
@@ -88,16 +100,16 @@ function Header() {
               RANKING
             </NavLink>
             <br />
-            ㅡ
+            -
             <br />
             <NavLink
               className="link-header"
-              to="/calendar"
+              to="/notice"
               onClick={() => {
                 onToggle();
               }}
             >
-              CALENDAR
+              NOTICE
             </NavLink>
           </div>
         </div>
