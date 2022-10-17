@@ -40,8 +40,8 @@ function Profile() {
   return (
     <>
       <div className="div-profile-profile">
-        <img className="img-profile-profile" src={profile} alt="" />
-        name1
+        <img className="img-profile-profile" src={window.sessionStorage.getItem("imageUrl")} alt={profile} />
+        {window.sessionStorage.getItem("userName")}
       </div>
       <div className="div-profile-date">{today.format("YYYY.MM.DD")}</div>
       {td.getDay() === 0 || td.getDay() === 5 || td.getDay() === 6 ? (
