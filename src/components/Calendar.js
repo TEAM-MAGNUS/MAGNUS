@@ -319,9 +319,7 @@ function Calendar() {
   return (
     <div className="div-calendar-section">
       <div className="div-month">
-        {year == thisYear && month == thisMonth ? (
-          <></>
-        ) : (
+        {(year != thisYear || month != thisMonth) && (
           <HiChevronLeft
             className="icon-left"
             size="20"
@@ -336,7 +334,7 @@ function Calendar() {
         />
       </div>
       <div className="div-attendance-section-01">{showCalendar}</div>
-      {isOpen1 ? showSchedule : <></>}
+      {isOpen1 && showSchedule}
     </div>
   );
 }

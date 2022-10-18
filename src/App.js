@@ -13,6 +13,7 @@ import Warning from "./components/Warning";
 import Average from "./components/Average";
 import Absence from "./components/Absence";
 import Member from "./components/Member";
+import MemberAttendance from "./components/MemberAttendance";
 
 function App() {
   return (
@@ -32,6 +33,7 @@ function App() {
           <Route path="/average" element={<Average />} />
           <Route path="/absence" element={<Absence />} />
           <Route path="/member" element={<Member />} />
+          <Route path="/memberAttendance" element={<MemberAttendance />} />
         </Routes>
       </BrowserRouter>
     </>

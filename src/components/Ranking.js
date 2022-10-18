@@ -72,7 +72,7 @@ function Ranking() {
         {idx > 0 && ranking[idx].c < ranking[idx - 1].c ? ++rank : rank}
       </div>
 
-      <div className={rank == 1 ? "div-ranking-first" : ""}>{user.name}</div>
+      <div className={rank == 1 && "div-ranking-first"}>{user.name}</div>
       <div className="div-ranking-percent">
         {((user.c / total) * 100).toFixed(1)}%
       </div>
@@ -89,9 +89,7 @@ function Ranking() {
           onClick={() => preMonth()}
         />
         {year}.{month + 1}
-        {year == thisYear && month == thisMonth ? (
-          <></>
-        ) : (
+        {(year != thisYear || month != thisMonth) && (
           <HiChevronRight
             className="icon-right"
             size="20"

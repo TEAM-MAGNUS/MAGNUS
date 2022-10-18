@@ -79,9 +79,7 @@ function Absence() {
           value={date}
           placeholder="YYYY.MM.DD"
         />
-        {name == "" || date == "" ? (
-          <></>
-        ) : (
+        {name != "" && date != "" && (
           <HiCheck
             className="icon-absence-close"
             onClick={() => addAbsence(name, date)}
@@ -135,7 +133,7 @@ function Absence() {
         )}
         <div className="div-absence-section-01">
           {showWarning}
-          {isOpen ? addPage : <></>}
+          {isOpen && addPage}
         </div>
       </div>
     </div>
