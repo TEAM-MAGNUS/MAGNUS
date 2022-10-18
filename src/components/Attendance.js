@@ -127,11 +127,6 @@ function Attendance() {
   };
   update();
 
-  console.log("0: " + attendance0);
-  console.log("1: " + attendance1);
-  console.log("2: " + attendance2);
-  console.log("3: " + attendance3);
-
   useEffect(() => {
     getAttendance(thisYear, thisMonth);
   }, []);
@@ -281,7 +276,13 @@ function Attendance() {
 
     return (
       <g>
-        <text x={cx} y={cy} dy={8} textAnchor="middle">
+        <text
+          x={cx}
+          y={cy}
+          dy={8}
+          textAnchor="middle"
+          style={{ fontSize: "20px" }}
+        >
           {name}
         </text>
         <Sector
