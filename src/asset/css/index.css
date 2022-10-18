@@ -330,22 +330,22 @@ th {
 
 .button-calendar-schedule-write {
   margin-top: 20px;
-  width: 20px;
-  height: 20px;
+  width: 15px;
+  height: 15px;
   padding: 5px;
   background-color: #d2000f;
   text-align: center;
-  font-size: 20px;
+  font-size: 15px;
   border-radius: 100%;
 }
 
 .button-calendar-schedule-add {
-  width: 20px;
-  height: 20px;
+  width: 15px;
+  height: 15px;
   padding: 5px;
-  background-color: #d2000f;
+  background-color: #e79b42;
   text-align: center;
-  font-size: 20px;
+  font-size: 15px;
 }
 /*------------------------------*/ /* Calendar.js */
 
@@ -532,8 +532,8 @@ th {
   padding: 0 5vw 0 5vw;
 }
 .icon-notice-close {
-  width: 20px;
-  height: 20px;
+  width: 15px;
+  height: 15px;
   background-color: #d2000f;
   padding: 5px;
   border-radius: 100%;
@@ -575,14 +575,14 @@ th {
 
 .button-notice-write {
   position: absolute;
-  top: 100px;
+  top: 105px;
   right: 10vw;
-  width: 20px;
-  height: 20px;
+  width: 15px;
+  height: 15px;
   padding: 5px;
   background-color: #d2000f;
   text-align: center;
-  font-size: 20px;
+  font-size: 15px;
   border-radius: 100%;
 }
 
@@ -610,27 +610,28 @@ th {
   height: 5vh;
   padding: 0 15vw 0 5vw;
 
-  font-size: 20px;
+  font-size: 15px;
   display: flex;
   justify-content: space-around;
-  margin-top: 20px;
+  margin-top: 15px;
 }
 .icon-absence-close {
   position: absolute;
+  margin-top: 5px;
   right: 5vw;
-  width: 20px;
-  height: 20px;
+  width: 15px;
+  height: 15px;
   padding: 5px;
   background-color: #d2000f;
   text-align: center;
-  font-size: 20px;
+  font-size: 15px;
   border-radius: 100%;
 }
 .button-absence-minus {
   position: absolute;
   right: 5vw;
-  width: 20px;
-  height: 20px;
+  width: 15px;
+  height: 15px;
   padding: 5px;
   background-color: #d2000f;
   text-align: center;
@@ -761,14 +762,14 @@ th {
   transform: translateY(50%);
   z-index: 20;
 }
-.button-absense-add {
+.button-absence-add {
   margin-top: 30px;
-  width: 20px;
-  height: 20px;
+  width: 15px;
+  height: 15px;
   padding: 5px;
-  background-color: #d2000f;
+  background-color: #e79b42;
   text-align: center;
-  font-size: 20px;
+  font-size: 15px;
   border-radius: 100%;
 }
 
@@ -837,11 +838,89 @@ th {
 }
 .button-member-attendance-detail {
   margin-top: 20px;
-  width: 20px;
-  height: 20px;
+  width: 15px;
+  height: 15px;
   padding: 5px;
   background-color: #d2000f;
   text-align: center;
-  font-size: 20px;
+  font-size: 15px;
   border-radius: 100%;
+}
+
+.button-member-plus {
+  position: absolute;
+  top: 105px;
+  right: 10vw;
+  width: 15px;
+  height: 15px;
+  padding: 5px;
+  background-color: #d2000f;
+  text-align: center;
+  font-size: 15px;
+  border-radius: 100%;
+}
+.button-member-minus {
+  position: absolute;
+  top: 140px;
+  right: 10vw;
+  width: 15px;
+  height: 15px;
+  padding: 5px;
+  background-color: #d2000f;
+  text-align: center;
+  font-size: 15px;
+  border-radius: 100%;
+}
+.button-member-check {
+  position: absolute;
+  top: 140px;
+  right: 10vw;
+  width: 15px;
+  height: 15px;
+  padding: 5px;
+  background-color: #e79b42;
+  text-align: center;
+  font-size: 15px;
+  border-radius: 100%;
+}
+/*///////*/
+.div-member-input {
+  width: 90vw;
+  height: 6vh;
+  display: flex;
+  justify-content: space-between;
+  margin-top: 15px;
+  margin-bottom: 15px;
+}
+.input-member-write-name {
+  width: 20vw;
+  border: none;
+  font-size: 20px;
+  padding-left: 5vw;
+  background-color: rgba(255, 255, 255, 0.4);
+  border-radius: 5px;
+  font-family: "Nh";
+  text-align: left;
+}
+
+.input-member-write-pnum {
+  width: 30vw;
+  border: none;
+  font-size: 12px;
+  padding: 10px;
+  background-color: rgba(255, 255, 255, 0.4);
+  border-radius: 5px;
+  font-family: "Nh";
+  text-align: center;
+}
+
+.input-member-write-joindate {
+  width: 20vw;
+  border: none;
+  font-size: 15px;
+  padding-right: 5vw;
+  background-color: rgba(255, 255, 255, 0.4);
+  border-radius: 5px;
+  font-family: "Nh";
+  text-align: right;
 }
