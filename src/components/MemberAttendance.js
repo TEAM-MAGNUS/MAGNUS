@@ -1,49 +1,45 @@
 import React, { useCallback, useEffect, useState } from "react";
+import dayjs from "dayjs";
 import {
   HiChevronDown,
   HiOutlineArrowLeft,
   HiChevronLeft,
   HiChevronRight,
+  HiOutlineInformationCircle,
 } from "react-icons/hi";
 import { PieChart, Pie, Sector, Cell } from "recharts";
-import { NavLink } from "react-router-dom";
 import ReactFullpage from "@fullpage/react-fullpage";
+import { NavLink } from "react-router-dom";
 
 const td = new Date();
 
-function Average() {
+function MemberAttendance(props) {
   const thisYear = td.getFullYear();
   const thisMonth = td.getMonth();
-  const date = td.getDate();
 
+  const name = props.name;
   const [year, setYear] = useState(thisYear);
   const [month, setMonth] = useState(thisMonth);
 
   const preMonth = () => {
     if (month == 0) {
-      getWholeAttendance(year - 1, 11);
-      getUserNum(year - 1, 11);
+      getAttendance(year - 1, 11);
       setYear(year - 1);
       setMonth(11);
     } else {
-      getWholeAttendance(year, month - 1);
-      getUserNum(year, month - 1);
+      getAttendance(year, month - 1);
       setMonth(month - 1);
     }
-    setClicked({ week: null, date: null });
   };
   const nextMonth = () => {
     if (month == 11) {
-      getWholeAttendance(year + 1, 0);
-      getUserNum(year + 1, 0);
+      getAttendance(year + 1, 0);
       setYear(year + 1);
       setMonth(0);
     } else {
-      getWholeAttendance(year, month + 1);
-      getUserNum(year, month + 1);
+      getAttendance(year, month + 1);
       setMonth(month + 1);
     }
-    setClicked({ week: null, date: null });
   };
 
   var calendar = [
@@ -74,30 +70,16 @@ function Average() {
     ],
   ];
 
-  const [attendance, setAttendance] = useState([{}]);
+  const [attendance, setAttendance] = useState([
+    { attendance_date: null, attendance: null },
+  ]);
 
   var attendance0 = 0;
   var attendance1 = 0;
   var attendance2 = 0;
   var attendance3 = 0;
 
-  const [userNum, setUserNum] = useState(0);
-  const getUserNum = (year, month) => {
-    const post = {
-      year: year,
-      month: month,
-    };
-    fetch("https://teammagnus.net/getUserNum", {
-      method: "post",
-      headers: { "content-type": "application/json" },
-      body: JSON.stringify(post),
-    })
-      .then((res) => res.json())
-      .then((json) => {
-        setUserNum(json.t);
-      });
-  };
-  const getWholeAttendance = (year, month) => {
+  const getAttendance = (year, month) => {
     attendance0 = 0;
     attendance1 = 0;
     attendance2 = 0;
@@ -106,20 +88,26 @@ function Average() {
     const post = {
       year: year,
       month: month,
+      name: name,
     };
-    fetch("https://teammagnus.net/getWholeAttendance", {
+    fetch("https://teammagnus.net/getAttendance", {
       method: "post",
       headers: { "content-type": "application/json" },
       body: JSON.stringify(post),
     })
       .then((res) => res.json())
       .then((json) => {
+        json.map((j) => {
+          j.attendance_date = dayjs(j.attendance_date).format("D");
+        });
+
         setAttendance(json);
         update();
       });
   };
 
   const update = () => {
+    console.log("update");
     attendance.map((a) => {
       switch (a.attendance) {
         case 0:
@@ -139,6 +127,28 @@ function Average() {
     });
   };
   update();
+
+  useEffect(() => {
+    getAttendance(thisYear, thisMonth);
+  }, []);
+
+  const setColor = (date) => {
+    var t = attendance.find((a) => a.attendance_date == date);
+    if (t) {
+      switch (t.attendance) {
+        case 0:
+          return "attendance-0";
+        case 1:
+          return "attendance-1";
+        case 2:
+          return "attendance-2";
+        case 3:
+          return "attendance-3";
+        default:
+      }
+    } else return "attendance-f";
+  };
+
   const setCalendar = () => {
     var tmp;
     var first = [{ date: 0, day: 0 }];
@@ -185,34 +195,6 @@ function Average() {
   };
   setCalendar();
 
-  const [count, setCount] = useState(null);
-  const getDateAttendance = (date) => {
-    console.log(month);
-    const post = {
-      date: year + "-" + (month + 1) + "-" + date,
-    };
-    fetch("https://teammagnus.net/getDateAttendance", {
-      method: "post",
-      headers: { "content-type": "application/json" },
-      body: JSON.stringify(post),
-    })
-      .then((res) => res.json())
-      .then((json) => {
-        setCount(json.c);
-      });
-  };
-
-  useEffect(() => {
-    getWholeAttendance(thisYear, thisMonth);
-    getUserNum(thisYear, thisMonth);
-  }, []);
-
-  const isNow = () => {
-    if (year == thisYear && month == thisMonth) return true;
-    else return false;
-  };
-  const [clicked, setClicked] = useState({ week: null, date: null });
-
   const showCalendar = (
     <table className="div-calendar">
       <thead>
@@ -225,87 +207,32 @@ function Average() {
       <tbody>
         {calendar.map((w, index) => (
           <tr>
-            {w[0].date < date || !isNow() ? (
-              <th
-                className={
-                  clicked.week === index && clicked.date === w[0].date
-                    ? "calendar-t"
-                    : "calendar-f"
-                }
-                onClick={() => {
-                  getDateAttendance(w[0].date);
-                  setClicked({ week: index, date: w[0].date });
-                }}
-              >
-                {w[0].date}
-              </th>
-            ) : (
-              <th
-                className={
-                  clicked.week === index && clicked.date === w[0].date
-                    ? "calendar-t"
-                    : "calendar-p"
-                }
-              >
-                {w[0].date}
-              </th>
-            )}
-            {w[1].date < date || !isNow() ? (
-              <th
-                className={
-                  clicked.week === index && clicked.date === w[1].date
-                    ? "calendar-t"
-                    : "calendar-f"
-                }
-                onClick={() => {
-                  getDateAttendance(w[1].date);
-                  setClicked({ week: index, date: w[1].date });
-                }}
-              >
-                {w[1].date}
-              </th>
-            ) : (
-              <th
-                className={
-                  clicked.week === index && clicked.date === w[1].date
-                    ? "calendar-t"
-                    : "calendar-p"
-                }
-              >
-                {w[1].date}
-              </th>
-            )}
-            {w[2].date < date || !isNow() ? (
-              <th
-                className={
-                  clicked.week === index && clicked.date === w[2].date
-                    ? "calendar-t"
-                    : "calendar-f"
-                }
-                onClick={() => {
-                  getDateAttendance(w[2].date);
-                  setClicked({ week: index, date: w[2].date });
-                }}
-              >
-                {w[2].date}
-              </th>
-            ) : (
-              <th
-                className={
-                  clicked.week === index && clicked.date === w[2].date
-                    ? "calendar-t"
-                    : "calendar-p"
-                }
-              >
-                {w[2].date}
-              </th>
-            )}
+            <th className={setColor(w[0].date)}>{w[0].date}</th>
+            <th className={setColor(w[1].date)}>{w[1].date}</th>
+            <th className={setColor(w[2].date)}>{w[2].date}</th>
           </tr>
         ))}
       </tbody>
     </table>
   );
 
+  const [isOpen, setIsOpen] = useState(false);
+  const info = (
+    <div className="div-attendance-section-info">
+      <div className="div-attendance-info ">
+        <div className="div-attendance-info-01">O</div>출석
+      </div>
+      <div className="div-attendance-info ">
+        <div className="div-attendance-info-02">O</div>지각
+      </div>
+      <div className="div-attendance-info ">
+        <div className="div-attendance-info-03">O</div>불참
+      </div>
+      <div className="div-attendance-info ">
+        <div className="div-attendance-info-04">O</div>미통보불참
+      </div>
+    </div>
+  );
   const data = [
     { name: "출석", value: attendance0 },
     { name: "지각", value: attendance1 },
@@ -357,7 +284,7 @@ function Average() {
           textAnchor="middle"
           style={{ fontSize: "20px" }}
         >
-          평균
+          {name}
         </text>
         <Sector
           cx={cx}
@@ -390,7 +317,7 @@ function Average() {
           fill="black"
           style={{ fontSize: "15px" }}
         >
-          {payload.name} {(value / userNum).toFixed(1)}
+          {payload.name} {value}
         </text>
         <text
           x={ex + (cos >= 0 ? -1 : 1)}
@@ -427,72 +354,73 @@ function Average() {
   );
 
   return (
-    <ReactFullpage
-      scrollOverflow={true}
-      render={({ fullpageApi }) => (
-        <div id="fullpage-wrapper">
-          <div className="section">
-            <div className="div-attendance-section">
-              <NavLink to="/manage" className="link-header">
-                <HiOutlineArrowLeft size="20" className="icon-back" />
-              </NavLink>
-              <div className="div-month">
-                <HiChevronLeft
-                  className="icon-left"
-                  size="20"
-                  onClick={() => preMonth()}
-                />
-                {year}.{month + 1}
-                {year == thisYear && month == thisMonth ? (
-                  <></>
-                ) : (
-                  <HiChevronRight
-                    className="icon-right"
+    <div className="div-member-attendance-section">
+      <ReactFullpage
+        scrollOverflow={true}
+        render={({ fullpageApi }) => (
+          <div id="fullpage-wrapper">
+            <div className="section">
+              <div className="div-attendance-section">
+                <div className="div-month">
+                  <HiChevronLeft
+                    className="icon-left"
                     size="20"
-                    onClick={() => nextMonth()}
+                    onClick={() => preMonth()}
                   />
-                )}
+                  {year}.{month + 1}
+                  {year == thisYear && month == thisMonth ? (
+                    <></>
+                  ) : (
+                    <HiChevronRight
+                      className="icon-right"
+                      size="20"
+                      onClick={() => nextMonth()}
+                    />
+                  )}
+                </div>
+                <div className="div-attendance-piechart-01">{pieChart}</div>
+                <div className="div-attendance-piechart-02">
+                  {((attendance0 / attendance.length) * 100).toFixed(1)}%
+                </div>
               </div>
-              <div className="div-attendance-piechart-01">{pieChart}</div>
-              <div className="div-attendance-piechart-02">
-                {((attendance0 / attendance.length) * 100).toFixed(1)}%
+              <HiChevronDown
+                className="icon-main-arrow-down"
+                size="20"
+                onClick={() => fullpageApi.moveSectionDown()}
+              />
+            </div>
+            <div className="section">
+              <div className="div-attendance-section">
+                <div className="div-month">
+                  <HiChevronLeft
+                    className="icon-left"
+                    size="20"
+                    onClick={() => preMonth()}
+                  />
+                  {year}.{month + 1}
+                  {(year != thisYear || month != thisMonth) && (
+                    <HiChevronRight
+                      className="icon-right"
+                      size="20"
+                      onClick={() => nextMonth()}
+                    />
+                  )}
+                </div>
+                {isOpen && info}
+                <div className="div-attendance-section-01">
+                  {showCalendar}
+                  <HiOutlineInformationCircle
+                    className="icon-attendance-info"
+                    onClick={() => setIsOpen(!isOpen)}
+                  />
+                </div>
               </div>
             </div>
-            <HiChevronDown
-              className="icon-main-arrow-down"
-              size="20"
-              onClick={() => fullpageApi.moveSectionDown()}
-            />
           </div>
-          <div className="section">
-            <div className="div-attendance-section">
-              <div className="div-month">
-                <HiChevronLeft
-                  className="icon-left"
-                  size="20"
-                  onClick={() => preMonth()}
-                />
-                {year}.{month + 1}
-                {(year != thisYear || month != thisMonth) && (
-                  <HiChevronRight
-                    className="icon-right"
-                    size="20"
-                    onClick={() => nextMonth()}
-                  />
-                )}
-              </div>
-              <div className="div-attendance-section-01">
-                {showCalendar}
-                {clicked.date != null && (
-                  <div className="div-attendance-count">{count}명</div>
-                )}
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
-    />
+        )}
+      />
+    </div>
   );
 }
 
-export default Average;
+export default MemberAttendance;

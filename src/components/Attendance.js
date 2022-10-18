@@ -367,9 +367,7 @@ function Attendance() {
                     onClick={() => preMonth()}
                   />
                   {year}.{month + 1}
-                  {year == thisYear && month == thisMonth ? (
-                    <></>
-                  ) : (
+                  {(year != thisYear || month != thisMonth) && (
                     <HiChevronRight
                       className="icon-right"
                       size="20"
@@ -407,7 +405,7 @@ function Attendance() {
                     />
                   )}
                 </div>
-                {isOpen ? info : <></>}
+                {isOpen && info}
                 <div className="div-attendance-section-01">
                   {showCalendar}
                   <HiOutlineInformationCircle

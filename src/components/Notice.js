@@ -128,9 +128,7 @@ function Notice() {
           setNewContent("");
         }}
       />
-      {newTitle == "" || newContent == "" ? (
-        <></>
-      ) : (
+      {newTitle != "" && newContent != "" && (
         <HiCheck className="icon-notice-close" onClick={() => writeNotice()} />
       )}
     </div>
@@ -145,7 +143,7 @@ function Notice() {
       <div className="div-notice-header"></div>
       <div className="div-month">공지사항</div>
       <div className="div-notice-section-01"> {showTitle}</div>
-      {contentOpen ? showContent : <></>}
+      {contentOpen && showContent}
       {writeOpen ? (
         writePage
       ) : (
