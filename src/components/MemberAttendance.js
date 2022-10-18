@@ -1,14 +1,13 @@
 import React, { useCallback, useEffect, useState } from "react";
 import dayjs from "dayjs";
 import {
-  HiChevronDown,
   HiOutlineArrowLeft,
+  HiOutlineArrowRight,
   HiChevronLeft,
   HiChevronRight,
   HiOutlineInformationCircle,
 } from "react-icons/hi";
 import { PieChart, Pie, Sector, Cell } from "recharts";
-import ReactFullpage from "@fullpage/react-fullpage";
 import { NavLink } from "react-router-dom";
 
 const td = new Date();
@@ -20,6 +19,7 @@ function MemberAttendance(props) {
   const name = props.name;
   const [year, setYear] = useState(thisYear);
   const [month, setMonth] = useState(thisMonth);
+  const [detailOpen, setDetailOpen] = useState(false);
 
   const preMonth = () => {
     if (month == 0) {
@@ -355,40 +355,65 @@ function MemberAttendance(props) {
 
   return (
     <div className="div-member-attendance-section">
-      <ReactFullpage
-        scrollOverflow={true}
-        render={({ fullpageApi }) => (
-          <div id="fullpage-wrapper">
-            <div className="section">
-              <div className="div-attendance-section">
-                <div className="div-month">
-                  <HiChevronLeft
-                    className="icon-left"
-                    size="20"
-                    onClick={() => preMonth()}
-                  />
-                  {year}.{month + 1}
-                  {year == thisYear && month == thisMonth ? (
-                    <></>
-                  ) : (
-                    <HiChevronRight
-                      className="icon-right"
-                      size="20"
-                      onClick={() => nextMonth()}
-                    />
-                  )}
-                </div>
-                <div className="div-attendance-piechart-01">{pieChart}</div>
-                <div className="div-attendance-piechart-02">
-                  {((attendance0 / attendance.length) * 100).toFixed(1)}%
-                </div>
-              </div>
-              <HiChevronDown
-                className="icon-main-arrow-down"
-                size="20"
-                onClick={() => fullpageApi.moveSectionDown()}
-              />
+      {detailOpen ? (
+        <HiOutlineArrowLeft
+          size="20"
+          className="icon-back"
+          onClick={() => setDetailOpen(false)}
+        />
+      ) : (
+        <>
+          <HiOutlineArrowLeft
+            size="20"
+            className="icon-back"
+            onClick={() => window.location.reload()}
+          />
+          <HiOutlineArrowRight
+            size="20"
+            className="icon-go"
+            onClick={() => setDetailOpen(true)}
+          />
+        </>
+      )}
+
+      <div className="div-attendance-section">
+        <div className="div-month">
+          <HiChevronLeft
+            className="icon-left"
+            size="20"
+            onClick={() => preMonth()}
+          />
+          {year}.{month + 1}
+          {year == thisYear && month == thisMonth ? (
+            <></>
+          ) : (
+            <HiChevronRight
+              className="icon-right"
+              size="20"
+              onClick={() => nextMonth()}
+            />
+          )}
+        </div>
+        {detailOpen ? (
+          <div className="div-attendance-section-01">
+            {showCalendar}
+            <HiOutlineInformationCircle
+              className="icon-attendance-info"
+              onClick={() => setIsOpen(!isOpen)}
+            />
+            {isOpen && info}
+          </div>
+        ) : (
+          <>
+            <div className="div-attendance-piechart-01">{pieChart}</div>
+            <div className="div-attendance-piechart-02">
+              {((attendance0 / attendance.length) * 100).toFixed(1)}%
             </div>
+          </>
+        )}
+      </div>
+
+      {/* </div>
             <div className="section">
               <div className="div-attendance-section">
                 <div className="div-month">
@@ -418,7 +443,7 @@ function MemberAttendance(props) {
             </div>
           </div>
         )}
-      />
+      /> */}
     </div>
   );
 }

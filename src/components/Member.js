@@ -56,11 +56,6 @@ function Member() {
       {isOpen ? (
         <>
           <MemberAttendance name={name} />
-          <HiOutlineArrowLeft
-            size="20"
-            className="icon-back"
-            onClick={() => setIsOpen(false)}
-          />
         </>
       ) : (
         <div className="div-ranking">

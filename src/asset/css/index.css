@@ -754,7 +754,13 @@ th {
   transform: translateY(50%);
   z-index: 20;
 }
-
+.icon-go {
+  position: absolute;
+  right: 5vw;
+  top: 100px;
+  transform: translateY(50%);
+  z-index: 20;
+}
 .button-absense-add {
   margin-top: 30px;
   width: 20px;
@@ -828,4 +834,14 @@ th {
   font-size: 20px;
   background-color: #ede9d0;
   z-index: 10;
+}
+.button-member-attendance-detail {
+  margin-top: 20px;
+  width: 20px;
+  height: 20px;
+  padding: 5px;
+  background-color: #d2000f;
+  text-align: center;
+  font-size: 20px;
+  border-radius: 100%;
 }
