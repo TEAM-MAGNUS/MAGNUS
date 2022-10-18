@@ -18,6 +18,8 @@ function Attendance() {
   const [year, setYear] = useState(thisYear);
   const [month, setMonth] = useState(thisMonth);
 
+  const [name, setName] = useState("명지현우");
+
   const preMonth = () => {
     if (month == 0) {
       getAttendance(year - 1, 11);
@@ -67,8 +69,6 @@ function Attendance() {
     ],
   ];
 
-  //   const monthLastDate = new Date(year, month, 0).getDate();
-
   const [attendance, setAttendance] = useState([
     { attendance_date: null, attendance: null },
   ]);
@@ -85,17 +85,11 @@ function Attendance() {
     attendance3 = 0;
 
     const post = {
-      query:
-        "SELECT attendance_date, attendance from magnus_attendance WHERE (YEAR(attendance_date) = " +
-        year +
-        " AND MONTH(attendance_date) = " +
-        (month + 1) +
-        " AND name = '" +
-        "이다연" +
-        "');",
+      year: year,
+      month: month,
+      name: name,
     };
-    console.log(post.query);
-    fetch("https://teammagnus.net/SQL2", {
+    fetch("https://teammagnus.net/getAttendance", {
       method: "post",
       headers: { "content-type": "application/json" },
       body: JSON.stringify(post),
@@ -287,6 +281,9 @@ function Attendance() {
 
     return (
       <g>
+        <text x={cx} y={cy} dy={8} textAnchor="middle">
+          {name}
+        </text>
         <Sector
           cx={cx}
           cy={cy}
@@ -318,8 +315,7 @@ function Attendance() {
           fill="black"
           style={{ fontSize: "15px" }}
         >
-          {payload.name}
-          {value}
+          {payload.name} {value}
         </text>
         <text
           x={ex + (cos >= 0 ? -1 : 1)}
@@ -382,11 +378,7 @@ function Attendance() {
                 </div>
                 <div className="div-attendance-piechart-01">{pieChart}</div>
                 <div className="div-attendance-piechart-02">
-                  {(
-                    ((attendance0 + attendance1) / attendance.length) *
-                    100
-                  ).toFixed(1)}
-                  %
+                  {((attendance0 / attendance.length) * 100).toFixed(1)}%
                 </div>
               </div>
               <HiChevronDown
