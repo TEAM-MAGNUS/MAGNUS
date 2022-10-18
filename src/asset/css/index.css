@@ -13,12 +13,14 @@ body {
   top: 100px;
   left: 90px;
   transform: translateY(50%);
+  z-index: 10;
 }
 .icon-right {
   position: absolute;
   top: 100px;
   right: 90px;
   transform: translateY(50%);
+  z-index: 10;
 }
 
 @font-face {
@@ -495,6 +497,27 @@ th {
   /* background-color: pink; */
   justify-content: center;
   align-items: center;
+}
+.div-member-piechart-01 {
+  width: 80vw;
+  height: 40vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.div-member-piechart-02 {
+  position: absolute;
+  bottom: 100px;
+  width: 80vw;
+  height: 20vh;
+  font-size: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.div-member-all-month {
+  font-size: 20px;
+  text-align: center;
 }
 
 /* Notice.js */ /*------------------------------*/

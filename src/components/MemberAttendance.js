@@ -9,6 +9,7 @@ import {
 } from "react-icons/hi";
 import { PieChart, Pie, Sector, Cell } from "recharts";
 import { NavLink } from "react-router-dom";
+import MemberAll from "./MemberAll";
 
 const td = new Date();
 
@@ -17,6 +18,7 @@ function MemberAttendance(props) {
   const thisMonth = td.getMonth();
 
   const name = props.name;
+  const pnum = props.pnum;
   const [year, setYear] = useState(thisYear);
   const [month, setMonth] = useState(thisMonth);
   const [detailOpen, setDetailOpen] = useState(false);
@@ -405,45 +407,11 @@ function MemberAttendance(props) {
           </div>
         ) : (
           <>
-            <div className="div-attendance-piechart-01">{pieChart}</div>
-            <div className="div-attendance-piechart-02">
-              {((attendance0 / attendance.length) * 100).toFixed(1)}%
-            </div>
+            <div className="div-member-piechart-01">{pieChart}</div>
+            <MemberAll name={name} pnum={pnum} />
           </>
         )}
       </div>
-
-      {/* </div>
-            <div className="section">
-              <div className="div-attendance-section">
-                <div className="div-month">
-                  <HiChevronLeft
-                    className="icon-left"
-                    size="20"
-                    onClick={() => preMonth()}
-                  />
-                  {year}.{month + 1}
-                  {(year != thisYear || month != thisMonth) && (
-                    <HiChevronRight
-                      className="icon-right"
-                      size="20"
-                      onClick={() => nextMonth()}
-                    />
-                  )}
-                </div>
-                {isOpen && info}
-                <div className="div-attendance-section-01">
-                  {showCalendar}
-                  <HiOutlineInformationCircle
-                    className="icon-attendance-info"
-                    onClick={() => setIsOpen(!isOpen)}
-                  />
-                </div>
-              </div>
-            </div>
-          </div>
-        )}
-      /> */}
     </div>
   );
 }

@@ -97,7 +97,8 @@ function Member() {
   );
 
   const [isOpen, setIsOpen] = useState(false);
-  const [name, setName] = useState(false);
+  const [name, setName] = useState("");
+  const [pnum, setPnum] = useState("");
 
   const showMember = member.map((user, idx) => (
     <>
@@ -109,6 +110,7 @@ function Member() {
             // window.scrollTo(0, 0);
             setIsOpen(true);
             setName(user.name);
+            setPnum(user.pnum);
           }}
         >
           <div className="div-member-name">{user.name}</div>
@@ -125,7 +127,7 @@ function Member() {
     <>
       {isOpen ? (
         <>
-          <MemberAttendance name={name} />
+          <MemberAttendance name={name} pnum={pnum} />
         </>
       ) : (
         <div className="div-ranking">

@@ -8,6 +8,7 @@ import {
 } from "react-icons/hi";
 import { PieChart, Pie, Sector, Cell } from "recharts";
 import ReactFullpage from "@fullpage/react-fullpage";
+import All from "./All";
 
 const td = new Date();
 
@@ -18,7 +19,10 @@ function Attendance() {
   const [year, setYear] = useState(thisYear);
   const [month, setMonth] = useState(thisMonth);
 
+  ///////////////////////////////////////////////
   const [name, setName] = useState("명지현우");
+  const [pnum, setPnum] = useState("010-9239-9937");
+  ///////////////////////////////////////////////
 
   const preMonth = () => {
     if (month == 0) {
@@ -414,6 +418,14 @@ function Attendance() {
                   />
                 </div>
               </div>
+              <HiChevronDown
+                className="icon-main-arrow-down"
+                size="20"
+                onClick={() => fullpageApi.moveSectionDown()}
+              />
+            </div>
+            <div className="section">
+              <All name={name} pnum={pnum} />
             </div>
           </div>
         )}
