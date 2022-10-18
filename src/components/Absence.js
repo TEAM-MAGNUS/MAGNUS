@@ -83,6 +83,7 @@ function Absence() {
           <HiCheck
             className="icon-absence-close"
             onClick={() => addAbsence(name, date)}
+            style={{ backgroundColor: "#e79b42" }}
           />
         )}
       </div>

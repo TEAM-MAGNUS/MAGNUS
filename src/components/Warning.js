@@ -36,8 +36,7 @@ function Warning() {
         </NavLink>
         <div className="div-month">경고자</div>
         <div className="div-warning-section-01">
-          {!isGetting && user.length == 0 && "경고자가 없습니다."}
-          {isGetting ? (
+          {user.length == 0 ? (
             <HiRefresh onClick={() => window.location.reload()} size="25" />
           ) : (
             showWarning
