@@ -33,7 +33,7 @@ function Main() {
                     className="img-main"
                     style={{
                       backgroundColor: "white",
-                      marginTop: "10px",
+                      marginTop: "20px",
                       height: "30px",
                       textAlign: "center",
                     }}
@@ -44,7 +44,7 @@ function Main() {
                   :
                   <img 
                   className="img-main" 
-                  style={{ marginTop: "10px" }}
+                  style={{ marginTop: "30px" }}
                   src={loginbtn} 
                   alt=""
                   onClick={handleLogin}
