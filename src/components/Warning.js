@@ -15,6 +15,7 @@ function Warning() {
         setUser(json);
         setIsGetting(false);
       });
+    if (user.length == 0) setIsGetting(true);
   };
 
   useEffect(() => {
