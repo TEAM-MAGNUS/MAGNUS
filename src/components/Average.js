@@ -1,6 +1,11 @@
 import React, { useCallback, useEffect, useState } from "react";
-import { HiChevronDown, HiChevronLeft, HiChevronRight } from "react-icons/hi";
+import {
+  HiOutlineArrowLeft,
+  HiChevronLeft,
+  HiChevronRight,
+} from "react-icons/hi";
 import { PieChart, Pie, Sector, Cell } from "recharts";
+import { NavLink } from "react-router-dom";
 
 const td = new Date();
 
@@ -49,8 +54,8 @@ function Average() {
       year: year,
       month: month,
     };
-    fetch("https://localhost/getUserNum", {
-      // fetch("https://teammagnus.net/getUserNum", {
+    // fetch("https://localhost/getUserNum", {
+    fetch("https://teammagnus.net/getUserNum", {
       method: "post",
       headers: { "content-type": "application/json" },
       body: JSON.stringify(post),
@@ -70,8 +75,8 @@ function Average() {
       year: year,
       month: month,
     };
-    fetch("https://localhost/getWholeAttendance", {
-      // fetch("https://teammagnus.net/getWholeAttendance", {
+    // fetch("https://localhost/getWholeAttendance", {
+    fetch("https://teammagnus.net/getWholeAttendance", {
       method: "post",
       headers: { "content-type": "application/json" },
       body: JSON.stringify(post),
@@ -225,6 +230,9 @@ function Average() {
 
   return (
     <div className="div-attendance-section">
+      <NavLink to="/manage" className="link-header">
+        <HiOutlineArrowLeft size="20" className="icon-back" />
+      </NavLink>
       <div className="div-month">
         <HiChevronLeft
           className="icon-left"

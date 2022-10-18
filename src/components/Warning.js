@@ -1,11 +1,13 @@
 import { React, useEffect, useState } from "react";
+import { HiOutlineArrowLeft } from "react-icons/hi";
+import { NavLink } from "react-router-dom";
 
 function Warning() {
   const [user, setUser] = useState([{}]);
 
   const getWarning = () => {
-    fetch("https://localhost/getWarning", {
-      // fetch("https://teammagnus.net/getWarning", {
+    // fetch("https://localhost/getWarning", {
+    fetch("https://teammagnus.net/getWarning", {
       method: "post",
       headers: { "content-type": "application/json" },
     })
@@ -27,6 +29,9 @@ function Warning() {
   return (
     <div>
       <div className="div-attendance-section">
+        <NavLink to="/manage" className="link-header">
+          <HiOutlineArrowLeft size="20" className="icon-back" />
+        </NavLink>
         <div className="div-month">경고자</div>
         <div className="div-warning-section-01"> {showWarning}</div>
       </div>

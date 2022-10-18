@@ -11,6 +11,8 @@ import Ranking from "./components/Ranking";
 import Manage from "./components/Manage";
 import Warning from "./components/Warning";
 import Average from "./components/Average";
+import Absence from "./components/Absence";
+import Member from "./components/Member";
 
 function App() {
   return (
@@ -28,6 +30,8 @@ function App() {
           <Route path="/manage" element={<Manage />} />
           <Route path="/warning" element={<Warning />} />
           <Route path="/average" element={<Average />} />
+          <Route path="/absence" element={<Absence />} />
+          <Route path="/member" element={<Member />} />
         </Routes>
       </BrowserRouter>
     </>
