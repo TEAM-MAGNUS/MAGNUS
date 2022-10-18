@@ -248,7 +248,10 @@ body {
   color: #d2000f;
   width: 40px;
   display: flex;
-  justify-content: right;
+  justify-content: ease-in;
+}
+.div-ranking-first {
+  color: #e79b42;
 }
 /*------------------------------*/ /* Ranking.js */
 
@@ -424,6 +427,7 @@ th {
   height: 100vh;
   position: absolute;
   top: 0;
+  left: 0;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -549,10 +553,11 @@ th {
   margin-top: 20px;
   width: 80vw;
   height: 50vh;
-  background-color: rgba(255, 255, 255, 0.5);
+  background-color: rgba(255, 255, 255, 0.4);
   word-wrap: break-word;
   font-size: 20px;
   padding: 5vw;
+  border-radius: 5px;
 }
 .div-ranking-percent {
   color: #d2000f;
@@ -586,7 +591,8 @@ th {
   font-size: 30px;
   font-weight: 900;
   text-align: center;
-  background-color: rgba(255, 255, 255, 0.5);
+  background-color: rgba(255, 255, 255, 0.4);
+  border-radius: 5px;
 }
 ::placeholder {
   color: rgba(0, 0, 0, 0.2);
@@ -611,3 +617,47 @@ th {
   z-index: 10;
 }
 /*------------------------------*/ /* Notice.js */
+
+.div-warning-section-01 {
+  position: absolute;
+  top: 200px;
+}
+.div-warning-section-02 {
+  width: 80vw;
+  height: 5vh;
+  padding: 0 5vw 0 5vw;
+  border-bottom: 1.5px solid rgba(0, 0, 0, 0.2);
+
+  font-size: 20px;
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.div-manage-section {
+  width: 100vw;
+  height: 100vh;
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.div-manage-grid-section {
+  position: absolute;
+  top: 100px;
+  display: grid;
+  grid: ". .";
+  gap: 2vw;
+}
+.div-manage-grid-item {
+  width: 44vw;
+  height: 20vh;
+  background-color: rgba(255, 255, 255, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 25px;
+  border-radius: 5px;
+}

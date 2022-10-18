@@ -6,6 +6,9 @@ import Header from "./components/Header";
 import Main from "./components/Main";
 import Profile from "./components/Profile";
 import Ranking from "./components/Ranking";
+import Manage from "./components/Manage";
+import Warning from "./components/Warning";
+import Average from "./components/Average";
 
 function App() {
   return (
@@ -19,6 +22,9 @@ function App() {
           <Route path="/ranking" element={<Ranking />} />
           <Route path="/calendar" element={<Calendar />} />
           <Route path="/notice" element={<Notice />} />
+          <Route path="/manage" element={<Manage />} />
+          <Route path="/warning" element={<Warning />} />
+          <Route path="/average" element={<Average />} />
         </Routes>
       </BrowserRouter>
     </>

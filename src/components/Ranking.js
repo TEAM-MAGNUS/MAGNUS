@@ -34,19 +34,14 @@ function Ranking() {
   };
 
   const getRanking = (year, month) => {
-    const post1 = {
-      query:
-        "SELECT COUNT(DISTINCT attendance_date) as t from magnus_attendance WHERE (YEAR(attendance_date) = " +
-        year +
-        " AND MONTH(attendance_date) = " +
-        (month + 1) +
-        ");",
+    const post = {
+      year: year,
+      month: month,
     };
-    console.log(post1.query);
-    fetch("https://teammagnus.net/SQL1", {
+    fetch("https://teammagnus.net/getTotal", {
       method: "post",
       headers: { "content-type": "application/json" },
-      body: JSON.stringify(post1),
+      body: JSON.stringify(post),
     })
       .then((res) => res.json())
       .then((json) => {
@@ -54,18 +49,10 @@ function Ranking() {
         setTotal(json.t);
       });
 
-    const post2 = {
-      query:
-        "SELECT id, name, COUNT(id) AS c from magnus_attendance WHERE (YEAR(attendance_date) = " +
-        year +
-        " AND MONTH(attendance_date) = " +
-        (month + 1) +
-        ") AND (attendance = 0 OR attendance = 1) GROUP BY id ORDER BY c DESC;",
-    };
-    fetch("https://teammagnus.net/SQL2", {
+    fetch("https://teammagnus.net/getRanking", {
       method: "post",
       headers: { "content-type": "application/json" },
-      body: JSON.stringify(post2),
+      body: JSON.stringify(post),
     })
       .then((res) => res.json())
       .then((json) => {
@@ -84,7 +71,8 @@ function Ranking() {
       <div>
         {idx > 0 && ranking[idx].c < ranking[idx - 1].c ? ++rank : rank}
       </div>
-      <div> {user.name}</div>
+
+      <div className={rank == 1 ? "div-ranking-first" : ""}>{user.name}</div>
       <div className="div-ranking-percent">
         {((user.c / total) * 100).toFixed(1)}%
       </div>
