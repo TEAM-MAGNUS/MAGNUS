@@ -7,7 +7,6 @@ function Absence() {
   const [user, setUser] = useState([{}]);
 
   const getAbsence = () => {
-    // fetch("https://localhost/getAbsence", {
     fetch("https://teammagnus.net/getAbsence", {
       method: "post",
       headers: { "content-type": "application/json" },
@@ -24,7 +23,6 @@ function Absence() {
       date: date,
     };
     console.log(post.query);
-    // fetch("https://localhost/addAbsence", {
     fetch("https://teammagnus.net/addAbsence", {
       method: "post",
       headers: { "content-type": "application/json" },
@@ -38,7 +36,6 @@ function Absence() {
       date: date,
     };
     console.log(post.query);
-    // fetch("https://localhost/cancelAbsence", {
     fetch("https://teammagnus.net/cancelAbsence", {
       method: "post",
       headers: { "content-type": "application/json" },
@@ -101,7 +98,9 @@ function Absence() {
       <HiMinus
         className="button-absence-minus"
         onClick={() => {
-          cancelAbsence(user.name, user.date);
+          if (window.confirm("정말 삭제하시겠습니까?")) {
+            cancelAbsence(user.name, user.date);
+          }
         }}
       />
     </div>

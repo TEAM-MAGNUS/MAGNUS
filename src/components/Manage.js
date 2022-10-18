@@ -9,7 +9,7 @@ function Manage() {
           <div>회원 관리</div>
         </NavLink>
         <NavLink to="/average" className="link-header div-manage-grid-item">
-          <div>출석 평균</div>
+          <div>출석</div>
         </NavLink>
         <NavLink to="/warning" className="link-header div-manage-grid-item">
           <div>경고자</div>

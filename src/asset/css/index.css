@@ -355,7 +355,12 @@ th {
   display: flex;
   flex-direction: column;
 }
-
+.div-attendance-count {
+  margin-top: 30px;
+  font-size: 30px;
+  display: flex;
+  justify-content: center;
+}
 .icon-attendance-info {
   width: 20px;
   height: 20px;

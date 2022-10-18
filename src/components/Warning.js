@@ -6,7 +6,6 @@ function Warning() {
   const [user, setUser] = useState([{}]);
 
   const getWarning = () => {
-    // fetch("https://localhost/getWarning", {
     fetch("https://teammagnus.net/getWarning", {
       method: "post",
       headers: { "content-type": "application/json" },
@@ -33,7 +32,9 @@ function Warning() {
           <HiOutlineArrowLeft size="20" className="icon-back" />
         </NavLink>
         <div className="div-month">경고자</div>
-        <div className="div-warning-section-01"> {showWarning}</div>
+        <div className="div-warning-section-01">
+          {user == [{}] ? () => getWarning() : showWarning}
+        </div>
       </div>
     </div>
   );
