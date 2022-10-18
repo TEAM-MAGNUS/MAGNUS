@@ -146,15 +146,8 @@ function Notice() {
       <div className="div-month">공지사항</div>
       <div className="div-notice-section-01"> {showTitle}</div>
       {contentOpen ? showContent : <></>}
-      {writeOpen ? writePage : <></>}
       {writeOpen ? (
-        <HiX
-          className="button-notice-write"
-          onClick={() => {
-            setWriteOpen(false);
-            setNewContent("");
-          }}
-        />
+        writePage
       ) : (
         <HiPlus
           className="button-notice-write"
