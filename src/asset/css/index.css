@@ -184,7 +184,8 @@ body {
 }
 .img-profile-profile {
   width: 30vw;
-  padding-bottom: 15px;
+  margin-bottom: 15px;
+  border-radius: 10%;
 }
 .div-profile-date {
   position: absolute;
