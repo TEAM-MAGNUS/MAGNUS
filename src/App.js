@@ -16,6 +16,7 @@ import Member from "./components/Member";
 import MemberAttendance from "./components/MemberAttendance";
 import All from "./components/All";
 import ManageAttendance from "./components/ManageAttendance";
+import ManageAbsence from "./components/ManageAbsence";
 
 function App() {
   return (
@@ -38,6 +39,7 @@ function App() {
           <Route path="/memberAttendance" element={<MemberAttendance />} />
           <Route path="/all" element={<All />} />
           <Route path="/manageAttendance" element={<ManageAttendance />} />
+          <Route path="/manageAbsence" element={<ManageAbsence />} />
         </Routes>
       </BrowserRouter>
     </>

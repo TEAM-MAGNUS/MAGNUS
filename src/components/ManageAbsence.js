@@ -10,11 +10,10 @@ import {
 } from "react-icons/hi";
 import { PieChart, Pie, Sector, Cell } from "recharts";
 import { NavLink } from "react-router-dom";
-import { BsSdCardFill } from "react-icons/bs";
 
 const td = new Date();
 
-function ManageAttendance() {
+function ManageAbsence() {
   const thisYear = td.getFullYear();
   const thisMonth = td.getMonth();
   const date = td.getDate();
@@ -24,10 +23,12 @@ function ManageAttendance() {
 
   const preMonth = () => {
     if (month == 0) {
+      getWholeAttendance(year - 1, 11);
       getUserNum(year - 1, 11);
       setYear(year - 1);
       setMonth(11);
     } else {
+      getWholeAttendance(year, month - 1);
       getUserNum(year, month - 1);
       setMonth(month - 1);
     }
@@ -35,10 +36,12 @@ function ManageAttendance() {
   };
   const nextMonth = () => {
     if (month == 11) {
+      getWholeAttendance(year + 1, 0);
       getUserNum(year + 1, 0);
       setYear(year + 1);
       setMonth(0);
     } else {
+      getWholeAttendance(year, month + 1);
       getUserNum(year, month + 1);
       setMonth(month + 1);
     }
@@ -74,7 +77,6 @@ function ManageAttendance() {
   ];
 
   const [attendance, setAttendance] = useState([{}]);
-  const [attendanceType, setAttendanceType] = useState(0);
 
   var attendance0 = 0;
   var attendance1 = 0;
@@ -102,7 +104,6 @@ function ManageAttendance() {
   const getDateMember = (date) => {
     const post = {
       date: year + "-" + (month + 1) + "-" + date,
-      atype: attendanceType,
     };
     fetch("https://teammagnus.net/getDateMember", {
       method: "post",
@@ -112,6 +113,27 @@ function ManageAttendance() {
       .then((res) => res.json())
       .then((json) => {
         setUser(json);
+      });
+  };
+  const getWholeAttendance = (year, month) => {
+    attendance0 = 0;
+    attendance1 = 0;
+    attendance2 = 0;
+    attendance3 = 0;
+
+    const post = {
+      year: year,
+      month: month,
+    };
+    fetch("https://teammagnus.net/getWholeAttendance", {
+      method: "post",
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify(post),
+    })
+      .then((res) => res.json())
+      .then((json) => {
+        setAttendance(json);
+        update();
       });
   };
 
@@ -185,7 +207,6 @@ function ManageAttendance() {
   const getDateAttendance = (date) => {
     const post = {
       date: year + "-" + (month + 1) + "-" + date,
-      atype: attendanceType,
     };
     fetch("https://teammagnus.net/getDateAttendance", {
       method: "post",
@@ -199,6 +220,7 @@ function ManageAttendance() {
   };
 
   useEffect(() => {
+    getWholeAttendance(thisYear, thisMonth);
     getUserNum(thisYear, thisMonth);
   }, []);
 
@@ -210,43 +232,6 @@ function ManageAttendance() {
 
   const showCalendar = (
     <table className="div-calendar">
-      <thead>
-        <tr>
-          <th
-            style={{
-              backgroundColor: attendanceType == 0 ? "#d2000f" : "white",
-            }}
-            onClick={() => {
-              setAttendanceType(0);
-              setClicked({ week: null, date: null });
-            }}
-          >
-            출석
-          </th>
-          <th
-            style={{
-              backgroundColor: attendanceType == 1 ? "#d2000f" : "white",
-            }}
-            onClick={() => {
-              setAttendanceType(1);
-              setClicked({ week: null, date: null });
-            }}
-          >
-            지각
-          </th>
-          <th
-            style={{
-              backgroundColor: attendanceType == 2 ? "#d2000f" : "white",
-            }}
-            onClick={() => {
-              setAttendanceType(2);
-              setClicked({ week: null, date: null });
-            }}
-          >
-            불참
-          </th>
-        </tr>
-      </thead>
       <thead>
         <tr>
           <th>FRI</th>
@@ -359,12 +344,130 @@ function ManageAttendance() {
     </table>
   );
 
-  const addAttendance = () => {
+  const data = [
+    { name: "출석", value: attendance0 },
+    { name: "지각", value: attendance1 },
+    { name: "불참", value: attendance2 },
+    { name: "미통불", value: attendance3 },
+  ];
+  const COLORS = ["#d2000f", "#d2000f", "black", "black"];
+
+  const [activeIndex, setActiveIndex] = useState(0);
+
+  const onPieEnter = useCallback(
+    (_, index) => {
+      setActiveIndex(index);
+    },
+    [setActiveIndex]
+  );
+
+  const renderActiveShape = (props) => {
+    const RADIAN = Math.PI / 180;
+    const {
+      cx,
+      cy,
+      midAngle,
+      innerRadius,
+      outerRadius,
+      startAngle,
+      endAngle,
+      fill,
+      payload,
+      percent,
+      value,
+    } = props;
+    const sin = Math.sin(-RADIAN * midAngle);
+    const cos = Math.cos(-RADIAN * midAngle);
+    const sx = cx + (outerRadius + 10) * cos;
+    const sy = cy + (outerRadius + 10) * sin;
+    const mx = cx + (outerRadius + 20) * cos;
+    const my = cy + (outerRadius + 40) * sin;
+    const ex = mx + (cos >= 0 ? 1 : -1) * 10;
+    const ey = my;
+    const textAnchor = cos >= 0 ? "start" : "end";
+
+    return (
+      <g>
+        <text
+          x={cx}
+          y={cy}
+          dy={8}
+          textAnchor="middle"
+          style={{ fontSize: "20px" }}
+        >
+          평균
+        </text>
+        <Sector
+          cx={cx}
+          cy={cy}
+          innerRadius={innerRadius}
+          outerRadius={outerRadius}
+          startAngle={startAngle}
+          endAngle={endAngle}
+          fill={fill}
+        />
+        <Sector
+          cx={cx}
+          cy={cy}
+          startAngle={startAngle}
+          endAngle={endAngle}
+          innerRadius={outerRadius + 4}
+          outerRadius={outerRadius + 8}
+          fill={fill}
+        />
+        <path
+          d={`M${sx},${sy}L${mx},${my}L${ex},${ey}`}
+          stroke={fill}
+          fill="none"
+        />
+        <circle cx={ex} cy={ey} r={2} fill={fill} stroke="none" />
+        <text
+          x={ex + (cos >= 0 ? 1 : -1) * 10}
+          y={ey}
+          textAnchor={textAnchor}
+          fill="black"
+          style={{ fontSize: "15px" }}
+        >
+          {payload.name} {(value / userNum).toFixed(1)}
+        </text>
+        <text
+          x={ex + (cos >= 0 ? -1 : 1)}
+          y={ey}
+          dy={20}
+          textAnchor={textAnchor}
+          fill="black"
+          style={{ fontSize: "12px" }}
+        >
+          ({(percent * 100).toFixed(1)}%)
+        </text>
+      </g>
+    );
+  };
+
+  const pieChart = (
+    <PieChart width={400} height={400}>
+      <Pie
+        activeIndex={activeIndex}
+        activeShape={renderActiveShape}
+        data={data}
+        innerRadius={85}
+        outerRadius={110}
+        paddingAngle={3}
+        dataKey="value"
+        isAnimationActive={true}
+        onClick={onPieEnter}
+      >
+        {data.map((entry, index) => (
+          <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+        ))}
+      </Pie>
+    </PieChart>
+  );
+
+  const addAttendance = (name, pnum) => {
     const post = {
       name: name,
-      pnum: pnum,
-      atype: attendanceType,
-      date: year + "-" + (month + 1) + "-" + clicked.date,
+      date: date,
     };
     fetch("https://teammagnus.net/addAttendance", {
       method: "post",
@@ -372,19 +475,19 @@ function ManageAttendance() {
       body: JSON.stringify(post),
     }).then(window.location.reload());
   };
-  const removeAttendance = (name, pnum) => {
+  const removeAttendance = (name, date) => {
     const post = {
       name: name,
-      pnum: pnum,
-      atype: attendanceType,
-      date: year + "-" + (month + 1) + "-" + clicked.date,
+      date: date,
     };
-    fetch("https://teammagnus.net/removeAttendance", {
+    fetch("https://loaclhost/removeAttendance", {
+      // fetch("https://teammagnus.net/removeAttendance", {
       method: "post",
       headers: { "content-type": "application/json" },
       body: JSON.stringify(post),
     }).then(window.location.reload());
   };
+  const [isOpen, setOpen] = useState(false);
   const [name, setName] = useState("");
   const [pnum, setPnum] = useState("");
 
@@ -400,6 +503,34 @@ function ManageAttendance() {
     }
   };
 
+  const addPage = (
+    <>
+      <div className="div-absence-input">
+        <input
+          className="input-absence-write-name"
+          onChange={onChange}
+          name="name"
+          value={name}
+          placeholder="이름"
+        />
+        <input
+          className="input-absence-write-date"
+          onChange={onChange}
+          name="pnum"
+          value={pnum}
+          placeholder="000-0000-0000"
+        />
+        {name != "" && date != "" && (
+          <HiCheck
+            className="icon-absence-close"
+            onClick={() => addAttendance(name, pnum)}
+            style={{ backgroundColor: "#e79b42" }}
+          />
+        )}
+      </div>
+    </>
+  );
+
   const showAttendance = user.map((user, idx) => (
     <div key={idx} className="div-manage-attendance-section">
       <div className="div-member-name">{user.name}</div>
@@ -408,13 +539,12 @@ function ManageAttendance() {
         className="button-manage_attendance-minus"
         onClick={() => {
           if (window.confirm("정말 삭제하시겠습니까?")) {
-            removeAttendance(user.name, user.p);
+            removeAttendance(user.name, user.pnum);
           }
         }}
       />
     </div>
   ));
-
   return (
     <div className="div-attendance-section">
       <div className="div-notice-header"></div>
@@ -436,45 +566,43 @@ function ManageAttendance() {
           />
         )}
       </div>
-      <div className="div-manage-attendance-section-01">{showCalendar}</div>
+      <div className="div-attendance-section-01">{showCalendar}</div>
       {clicked.date != null && showAttendance}
+
       {clicked.date != null && (
         <>
           <div className="div-manage-attendance-section">
-            <input
-              className="div-member-name input-absence-write-name"
-              onChange={onChange}
-              name="name"
-              value={name}
-              placeholder="이름"
-            />
-
-            <input
-              className="div-member-pnum input-absence-write-date"
-              onChange={onChange}
-              name="pnum"
-              value={pnum}
-              placeholder="000-0000-0000"
-            />
-            <HiPlus
-              className="button-manage-attendance-check"
-              onClick={() => {
-                if (name != "" && pnum != "") addAttendance();
-                else window.alert("이름, 번호를 작성해주세요.");
-              }}
-            />
+            {isOpen ? (
+              <HiX
+                className="button-manage-attendance-write"
+                onClick={() => {
+                  setOpen(false);
+                }}
+              />
+            ) : (
+              <HiPlus
+                className="button-manage-attendance-write"
+                onClick={() => {
+                  setOpen(true);
+                }}
+              />
+            )}
           </div>
           <div
             className="div-manage-attendance-section"
-            style={{
-              background: "none",
-              paddingBottom: "4vh",
-            }}
-          ></div>
+            style={{ justifyContent: " right" }}
+          >
+            <HiCheck
+              className="button-manage-attendance-check"
+              onClick={() => {
+                setOpen(true);
+              }}
+            />
+          </div>
         </>
       )}
     </div>
   );
 }
 
-export default ManageAttendance;
+export default ManageAbsence;

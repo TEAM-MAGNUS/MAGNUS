@@ -20,8 +20,10 @@ function Attendance() {
   const [month, setMonth] = useState(thisMonth);
 
   ///////////////////////////////////////////////
-  const [name, setName] = useState("명지현우");
-  const [pnum, setPnum] = useState("010-9239-9937");
+
+  // const name = window.sessionStorage.getItem("name");
+  const name = "명지현우";
+  const pnum = "010-9239-9937";
   ///////////////////////////////////////////////
 
   const preMonth = () => {
