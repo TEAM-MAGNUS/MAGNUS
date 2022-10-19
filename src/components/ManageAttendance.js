@@ -441,26 +441,33 @@ function ManageAttendance() {
       {clicked.date != null && (
         <>
           <div className="div-manage-attendance-section">
-            <input
-              className="div-member-name input-absence-write-name"
-              onChange={onChange}
-              name="name"
-              value={name}
-              placeholder="이름"
-            />
-
-            <input
-              className="div-member-pnum input-absence-write-date"
-              onChange={onChange}
-              name="pnum"
-              value={pnum}
-              placeholder="000-0000-0000"
-            />
+            <div className="div-member-name">
+              <input
+                className="input-absence-write-name"
+                onChange={onChange}
+                name="name"
+                value={name}
+                placeholder="이름"
+                style={{ textAlign: "left" }}
+              />
+            </div>
+            <div className="div-member-pnum">
+              <input
+                className="input-absence-write-pnum"
+                onChange={onChange}
+                name="pnum"
+                value={pnum}
+                placeholder="000-0000-0000"
+              />
+            </div>
             <HiPlus
               className="button-manage-attendance-check"
               onClick={() => {
                 if (name != "" && pnum != "") addAttendance();
-                else window.alert("이름, 번호를 작성해주세요.");
+              }}
+              style={{
+                backgroundColor:
+                  name != "" && pnum != "" ? "#e79b42" : "rgba(0, 0, 0, 0.2)",
               }}
             />
           </div>

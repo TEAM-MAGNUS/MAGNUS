@@ -110,9 +110,12 @@ function Absence() {
             <HiPlus
               className="button-absence-minus"
               onClick={() => {
-                addAbsence(name, date);
+                if (name != "" && date != "") addAbsence(name, date);
               }}
-              style={{ backgroundColor: "#e79b42" }}
+              style={{
+                backgroundColor:
+                  name != "" && date != "" ? "#e79b42" : "rgba(0, 0, 0, 0.2)",
+              }}
             />
           </div>
         </div>
