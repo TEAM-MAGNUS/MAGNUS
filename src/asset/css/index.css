@@ -358,8 +358,7 @@ th {
   flex-direction: column;
 }
 .div-attendance-count {
-  margin-top: 20px;
-  font-size: 30px;
+  font-size: 20px;
   display: flex;
   justify-content: center;
 }
@@ -608,7 +607,15 @@ th {
   font-size: 15px;
   border-radius: 100%;
 }
-
+.button-manage-attendance-write {
+  width: 15px;
+  height: 15px;
+  padding: 5px;
+  background-color: #d2000f;
+  text-align: center;
+  font-size: 15px;
+  border-radius: 100%;
+}
 .div-notice-write-section {
   margin-top: 50px;
   display: flex;
@@ -653,6 +660,15 @@ th {
 .button-absence-minus {
   position: absolute;
   right: 5vw;
+  width: 15px;
+  height: 15px;
+  padding: 5px;
+  background-color: #d2000f;
+  text-align: center;
+  font-size: 20px;
+  border-radius: 100%;
+}
+.button-manage_attendance-minus {
   width: 15px;
   height: 15px;
   padding: 5px;
@@ -771,6 +787,18 @@ th {
   margin-top: 20px;
 }
 
+.div-manage-attendance-section-02 {
+  width: 70vw;
+  height: 5vh;
+  padding: 0 15vw 0 5vw;
+  border-bottom: 1.5px solid rgba(0, 0, 0, 0.2);
+
+  font-size: 20px;
+  display: flex;
+  justify-content: space-around;
+  margin-top: 20px;
+}
+
 .icon-back {
   position: absolute;
   left: 5vw;
@@ -806,6 +834,17 @@ th {
   justify-content: space-between;
   align-items: center;
   margin-bottom: 10px;
+}
+.div-manage-attendance-section {
+  width: 70vw;
+  height: 6vh;
+  padding: 10px 5vw 10px 5vw;
+  border-radius: 5px;
+  background-color: rgba(255, 255, 255, 0.4);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 10px;
 }
 .div-member-name {
   font-size: 20px;
@@ -898,6 +937,15 @@ th {
   position: absolute;
   top: 140px;
   right: 10vw;
+  width: 15px;
+  height: 15px;
+  padding: 5px;
+  background-color: #e79b42;
+  text-align: center;
+  font-size: 15px;
+  border-radius: 100%;
+}
+.button-manage-attendance-check {
   width: 15px;
   height: 15px;
   padding: 5px;
