@@ -7,15 +7,9 @@ function Notice() {
   const [writeOpen, setWriteOpen] = useState(false);
 
   const getNotice = () => {
-    const post = {
-      query:
-        "SELECT num, title, content, DATE_FORMAT(notice_time, '%Y.%m.%d') as time FROM magnus_notice ORDER BY num DESC;",
-    };
-
-    fetch("https://teammagnus.net/SQL2", {
+    fetch("https://teammagnus.net/getNotice", {
       method: "post",
       headers: { "content-type": "application/json" },
-      body: JSON.stringify(post),
     })
       .then((res) => res.json())
       .then((json) => {
@@ -32,28 +26,22 @@ function Notice() {
 
   const writeNotice = () => {
     const post = {
-      query:
-        "INSERT INTO magnus_notice (title, content, notice_time) VALUES ('" +
-        newTitle +
-        "','" +
-        newContent +
-        "', NOW());",
+      title: newTitle,
+      content: newContent,
     };
 
-    fetch("https://teammagnus.net/SQL1", {
+    fetch("https://teammagnus.net/writeNotice", {
       method: "post",
       headers: { "content-type": "application/json" },
       body: JSON.stringify(post),
-    });
-
-    window.location.reload();
+    }).then(window.location.reload());
   };
 
   const removeNotice = (num) => {
     const post = {
-      query: "DELETE FROM magnus_notice WHERE ( num = " + num + ");",
+      num: num,
     };
-    fetch("https://teammagnus.net/SQL1", {
+    fetch("https://teammagnus.net/removeNotice", {
       method: "post",
       headers: { "content-type": "application/json" },
       body: JSON.stringify(post),
@@ -140,9 +128,7 @@ function Notice() {
           setNewContent("");
         }}
       />
-      {newTitle == "" || newContent == "" ? (
-        <></>
-      ) : (
+      {newTitle != "" && newContent != "" && (
         <HiCheck className="icon-notice-close" onClick={() => writeNotice()} />
       )}
     </div>
@@ -157,16 +143,9 @@ function Notice() {
       <div className="div-notice-header"></div>
       <div className="div-month">공지사항</div>
       <div className="div-notice-section-01"> {showTitle}</div>
-      {contentOpen ? showContent : <></>}
-      {writeOpen ? writePage : <></>}
+      {contentOpen && showContent}
       {writeOpen ? (
-        <HiX
-          className="button-notice-write"
-          onClick={() => {
-            setWriteOpen(false);
-            setNewContent("");
-          }}
-        />
+        writePage
       ) : (
         <HiPlus
           className="button-notice-write"
