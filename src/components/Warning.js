@@ -4,7 +4,6 @@ import { NavLink } from "react-router-dom";
 
 function Warning() {
   const [user, setUser] = useState([{}]);
-  const [isGetting, setIsGetting] = useState(true);
   const getWarning = () => {
     fetch("https://teammagnus.net/getWarning", {
       method: "post",
@@ -12,10 +11,9 @@ function Warning() {
     })
       .then((res) => res.json())
       .then((json) => {
+        console.log(json);
         setUser(json);
-        setIsGetting(false);
       });
-    if (user.length == 0) setIsGetting(true);
   };
 
   useEffect(() => {
@@ -25,6 +23,7 @@ function Warning() {
   const showWarning = user.map((user, idx) => (
     <div key={idx} className="div-warning-section-02">
       <div>{user.name}</div>
+      <div>{user.pnum}</div>
     </div>
   ));
 

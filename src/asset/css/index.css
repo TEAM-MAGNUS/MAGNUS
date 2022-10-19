@@ -97,7 +97,8 @@ body {
   position: fixed;
   top: 0;
   left: 0;
-  background-color: #d2000f;
+  background-color: #ae0000;
+  /* background-color: #d2000f; */
   border-radius: 0 0 10px 10px;
   padding-top: 90px;
   padding-bottom: 40px;
@@ -325,6 +326,7 @@ th {
 }
 .div-calendar-schedule-02 {
   font-size: 20px;
+  margin-bottom: 10px;
   text-align: center;
 }
 
@@ -348,7 +350,7 @@ th {
 }
 
 .button-calendar-schedule-write {
-  margin-top: 20px;
+  margin-top: 10px;
   width: 15px;
   height: 15px;
   padding: 5px;
@@ -581,7 +583,7 @@ th {
   background-color: #d2000f;
   padding: 5px;
   border-radius: 100%;
-  margin-top: 20px;
+  margin-top: 10px;
 }
 
 .scrollLock {
@@ -726,6 +728,15 @@ th {
   font-family: "Nh";
   text-align: center;
 }
+.input-absence-write-pnum {
+  width: 40vw;
+  border: none;
+  font-size: 12px;
+  background: none;
+
+  border-radius: 5px;
+  font-family: "Nh";
+}
 ::placeholder {
   color: rgba(0, 0, 0, 0.2);
 }
@@ -813,7 +824,7 @@ th {
 
   font-size: 20px;
   display: flex;
-  justify-content: center;
+  justify-content: space-around;
   margin-top: 20px;
 }
 
@@ -1037,6 +1048,17 @@ th {
   font-size: 15px;
   border-radius: 100%;
 }
+.button-member-remove-check {
+  width: 15px;
+  height: 15px;
+  padding: 5px;
+  margin-left: 10px;
+  background-color: rgba(0, 0, 0, 0.2);
+  text-align: center;
+  font-size: 15px;
+  border-radius: 100%;
+}
+
 /*///////*/
 .div-member-input {
   width: 90vw;
@@ -1047,12 +1069,10 @@ th {
   margin-bottom: 15px;
 }
 .input-member-write-name {
-  width: 20vw;
+  width: 25vw;
   border: none;
   font-size: 20px;
-  padding-left: 5vw;
-  background-color: rgba(255, 255, 255, 0.4);
-  border-radius: 5px;
+  background: none;
   font-family: "Nh";
   text-align: left;
 }
@@ -1061,8 +1081,7 @@ th {
   width: 30vw;
   border: none;
   font-size: 12px;
-  padding: 10px;
-  background-color: rgba(255, 255, 255, 0.4);
+  background: none;
   border-radius: 5px;
   font-family: "Nh";
   text-align: center;
@@ -1072,9 +1091,7 @@ th {
   width: 20vw;
   border: none;
   font-size: 15px;
-  padding-right: 5vw;
-  background-color: rgba(255, 255, 255, 0.4);
-  border-radius: 5px;
+  background: none;
   font-family: "Nh";
   text-align: right;
 }

@@ -166,14 +166,6 @@ function Calendar() {
           onChange={onChange}
           value={text}
         ></input>
-        {text === "" ? (
-          <></>
-        ) : (
-          <HiCheck
-            className="button-calendar-schedule-add"
-            onClick={() => addSchedule(now.date, text)}
-          />
-        )}
       </div>
     </>
   );
@@ -217,13 +209,24 @@ function Calendar() {
 
       {schedule === "등록된 일정이 없습니다." ? (
         isOpen2 ? (
-          <HiX
-            className="button-calendar-schedule-write"
-            onClick={() => {
-              setOpen2(false);
-              setText("");
-            }}
-          />
+          <>
+            <HiX
+              className="button-calendar-schedule-write"
+              onClick={() => {
+                setOpen2(false);
+                setText("");
+              }}
+            />
+            {text === "" ? (
+              <></>
+            ) : (
+              <HiCheck
+                className="button-calendar-schedule-write"
+                style={{ backgroundColor: "#e79b42" }}
+                onClick={() => addSchedule(now.date, text)}
+              />
+            )}
+          </>
         ) : (
           <HiPlus
             className="button-calendar-schedule-write"

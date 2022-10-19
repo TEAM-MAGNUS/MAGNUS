@@ -129,7 +129,11 @@ function Notice() {
         }}
       />
       {newTitle != "" && newContent != "" && (
-        <HiCheck className="icon-notice-close" onClick={() => writeNotice()} />
+        <HiCheck
+          className="icon-notice-close"
+          onClick={() => writeNotice()}
+          style={{ backgroundColor: "#e79b42" }}
+        />
       )}
     </div>
   );
