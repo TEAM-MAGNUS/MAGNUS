@@ -13,12 +13,14 @@ body {
   top: 100px;
   left: 90px;
   transform: translateY(50%);
+  z-index: 10;
 }
 .icon-right {
   position: absolute;
   top: 100px;
   right: 90px;
   transform: translateY(50%);
+  z-index: 10;
 }
 
 @font-face {
@@ -249,7 +251,10 @@ body {
   color: #d2000f;
   width: 40px;
   display: flex;
-  justify-content: right;
+  justify-content: ease-in;
+}
+.div-ranking-first {
+  color: #e79b42;
 }
 /*------------------------------*/ /* Ranking.js */
 
@@ -327,22 +332,22 @@ th {
 
 .button-calendar-schedule-write {
   margin-top: 20px;
-  width: 20px;
-  height: 20px;
+  width: 15px;
+  height: 15px;
   padding: 5px;
   background-color: #d2000f;
   text-align: center;
-  font-size: 20px;
+  font-size: 15px;
   border-radius: 100%;
 }
 
 .button-calendar-schedule-add {
-  width: 20px;
-  height: 20px;
+  width: 15px;
+  height: 15px;
   padding: 5px;
-  background-color: #d2000f;
+  background-color: #e79b42;
   text-align: center;
-  font-size: 20px;
+  font-size: 15px;
 }
 /*------------------------------*/ /* Calendar.js */
 
@@ -352,7 +357,12 @@ th {
   display: flex;
   flex-direction: column;
 }
-
+.div-attendance-count {
+  margin-top: 20px;
+  font-size: 30px;
+  display: flex;
+  justify-content: center;
+}
 .icon-attendance-info {
   width: 20px;
   height: 20px;
@@ -425,6 +435,7 @@ th {
   height: 100vh;
   position: absolute;
   top: 0;
+  left: 0;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -487,6 +498,27 @@ th {
   justify-content: center;
   align-items: center;
 }
+.div-member-piechart-01 {
+  width: 80vw;
+  height: 40vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.div-member-piechart-02 {
+  position: absolute;
+  bottom: 100px;
+  width: 80vw;
+  height: 20vh;
+  font-size: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.div-member-all-month {
+  font-size: 20px;
+  text-align: center;
+}
 
 /* Notice.js */ /*------------------------------*/
 .div-notice-section-01 {
@@ -523,8 +555,8 @@ th {
   padding: 0 5vw 0 5vw;
 }
 .icon-notice-close {
-  width: 20px;
-  height: 20px;
+  width: 15px;
+  height: 15px;
   background-color: #d2000f;
   padding: 5px;
   border-radius: 100%;
@@ -550,11 +582,13 @@ th {
   margin-top: 20px;
   width: 80vw;
   height: 50vh;
-  background-color: rgba(255, 255, 255, 0.5);
+  background-color: rgba(255, 255, 255, 0.4);
   word-wrap: break-word;
   font-size: 20px;
   padding: 5vw;
+  border-radius: 5px;
 }
+
 .div-ranking-percent {
   color: #d2000f;
   width: 40px;
@@ -564,14 +598,14 @@ th {
 
 .button-notice-write {
   position: absolute;
-  top: 100px;
+  top: 105px;
   right: 10vw;
-  width: 20px;
-  height: 20px;
+  width: 15px;
+  height: 15px;
   padding: 5px;
   background-color: #d2000f;
   text-align: center;
-  font-size: 20px;
+  font-size: 15px;
   border-radius: 100%;
 }
 
@@ -587,7 +621,73 @@ th {
   font-size: 30px;
   font-weight: 900;
   text-align: center;
-  background-color: rgba(255, 255, 255, 0.5);
+  background-color: rgba(255, 255, 255, 0.4);
+  border-radius: 5px;
+}
+::placeholder {
+  color: rgba(0, 0, 0, 0.2);
+}
+
+.div-absence-input {
+  width: 70vw;
+  height: 5vh;
+  padding: 0 15vw 0 5vw;
+
+  font-size: 15px;
+  display: flex;
+  justify-content: space-around;
+  margin-top: 15px;
+}
+.icon-absence-close {
+  position: absolute;
+  margin-top: 5px;
+  right: 5vw;
+  width: 15px;
+  height: 15px;
+  padding: 5px;
+  background-color: #d2000f;
+  text-align: center;
+  font-size: 15px;
+  border-radius: 100%;
+}
+.button-absence-minus {
+  position: absolute;
+  right: 5vw;
+  width: 15px;
+  height: 15px;
+  padding: 5px;
+  background-color: #d2000f;
+  text-align: center;
+  font-size: 20px;
+  border-radius: 100%;
+}
+.div-absence-check {
+  width: 90vw;
+  display: flex;
+  justify-content: center;
+}
+.input-absence-write-name {
+  width: 20vw;
+  border: none;
+  font-size: 20px;
+  padding: 5px;
+  background-color: rgba(255, 255, 255, 0.4);
+  border-radius: 5px;
+  font-family: "Nh";
+  text-align: center;
+}
+::placeholder {
+  color: rgba(0, 0, 0, 0.2);
+}
+.input-absence-write-date {
+  width: 40vw;
+  border: none;
+  font-size: 20px;
+  padding: 5px;
+  background-color: rgba(255, 255, 255, 0.4);
+  border-radius: 5px;
+  font-family: "Nh";
+  text-align: center;
 }
 ::placeholder {
   color: rgba(0, 0, 0, 0.2);
@@ -659,3 +759,239 @@ th {
   color: rgba(0, 0, 0, 0.2);
 }
 /*------------------------------*/ /* KakaoLogin.js */
+
+.div-absence-section-01 {
+  position: absolute;
+  top: 200px;
+}
+.div-warning-section-01 {
+  position: absolute;
+  top: 200px;
+}
+.div-warning-section-02 {
+  width: 80vw;
+  height: 5vh;
+  padding: 0 5vw 0 5vw;
+  border-bottom: 1.5px solid rgba(0, 0, 0, 0.2);
+
+  font-size: 20px;
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.div-manage-section {
+  width: 100vw;
+  height: 100vh;
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.div-manage-grid-section {
+  position: absolute;
+  top: 100px;
+  display: grid;
+  grid: ". .";
+  gap: 2vw;
+}
+.div-manage-grid-item {
+  width: 44vw;
+  height: 20vh;
+  background-color: rgba(255, 255, 255, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 25px;
+  border-radius: 5px;
+}
+.div-absence-section-02 {
+  width: 70vw;
+  height: 5vh;
+  padding: 0 15vw 0 5vw;
+  border-bottom: 1.5px solid rgba(0, 0, 0, 0.2);
+
+  font-size: 20px;
+  display: flex;
+  justify-content: space-around;
+  margin-top: 20px;
+}
+
+.icon-back {
+  position: absolute;
+  left: 5vw;
+  top: 100px;
+  transform: translateY(50%);
+  z-index: 20;
+}
+.icon-go {
+  position: absolute;
+  right: 5vw;
+  top: 100px;
+  transform: translateY(50%);
+  z-index: 20;
+}
+.button-absence-add {
+  margin-top: 30px;
+  width: 15px;
+  height: 15px;
+  padding: 5px;
+  background-color: #e79b42;
+  text-align: center;
+  font-size: 15px;
+  border-radius: 100%;
+}
+
+.div-member-section {
+  width: 80vw;
+  height: 6vh;
+  padding: 10px 5vw 10px 5vw;
+  border-radius: 5px;
+  background-color: rgba(255, 255, 255, 0.4);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+.div-member-name {
+  font-size: 20px;
+  width: 25vw;
+  text-align: left;
+}
+.div-member-pnum {
+  font-size: 12px;
+  width: 30vw;
+  text-align: center;
+}
+.div-member-join {
+  font-size: 15px;
+  width: 20vw;
+  text-align: right;
+}
+
+.div-member-updown-section {
+  width: 80vw;
+  margin: 0 5vw 0 5vw;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 5px;
+  font-size: 25px;
+}
+
+.div-member-updown {
+  width: 15vw;
+  display: flex;
+  justify-content: space-between;
+}
+.div-member-section-01 {
+  position: absolute;
+  top: 195px;
+}
+.icon-color {
+  color: #d2000f;
+}
+
+.div-member-attendance-section {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  background-color: #ede9d0;
+  z-index: 10;
+}
+.button-member-attendance-detail {
+  margin-top: 20px;
+  width: 15px;
+  height: 15px;
+  padding: 5px;
+  background-color: #d2000f;
+  text-align: center;
+  font-size: 15px;
+  border-radius: 100%;
+}
+
+.button-member-plus {
+  position: absolute;
+  top: 105px;
+  right: 10vw;
+  width: 15px;
+  height: 15px;
+  padding: 5px;
+  background-color: #d2000f;
+  text-align: center;
+  font-size: 15px;
+  border-radius: 100%;
+}
+.button-member-minus {
+  position: absolute;
+  top: 140px;
+  right: 10vw;
+  width: 15px;
+  height: 15px;
+  padding: 5px;
+  background-color: #d2000f;
+  text-align: center;
+  font-size: 15px;
+  border-radius: 100%;
+}
+.button-member-check {
+  position: absolute;
+  top: 140px;
+  right: 10vw;
+  width: 15px;
+  height: 15px;
+  padding: 5px;
+  background-color: #e79b42;
+  text-align: center;
+  font-size: 15px;
+  border-radius: 100%;
+}
+/*///////*/
+.div-member-input {
+  width: 90vw;
+  height: 6vh;
+  display: flex;
+  justify-content: space-between;
+  margin-top: 15px;
+  margin-bottom: 15px;
+}
+.input-member-write-name {
+  width: 20vw;
+  border: none;
+  font-size: 20px;
+  padding-left: 5vw;
+  background-color: rgba(255, 255, 255, 0.4);
+  border-radius: 5px;
+  font-family: "Nh";
+  text-align: left;
+}
+
+.input-member-write-pnum {
+  width: 30vw;
+  border: none;
+  font-size: 12px;
+  padding: 10px;
+  background-color: rgba(255, 255, 255, 0.4);
+  border-radius: 5px;
+  font-family: "Nh";
+  text-align: center;
+}
+
+.input-member-write-joindate {
+  width: 20vw;
+  border: none;
+  font-size: 15px;
+  padding-right: 5vw;
+  background-color: rgba(255, 255, 255, 0.4);
+  border-radius: 5px;
+  font-family: "Nh";
+  text-align: right;
+}

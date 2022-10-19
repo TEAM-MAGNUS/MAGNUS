@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import dayjs from "dayjs";
 import {
   HiPlus,
   HiX,
@@ -137,16 +136,11 @@ function Calendar() {
 
   const getSchedule = (date) => {
     const post = {
-      query:
-        "SELECT schedule from magnus_schedule WHERE (schedule_date = '" +
-        year +
-        "-" +
-        (month + 1) +
-        "-" +
-        date +
-        "');",
+      year: year,
+      month: month,
+      date: date,
     };
-    fetch("https://teammagnus.net/SQL1", {
+    fetch("https://teammagnus.net/getSchedule", {
       method: "post",
       headers: { "content-type": "application/json" },
       body: JSON.stringify(post),
@@ -186,19 +180,13 @@ function Calendar() {
 
   const addSchedule = (date, schedule) => {
     const post = {
-      query:
-        "INSERT INTO magnus_schedule VALUES ('" +
-        year +
-        "-" +
-        (month + 1) +
-        "-" +
-        date +
-        "', '" +
-        schedule +
-        "');",
+      year: year,
+      month: month,
+      date: date,
+      schedule: schedule,
     };
     console.log(post.query);
-    fetch("https://teammagnus.net/SQL1", {
+    fetch("https://teammagnus.net/addSchedule", {
       method: "post",
       headers: { "content-type": "application/json" },
       body: JSON.stringify(post),
@@ -207,17 +195,12 @@ function Calendar() {
 
   const removeSchedule = (date) => {
     const post = {
-      query:
-        "DELETE FROM magnus_schedule WHERE ( schedule_date = '" +
-        year +
-        "-" +
-        (month + 1) +
-        "-" +
-        date +
-        "');",
+      year: year,
+      month: month,
+      date: date,
     };
     console.log(post.query);
-    fetch("https://teammagnus.net/SQL1", {
+    fetch("https://teammagnus.net/removeSchedule", {
       method: "post",
       headers: { "content-type": "application/json" },
       body: JSON.stringify(post),
@@ -336,9 +319,7 @@ function Calendar() {
   return (
     <div className="div-calendar-section">
       <div className="div-month">
-        {year == thisYear && month == thisMonth ? (
-          <></>
-        ) : (
+        {(year != thisYear || month != thisMonth) && (
           <HiChevronLeft
             className="icon-left"
             size="20"
@@ -353,7 +334,7 @@ function Calendar() {
         />
       </div>
       <div className="div-attendance-section-01">{showCalendar}</div>
-      {isOpen1 ? showSchedule : <></>}
+      {isOpen1 && showSchedule}
     </div>
   );
 }

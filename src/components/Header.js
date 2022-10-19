@@ -111,6 +111,18 @@ function Header() {
             >
               NOTICE
             </NavLink>
+            <br />
+            -
+            <br />
+            <NavLink
+              className="link-header"
+              to="/manage"
+              onClick={() => {
+                onToggle();
+              }}
+            >
+              MANAGE
+            </NavLink>
           </div>
         </div>
       )}

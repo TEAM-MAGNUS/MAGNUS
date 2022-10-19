@@ -8,6 +8,13 @@ import KakaoLogin from "./components/KakaoLogin";
 import Notice from "./components/Notice";
 import Profile from "./components/Profile";
 import Ranking from "./components/Ranking";
+import Manage from "./components/Manage";
+import Warning from "./components/Warning";
+import Average from "./components/Average";
+import Absence from "./components/Absence";
+import Member from "./components/Member";
+import MemberAttendance from "./components/MemberAttendance";
+import All from "./components/All";
 
 function App() {
   return (
@@ -22,6 +29,13 @@ function App() {
           <Route path="/ranking" element={<Ranking />} />
           <Route path="/calendar" element={<Calendar />} />
           <Route path="/notice" element={<Notice />} />
+          <Route path="/manage" element={<Manage />} />
+          <Route path="/warning" element={<Warning />} />
+          <Route path="/average" element={<Average />} />
+          <Route path="/absence" element={<Absence />} />
+          <Route path="/member" element={<Member />} />
+          <Route path="/memberAttendance" element={<MemberAttendance />} />
+          <Route path="/all" element={<All />} />
         </Routes>
       </BrowserRouter>
     </>
