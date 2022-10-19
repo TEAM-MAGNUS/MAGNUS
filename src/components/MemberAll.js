@@ -135,7 +135,7 @@ function MemberAll(props) {
         <text
           x={cx}
           y={cy}
-          dy={-10}
+          dy={-16}
           textAnchor="middle"
           style={{ fontSize: "20px" }}
         >
@@ -144,7 +144,7 @@ function MemberAll(props) {
         <text
           x={cx}
           y={cy}
-          dy={15}
+          dy={8}
           textAnchor="middle"
           style={{ fontSize: "15px" }}
         >
@@ -153,7 +153,7 @@ function MemberAll(props) {
         <text
           x={cx}
           y={cy}
-          dy={40}
+          dy={32}
           textAnchor="middle"
           style={{ fontSize: "20px" }}
         >

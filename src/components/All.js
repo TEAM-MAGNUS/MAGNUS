@@ -26,8 +26,7 @@ function All(props) {
     const post = {
       pnum: pnum,
     };
-    fetch("https://localhost/getJoin", {
-      // fetch("https://teammagnus.net/getJoin", {
+    fetch("https://teammagnus.net/getJoin", {
       method: "post",
       headers: { "content-type": "application/json" },
       body: JSON.stringify(post),
@@ -47,8 +46,7 @@ function All(props) {
     const post = {
       name: name,
     };
-    fetch("https://localhost/getAll", {
-      // fetch("https://teammagnus.net/getAll", {
+    fetch("https://teammagnus.net/getAll", {
       method: "post",
       headers: { "content-type": "application/json" },
       body: JSON.stringify(post),
