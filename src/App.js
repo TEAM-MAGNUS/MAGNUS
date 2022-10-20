@@ -15,6 +15,9 @@ import Absence from "./components/Absence";
 import Member from "./components/Member";
 import MemberAttendance from "./components/MemberAttendance";
 import All from "./components/All";
+import NotFound from "./components/NotFound";
+
+import Protected from "./components/Protected";
 
 function App() {
   return (
@@ -22,20 +25,21 @@ function App() {
       <BrowserRouter>
         <Header />
         <Routes>
-          <Route path="/" exact={true} element={<Main />} />
-          <Route path="/profile" element={<Profile />} />
-          <Route path="/attendance" element={<Attendance />} />
+          <Route path="/" element={<Main />} />
+          <Route path="/profile" element={<Protected element={Profile} />} />
+          <Route path="/attendance" element={<Protected element={Attendance} />} />
           <Route path="/kakaoLogin" element={<KakaoLogin />} />
-          <Route path="/ranking" element={<Ranking />} />
-          <Route path="/calendar" element={<Calendar />} />
-          <Route path="/notice" element={<Notice />} />
-          <Route path="/manage" element={<Manage />} />
-          <Route path="/warning" element={<Warning />} />
-          <Route path="/average" element={<Average />} />
-          <Route path="/absence" element={<Absence />} />
-          <Route path="/member" element={<Member />} />
-          <Route path="/memberAttendance" element={<MemberAttendance />} />
-          <Route path="/all" element={<All />} />
+          <Route path="/ranking" element={<Protected element={Ranking} />} />
+          <Route path="/calendar" element={<Protected element={Calendar} />} />
+          <Route path="/notice" element={<Protected element={Notice} />} />
+          <Route path="/manage" element={<Protected element={Manage} />} />
+          <Route path="/warning" element={<Protected element={Warning} />} />
+          <Route path="/average" element={<Protected element={Average} />} />
+          <Route path="/absence" element={<Protected element={Absence} />} />
+          <Route path="/member" element={<Protected element={Member} />} />
+          <Route path="/memberAttendance" element={<Protected element={MemberAttendance} />} />
+          <Route path="/all" element={<Protected element={All} />} />
+          <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
     </>
