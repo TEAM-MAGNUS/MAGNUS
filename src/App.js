@@ -15,6 +15,8 @@ import Absence from "./components/Absence";
 import Member from "./components/Member";
 import MemberAttendance from "./components/MemberAttendance";
 import All from "./components/All";
+import ManageAttendance from "./components/ManageAttendance";
+import ManageAbsence from "./components/ManageAbsence";
 import NotFound from "./components/NotFound";
 
 import Protected from "./components/Protected";
@@ -39,6 +41,8 @@ function App() {
           <Route path="/member" element={<Protected element={Member} />} />
           <Route path="/memberAttendance" element={<Protected element={MemberAttendance} />} />
           <Route path="/all" element={<Protected element={All} />} />
+          <Route path="/manageAttendance" element={<ManageAttendance />} />
+          <Route path="/manageAbsence" element={<ManageAbsence />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>

@@ -2,9 +2,10 @@ import { React, useEffect, useState } from "react";
 import { HiRefresh, HiOutlineArrowLeft } from "react-icons/hi";
 import { NavLink } from "react-router-dom";
 
+const td = new Date();
+
 function Warning() {
   const [user, setUser] = useState([{}]);
-  const [isGetting, setIsGetting] = useState(true);
   const getWarning = () => {
     fetch("https://teammagnus.net/getWarning", {
       method: "post",
@@ -12,10 +13,9 @@ function Warning() {
     })
       .then((res) => res.json())
       .then((json) => {
+        console.log(json);
         setUser(json);
-        setIsGetting(false);
       });
-    if (user.length == 0) setIsGetting(true);
   };
 
   useEffect(() => {
@@ -24,12 +24,14 @@ function Warning() {
 
   const showWarning = user.map((user, idx) => (
     <div key={idx} className="div-warning-section-02">
-      <div>{user.name}</div>
+      <div>{user.n}</div>
+      <div>{user.p}</div>
     </div>
   ));
 
   return (
     <div>
+      <div className="div-notice-header"></div>
       <div className="div-attendance-section">
         <NavLink to="/manage" className="link-header">
           <HiOutlineArrowLeft size="20" className="icon-back" />
@@ -41,6 +43,14 @@ function Warning() {
           ) : (
             showWarning
           )}
+          {/* {td.getDay() === 0 || td.getDay() === 5 || td.getDay() === 6 ? (
+            <>명단 업데이트 중입니다.</>
+          ) : 
+          user.length == 0 ? (
+            <HiRefresh onClick={() => window.location.reload()} size="25" />
+          ) : (
+            showWarning
+          )} */}
         </div>
       </div>
     </div>

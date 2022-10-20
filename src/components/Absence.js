@@ -62,33 +62,6 @@ function Absence() {
       default:
     }
   };
-  const addPage = (
-    <>
-      <div className="div-absence-input">
-        <input
-          className="input-absence-write-name"
-          onChange={onChange}
-          name="name"
-          value={name}
-          placeholder="이름"
-        />
-        <input
-          className="input-absence-write-date"
-          onChange={onChange}
-          name="date"
-          value={date}
-          placeholder="YYYY.MM.DD"
-        />
-        {name != "" && date != "" && (
-          <HiCheck
-            className="icon-absence-close"
-            onClick={() => addAbsence(name, date)}
-            style={{ backgroundColor: "#e79b42" }}
-          />
-        )}
-      </div>
-    </>
-  );
 
   const showWarning = user.map((user, idx) => (
     <div key={idx} className="div-absence-section-02">
@@ -113,28 +86,38 @@ function Absence() {
           </NavLink>
           미통보 불참
         </div>
-        {isOpen ? (
-          <>
-            <HiX
-              className="button-notice-write"
-              onClick={() => {
-                setOpen(false);
-                setName("");
-                setDate("");
-              }}
-            />
-          </>
-        ) : (
-          <HiPlus
-            className="button-notice-write"
-            onClick={() => {
-              setOpen(true);
-            }}
-          />
-        )}
         <div className="div-absence-section-01">
           {showWarning}
-          {isOpen && addPage}
+          <div className="div-absence-section-02">
+            <div>
+              <input
+                className="input-absence-write-name"
+                onChange={onChange}
+                name="name"
+                value={name}
+                placeholder="이름"
+              />
+            </div>
+            <div>
+              <input
+                className="input-absence-write-date"
+                onChange={onChange}
+                name="date"
+                value={date}
+                placeholder="YYYY.MM.DD"
+              />
+            </div>
+            <HiPlus
+              className="button-absence-minus"
+              onClick={() => {
+                if (name != "" && date != "") addAbsence(name, date);
+              }}
+              style={{
+                backgroundColor:
+                  name != "" && date != "" ? "#e79b42" : "rgba(0, 0, 0, 0.2)",
+              }}
+            />
+          </div>
         </div>
       </div>
     </div>

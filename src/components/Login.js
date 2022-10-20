@@ -1,6 +1,6 @@
 function isLogin() {
-    if (window.sessionStorage.getItem("ID")) return true;
-    else return false;
+  if (window.sessionStorage.getItem("id")) return true;
+  else return false;
 }
 
 export default isLogin;

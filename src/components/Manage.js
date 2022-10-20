@@ -8,14 +8,20 @@ function Manage() {
         <NavLink to="/member" className="link-header div-manage-grid-item">
           <div>회원 관리</div>
         </NavLink>
-        <NavLink to="/average" className="link-header div-manage-grid-item">
-          <div>출석</div>
+        <NavLink
+          to="/manageAttendance"
+          className="link-header div-manage-grid-item"
+        >
+          <div>출석 관리</div>
         </NavLink>
         <NavLink to="/warning" className="link-header div-manage-grid-item">
           <div>경고자</div>
         </NavLink>
         <NavLink to="/absence" className="link-header div-manage-grid-item">
           <div>미통보 불참</div>
+        </NavLink>
+        <NavLink to="/average" className="link-header div-manage-grid-item">
+          <div>출석 통계</div>
         </NavLink>
       </div>
     </div>
