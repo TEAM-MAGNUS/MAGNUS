@@ -14,10 +14,6 @@ function Main() {
   const handleLogin = () => {
     window.location.href = KAKAO_AUTH_URL;
   };
-  const handleLogout = () => {
-    window.sessionStorage.clear();
-    window.location.reload();
-  };
 
   return (
     <>
@@ -28,20 +24,7 @@ function Main() {
             <div className="section">
               <div className="div-main-section-01">
                 <img className="img-main" src={logo} alt="" />
-                {isLogin() ? (
-                  <div
-                    className="img-main"
-                    style={{
-                      backgroundColor: "white",
-                      marginTop: "50px",
-                      height: "30px",
-                      textAlign: "center",
-                    }}
-                    onClick={handleLogout}
-                  >
-                    로그아웃
-                  </div>
-                ) : (
+                {!isLogin() && (
                   <img
                     className="img-main"
                     style={{ marginTop: "50px" }}

@@ -29,7 +29,10 @@ function App() {
         <Routes>
           <Route path="/" element={<Main />} />
           <Route path="/profile" element={<Protected element={Profile} />} />
-          <Route path="/attendance" element={<Protected element={Attendance} />} />
+          <Route
+            path="/attendance"
+            element={<Protected element={Attendance} />}
+          />
           <Route path="/kakaoLogin" element={<KakaoLogin />} />
           <Route path="/ranking" element={<Protected element={Ranking} />} />
           <Route path="/calendar" element={<Protected element={Calendar} />} />
@@ -39,7 +42,10 @@ function App() {
           <Route path="/average" element={<Protected element={Average} />} />
           <Route path="/absence" element={<Protected element={Absence} />} />
           <Route path="/member" element={<Protected element={Member} />} />
-          <Route path="/memberAttendance" element={<Protected element={MemberAttendance} />} />
+          <Route
+            path="/memberAttendance"
+            element={<Protected element={MemberAttendance} />}
+          />
           <Route path="/all" element={<Protected element={All} />} />
           <Route path="/manageAttendance" element={<ManageAttendance />} />
           <Route path="/manageAbsence" element={<ManageAbsence />} />

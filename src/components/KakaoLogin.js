@@ -29,7 +29,7 @@ function KaKaoLogin() {
     window.sessionStorage.setItem("id", info.id);
     window.sessionStorage.setItem("name", info.name);
     window.sessionStorage.setItem("imageUrl", info.imageUrl);
-    window.location.href = "/";
+    window.location.href = "/profile";
   };
 
   const getKakaoToken = () => {
