@@ -46,8 +46,8 @@ function Profile() {
     <>
       <div className="div-profile-profile">
         <ReactSquircle
-          width="120px"
-          height="120px"
+          width="80px"
+          height="80px"
           fit=""
           className="squircle"
           imageUrl={window.sessionStorage.getItem("imageUrl")}
