@@ -11,6 +11,8 @@ import {
 import { NavLink } from "react-router-dom";
 import MemberAttendance from "./MemberAttendance";
 
+var checkedList = [100];
+
 function Member() {
   const [member, setMember] = useState([{}]);
 
@@ -68,9 +70,10 @@ function Member() {
       .then((res) => res.json())
       .then(window.location.reload());
   };
+
   const addPage = (
     <>
-      <div className="div-member-input">
+      <div className="div-member-section">
         <input
           className="input-member-write-name"
           onChange={onChange}
@@ -96,26 +99,71 @@ function Member() {
     </>
   );
 
-  const [isOpen, setIsOpen] = useState(false);
+  const [isAddOpen, setIsAddOpen] = useState(false);
+  const [isRemoveOpen, setIsRemoveOpen] = useState(false);
   const [name, setName] = useState("");
   const [pnum, setPnum] = useState("");
 
+  const [removeMemberList, setRemoveMemberList] = useState([]);
+
+  const removeMember = () => {
+    removeMemberList.map((user) => {
+      const post = {
+        name: user.name,
+        pnum: user.pnum,
+      };
+      fetch("https://teammagnus.net/removeMember", {
+        method: "post",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify(post),
+      }).then((res) => res.json());
+    });
+
+    window.location.reload();
+  };
+
   const showMember = member.map((user, idx) => (
     <>
-      {!isOpen && (
+      {!isAddOpen && (
         <div
           key={idx}
           className="div-member-section"
           onClick={() => {
-            // window.scrollTo(0, 0);
-            setIsOpen(true);
-            setName(user.name);
-            setPnum(user.pnum);
+            if (!isRemoveOpen) {
+              setIsAddOpen(true);
+              setName(user.name);
+              setPnum(user.pnum);
+            }
           }}
         >
           <div className="div-member-name">{user.name}</div>
           <div className="div-member-pnum">{user.pnum}</div>
           <div className="div-member-join">{user.join_date}</div>
+          {isRemoveOpen && (
+            <HiCheck
+              className="button-member-remove-check"
+              onClick={() => {
+                if (checkedList[idx] == 1) {
+                  checkedList[idx] = 0;
+                  setRemoveMemberList(
+                    removeMemberList.filter(
+                      (r) => r.name != user.name && r.pnum != user.pnum
+                    )
+                  );
+                } else {
+                  setRemoveMemberList([
+                    ...removeMemberList,
+                    {
+                      name: user.name,
+                      pnum: user.pnum,
+                    },
+                  ]);
+                  checkedList[idx] = 1;
+                }
+              }}
+              style={checkedList[idx] == 1 && { backgroundColor: "#d2000f" }}
+            />
+          )}
         </div>
       )}
     </>
@@ -125,7 +173,7 @@ function Member() {
 
   return (
     <>
-      {isOpen ? (
+      {isAddOpen ? (
         <>
           <MemberAttendance name={name} pnum={pnum} />
         </>
@@ -137,40 +185,76 @@ function Member() {
           </NavLink>
           <div className="div-month">회원 관리</div>
           {addPageOpen ? (
-            <HiX
-              className="button-member-plus"
-              onClick={() => {
-                setAddPageOpen(false);
-                setNewName("");
-                setNewPnum("");
-                setNewJoindate("");
-              }}
-            />
-          ) : (
             <>
-              <HiPlus
+              <HiX
                 className="button-member-plus"
                 onClick={() => {
-                  setAddPageOpen(true);
+                  setAddPageOpen(false);
+                  setNewName("");
+                  setNewPnum("");
+                  setNewJoindate("");
                 }}
               />
-              <HiMinus
+              <HiCheck
+                className="button-member-check"
+                onClick={() => {
+                  if (newName != "" && newPnum != "" && newJoindate != "")
+                    addMember(newName, newPnum, newJoindate);
+                }}
+                style={{
+                  backgroundColor:
+                    newName != "" && newPnum != "" && newJoindate != ""
+                      ? "#e79b42"
+                      : "rgba(0, 0, 0, 0.2)",
+                }}
+              />
+            </>
+          ) : (
+            !isRemoveOpen && (
+              <>
+                <HiPlus
+                  className="button-member-plus"
+                  onClick={() => {
+                    setAddPageOpen(true);
+                  }}
+                />
+                <HiMinus
+                  className="button-member-minus"
+                  onClick={() => {
+                    setIsRemoveOpen(true);
+                  }}
+                />
+              </>
+            )
+          )}
+          {isRemoveOpen && (
+            <>
+              <HiCheck
+                className="button-member-plus"
+                onClick={() => {
+                  if (removeMemberList.length != 0) {
+                    if (window.confirm("정말 삭제하시겠습니까?")) {
+                      removeMember();
+                    }
+                  }
+                }}
+                style={{
+                  backgroundColor:
+                    removeMemberList.length != 0
+                      ? "#e79b42"
+                      : "rgba(0, 0, 0, 0.2)",
+                }}
+              />
+              <HiX
                 className="button-member-minus"
-                // onClick={() => {
-                //   addMember(newName, newPnum, newJoindate);
-                // }}
+                onClick={() => {
+                  setIsRemoveOpen(false);
+                  checkedList = [];
+                  setRemoveMemberList([]);
+                }}
               />
             </>
           )}
-          {newName != "" && newPnum != "" && newJoindate != "" && (
-            <HiCheck
-              className="button-member-check"
-              onClick={() => {
-                addMember(newName, newPnum, newJoindate);
-              }}
-            />
-          )}
-
           <div className="div-member-section-01">
             {addPageOpen && addPage}
             <div className="div-member-updown-section">
@@ -180,6 +264,8 @@ function Member() {
                   onClick={() => {
                     setIsColor(0);
                     getMember("name", "asc");
+                    setRemoveMemberList([]);
+                    checkedList = [];
                   }}
                 />
                 <HiChevronDown
@@ -187,6 +273,8 @@ function Member() {
                   onClick={() => {
                     setIsColor(1);
                     getMember("name", "desc");
+                    setRemoveMemberList([]);
+                    checkedList = [];
                   }}
                 />
               </div>
@@ -196,6 +284,8 @@ function Member() {
                   onClick={() => {
                     setIsColor(2);
                     getMember("join_date", "asc");
+                    setRemoveMemberList([]);
+                    checkedList = [];
                   }}
                 />
                 <HiChevronDown
@@ -203,6 +293,8 @@ function Member() {
                   onClick={() => {
                     setIsColor(3);
                     getMember("join_date", "desc");
+                    setRemoveMemberList([]);
+                    checkedList = [];
                   }}
                 />
               </div>

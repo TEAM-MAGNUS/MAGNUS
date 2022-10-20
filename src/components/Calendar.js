@@ -166,14 +166,6 @@ function Calendar() {
           onChange={onChange}
           value={text}
         ></input>
-        {text === "" ? (
-          <></>
-        ) : (
-          <HiCheck
-            className="button-calendar-schedule-add"
-            onClick={() => addSchedule(now.date, text)}
-          />
-        )}
       </div>
     </>
   );
@@ -217,13 +209,24 @@ function Calendar() {
 
       {schedule === "등록된 일정이 없습니다." ? (
         isOpen2 ? (
-          <HiX
-            className="button-calendar-schedule-write"
-            onClick={() => {
-              setOpen2(false);
-              setText("");
-            }}
-          />
+          <>
+            <HiX
+              className="button-calendar-schedule-write"
+              onClick={() => {
+                setOpen2(false);
+                setText("");
+              }}
+            />
+            {text === "" ? (
+              <></>
+            ) : (
+              <HiCheck
+                className="button-calendar-schedule-write"
+                style={{ backgroundColor: "#e79b42" }}
+                onClick={() => addSchedule(now.date, text)}
+              />
+            )}
+          </>
         ) : (
           <HiPlus
             className="button-calendar-schedule-write"
@@ -269,8 +272,10 @@ function Calendar() {
                     : "calendar-f"
                 }
                 onClick={() => {
-                  openSchedule(index, w[0].date, 0);
-                  setClicked({ week: index, date: w[0].date });
+                  if (w[0].date) {
+                    openSchedule(index, w[0].date, 0);
+                    setClicked({ week: index, date: w[0].date });
+                  }
                 }}
               >
                 {w[0].date}
@@ -286,8 +291,10 @@ function Calendar() {
                     : "calendar-f"
                 }
                 onClick={() => {
-                  openSchedule(index, w[1].date, 1);
-                  setClicked({ week: index, date: w[1].date });
+                  if (w[1].date) {
+                    openSchedule(index, w[1].date, 1);
+                    setClicked({ week: index, date: w[1].date });
+                  }
                 }}
               >
                 {w[1].date}
@@ -303,8 +310,10 @@ function Calendar() {
                     : "calendar-f"
                 }
                 onClick={() => {
-                  openSchedule(index, w[2].date, 2);
-                  setClicked({ week: index, date: w[2].date });
+                  if (w[2].date) {
+                    openSchedule(index, w[2].date, 2);
+                    setClicked({ week: index, date: w[2].date });
+                  }
                 }}
               >
                 {w[2].date}

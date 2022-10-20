@@ -1,6 +1,9 @@
 import React, { useCallback, useEffect, useState } from "react";
 import {
-  HiChevronDown,
+  HiPlus,
+  HiX,
+  HiMinus,
+  HiCheck,
   HiOutlineArrowLeft,
   HiChevronLeft,
   HiChevronRight,
@@ -10,7 +13,7 @@ import { NavLink } from "react-router-dom";
 
 const td = new Date();
 
-function Average() {
+function ManageAbsence() {
   const thisYear = td.getFullYear();
   const thisMonth = td.getMonth();
   const date = td.getDate();
@@ -94,6 +97,22 @@ function Average() {
       .then((res) => res.json())
       .then((json) => {
         setUserNum(json.t);
+      });
+  };
+
+  const [user, setUser] = useState([{}]);
+  const getDateMember = (date) => {
+    const post = {
+      date: year + "-" + (month + 1) + "-" + date,
+    };
+    fetch("https://teammagnus.net/getDateMember", {
+      method: "post",
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify(post),
+    })
+      .then((res) => res.json())
+      .then((json) => {
+        setUser(json);
       });
   };
   const getWholeAttendance = (year, month) => {
@@ -186,7 +205,6 @@ function Average() {
 
   const [count, setCount] = useState(null);
   const getDateAttendance = (date) => {
-    console.log(month);
     const post = {
       date: year + "-" + (month + 1) + "-" + date,
     };
@@ -234,6 +252,7 @@ function Average() {
                 onClick={() => {
                   if (w[0].date) {
                     getDateAttendance(w[0].date);
+                    getDateMember(w[0].date);
                     setClicked({ week: index, date: w[0].date });
                   }
                 }}
@@ -265,6 +284,7 @@ function Average() {
                 onClick={() => {
                   if (w[1].date) {
                     getDateAttendance(w[1].date);
+                    getDateMember(w[1].date);
                     setClicked({ week: index, date: w[1].date });
                   }
                 }}
@@ -296,6 +316,7 @@ function Average() {
                 onClick={() => {
                   if (w[2].date) {
                     getDateAttendance(w[2].date);
+                    getDateMember(w[2].date);
                     setClicked({ week: index, date: w[2].date });
                   }
                 }}
@@ -443,8 +464,90 @@ function Average() {
     </PieChart>
   );
 
+  const addAttendance = (name, pnum) => {
+    const post = {
+      name: name,
+      date: date,
+    };
+    fetch("https://teammagnus.net/addAttendance", {
+      method: "post",
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify(post),
+    }).then(window.location.reload());
+  };
+  const removeAttendance = (name, date) => {
+    const post = {
+      name: name,
+      date: date,
+    };
+    fetch("https://loaclhost/removeAttendance", {
+      // fetch("https://teammagnus.net/removeAttendance", {
+      method: "post",
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify(post),
+    }).then(window.location.reload());
+  };
+  const [isOpen, setOpen] = useState(false);
+  const [name, setName] = useState("");
+  const [pnum, setPnum] = useState("");
+
+  const onChange = (e) => {
+    switch (e.target.name) {
+      case "name":
+        setName(e.target.value);
+        break;
+      case "pnum":
+        setPnum(e.target.value);
+        break;
+      default:
+    }
+  };
+
+  const addPage = (
+    <>
+      <div className="div-absence-input">
+        <input
+          className="input-absence-write-name"
+          onChange={onChange}
+          name="name"
+          value={name}
+          placeholder="이름"
+        />
+        <input
+          className="input-absence-write-date"
+          onChange={onChange}
+          name="pnum"
+          value={pnum}
+          placeholder="000-0000-0000"
+        />
+        {name != "" && date != "" && (
+          <HiCheck
+            className="icon-absence-close"
+            onClick={() => addAttendance(name, pnum)}
+            style={{ backgroundColor: "#e79b42" }}
+          />
+        )}
+      </div>
+    </>
+  );
+
+  const showAttendance = user.map((user, idx) => (
+    <div key={idx} className="div-manage-attendance-section">
+      <div className="div-member-name">{user.name}</div>
+      <div className="div-member-pnum">{user.p}</div>
+      <HiMinus
+        className="button-manage_attendance-minus"
+        onClick={() => {
+          if (window.confirm("정말 삭제하시겠습니까?")) {
+            removeAttendance(user.name, user.pnum);
+          }
+        }}
+      />
+    </div>
+  ));
   return (
     <div className="div-attendance-section">
+      <div className="div-notice-header"></div>
       <NavLink to="/manage" className="link-header">
         <HiOutlineArrowLeft size="20" className="icon-back" />
       </NavLink>
@@ -455,9 +558,7 @@ function Average() {
           onClick={() => preMonth()}
         />
         {year}.{month + 1}
-        {year == thisYear && month == thisMonth ? (
-          <></>
-        ) : (
+        {(year != thisYear || month != thisMonth) && (
           <HiChevronRight
             className="icon-right"
             size="20"
@@ -465,12 +566,43 @@ function Average() {
           />
         )}
       </div>
-      <div className="div-attendance-piechart-01">{pieChart}</div>
-      <div className="div-attendance-piechart-02">
-        {((attendance0 / attendance.length) * 100).toFixed(1)}%
-      </div>
+      <div className="div-attendance-section-01">{showCalendar}</div>
+      {clicked.date != null && showAttendance}
+
+      {clicked.date != null && (
+        <>
+          <div className="div-manage-attendance-section">
+            {isOpen ? (
+              <HiX
+                className="button-manage-attendance-write"
+                onClick={() => {
+                  setOpen(false);
+                }}
+              />
+            ) : (
+              <HiPlus
+                className="button-manage-attendance-write"
+                onClick={() => {
+                  setOpen(true);
+                }}
+              />
+            )}
+          </div>
+          <div
+            className="div-manage-attendance-section"
+            style={{ justifyContent: " right" }}
+          >
+            <HiCheck
+              className="button-manage-attendance-check"
+              onClick={() => {
+                setOpen(true);
+              }}
+            />
+          </div>
+        </>
+      )}
     </div>
   );
 }
 
-export default Average;
+export default ManageAbsence;
