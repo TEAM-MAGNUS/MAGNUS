@@ -5,10 +5,8 @@ import {
   HiOutlineArrowRight,
   HiChevronLeft,
   HiChevronRight,
-  HiOutlineInformationCircle,
 } from "react-icons/hi";
 import { PieChart, Pie, Sector, Cell } from "recharts";
-import { NavLink } from "react-router-dom";
 import MemberAll from "./MemberAll";
 
 const td = new Date();
@@ -218,23 +216,6 @@ function MemberAttendance(props) {
     </table>
   );
 
-  const [isOpen, setIsOpen] = useState(false);
-  const info = (
-    <div className="div-attendance-section-info">
-      <div className="div-attendance-info ">
-        <div className="div-attendance-info-01">O</div>출석
-      </div>
-      <div className="div-attendance-info ">
-        <div className="div-attendance-info-02">O</div>지각
-      </div>
-      <div className="div-attendance-info ">
-        <div className="div-attendance-info-03">O</div>불참
-      </div>
-      <div className="div-attendance-info ">
-        <div className="div-attendance-info-04">O</div>미통보불참
-      </div>
-    </div>
-  );
   const data = [
     { name: "출석", value: attendance0 },
     { name: "지각", value: attendance1 },
@@ -397,14 +378,7 @@ function MemberAttendance(props) {
           )}
         </div>
         {detailOpen ? (
-          <div className="div-attendance-section-01">
-            {showCalendar}
-            <HiOutlineInformationCircle
-              className="icon-attendance-info"
-              onClick={() => setIsOpen(!isOpen)}
-            />
-            {isOpen && info}
-          </div>
+          <div className="div-attendance-section-01">{showCalendar}</div>
         ) : (
           <>
             <div className="div-member-piechart-01">{pieChart}</div>
