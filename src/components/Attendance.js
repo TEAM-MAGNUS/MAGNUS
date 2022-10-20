@@ -9,6 +9,7 @@ import {
 import { PieChart, Pie, Sector, Cell } from "recharts";
 import ReactFullpage from "@fullpage/react-fullpage";
 import All from "./All";
+import IsMe from "./IsMe";
 
 const td = new Date();
 
@@ -19,11 +20,16 @@ function Attendance() {
   const [year, setYear] = useState(thisYear);
   const [month, setMonth] = useState(thisMonth);
 
+  const pnum = window.sessionStorage.getItem("pnum");
+  // const pnum = isMe();
+
   ///////////////////////////////////////////////
 
   // const name = window.sessionStorage.getItem("name");
-  const name = "명지현우";
-  const pnum = "010-9239-9937";
+  const name = window.sessionStorage.getItem("name");
+
+  // const pnum = window.sessionStorage.getItem("pnum");
+
   ///////////////////////////////////////////////
 
   const preMonth = () => {
@@ -94,6 +100,7 @@ function Attendance() {
       year: year,
       month: month,
       name: name,
+      pnum: pnum,
     };
     fetch("https://teammagnus.net/getAttendance", {
       method: "post",
@@ -134,6 +141,7 @@ function Attendance() {
   update();
 
   useEffect(() => {
+    IsMe();
     getAttendance(thisYear, thisMonth);
   }, []);
 
@@ -289,7 +297,7 @@ function Attendance() {
           textAnchor="middle"
           style={{ fontSize: "20px" }}
         >
-          {name}
+          {window.sessionStorage.getItem("name")}
         </text>
         <Sector
           cx={cx}

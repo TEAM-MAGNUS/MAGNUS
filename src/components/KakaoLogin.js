@@ -152,7 +152,7 @@ function KaKaoLogin() {
             imageUrl={info.imageUrl || profile}
           />
           {info.name}
-          <div style={{ position: "relative" }}>
+          <div className="input-pnum">
             <input
               placeholder="전화번호를 입력해주세요."
               maxLength="11"

@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import profile from "../asset/profile/profile.png";
 import dayjs from "dayjs";
 import ReactSquircle from "react-squircle";
+import IsMe from "./IsMe";
 
 function write(ip, date) {
   console.log(`ip: ${ip === "210.94.182.243" ? "true" : "false"}`);
@@ -36,6 +37,30 @@ function write(ip, date) {
 }
 
 function Profile() {
+  const [absence, setAbsence] = useState(null);
+
+  const getMyAbsence = () => {
+    const post = {
+      name: window.sessionStorage.getItem("name"),
+      pnum: window.sessionStorage.getItem("pnum"),
+    };
+    fetch("https://teammagnus.net/getMyAbsence", {
+      method: "post",
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify(post),
+    })
+      .then((res) => res.json())
+      .then((json) => {
+        console.log(json);
+        setAbsence(json.date);
+      });
+  };
+
+  useEffect(() => {
+    IsMe();
+    getMyAbsence();
+  }, []);
+
   const handleLogout = () => {
     window.sessionStorage.clear();
     window.location.reload();
@@ -76,6 +101,12 @@ function Profile() {
             </div>
           )}
         </div>
+        {absence && (
+          <div className="div-profile-absence-section">
+            <div className="div-profile-absence">미통보불참</div>
+            {absence}
+          </div>
+        )}
       </div>
 
       <div
