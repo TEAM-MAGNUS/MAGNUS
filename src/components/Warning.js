@@ -7,62 +7,15 @@ const td = new Date();
 function Warning() {
   const [user, setUser] = useState([{}]);
   const getWarning = () => {
-    if (td.getDay() === 4) {
-      console.log("업데이트");
-      setWarning();
-    } else {
-      fetch("https://teammagnus.net/getWarning", {
-        method: "post",
-        headers: { "content-type": "application/json" },
-      })
-        .then((res) => res.json())
-        .then((json) => {
-          console.log(json);
-          setUser(json);
-        });
-    }
-  };
-  const setWarning = () => {
-    fetch("https://teammagnus.net/setWarning1", {
+    fetch("https://teammagnus.net/getWarning", {
       method: "post",
       headers: { "content-type": "application/json" },
-    }).then(() => {
-      fetch("https://teammagnus.net/setWarning2", {
-        method: "post",
-        headers: { "content-type": "application/json" },
-      })
-        .then((res) => res.json())
-        .then((json) => {
-          console.log("-----------------");
-          json.map((j) => {
-            const post = {
-              n: j.n,
-              p: j.p,
-            };
-            fetch("https://teammagnus.net/setWarning3", {
-              method: "post",
-              headers: { "content-type": "application/json" },
-              body: JSON.stringify(post),
-            })
-              .then((res) => res.json())
-              .then((json) => {
-                console.log(json);
-              });
-          });
-        })
-        .then(() => {
-          fetch("https://teammagnus.net/getWarning", {
-            method: "post",
-            headers: { "content-type": "application/json" },
-          })
-            .then((res) => res.json())
-            .then((json) => {
-              console.log("~~~~~~~~~~~~");
-              console.log(json);
-              setUser(json);
-            });
-        });
-    });
+    })
+      .then((res) => res.json())
+      .then((json) => {
+        console.log(json);
+        setUser(json);
+      });
   };
 
   useEffect(() => {
@@ -78,6 +31,7 @@ function Warning() {
 
   return (
     <div>
+      <div className="div-notice-header"></div>
       <div className="div-attendance-section">
         <NavLink to="/manage" className="link-header">
           <HiOutlineArrowLeft size="20" className="icon-back" />
@@ -89,6 +43,14 @@ function Warning() {
           ) : (
             showWarning
           )}
+          {/* {td.getDay() === 0 || td.getDay() === 5 || td.getDay() === 6 ? (
+            <>명단 업데이트 중입니다.</>
+          ) : 
+          user.length == 0 ? (
+            <HiRefresh onClick={() => window.location.reload()} size="25" />
+          ) : (
+            showWarning
+          )} */}
         </div>
       </div>
     </div>
