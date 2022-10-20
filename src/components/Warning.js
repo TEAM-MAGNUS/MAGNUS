@@ -31,7 +31,6 @@ function Warning() {
 
   return (
     <div>
-      <div className="div-notice-header"></div>
       <div className="div-attendance-section">
         <NavLink to="/manage" className="link-header">
           <HiOutlineArrowLeft size="20" className="icon-back" />

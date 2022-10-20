@@ -17,6 +17,7 @@
     "react-icons": "^4.6.0",
     "react-router-dom": "^6.4.1",
     "react-scripts": "5.0.1",
+    "react-squircle": "^0.0.8",
     "recharts": "^2.1.15",
     "web-vitals": "^2.1.4"
   },
