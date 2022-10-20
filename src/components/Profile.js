@@ -36,6 +36,10 @@ function write(ip, date) {
 }
 
 function Profile() {
+  const handleLogout = () => {
+    window.sessionStorage.clear();
+    window.location.reload();
+  };
   const today = dayjs(new Date());
   const td = new Date();
   return (
@@ -46,35 +50,44 @@ function Profile() {
           height="120px"
           fit=""
           className="squircle"
-          imageUrl="http://k.kakaocdn.net/dn/bAZtjp/btrO0ppACsB/Wn7au7tbcs2eWIeTcNYZU1/img_110x110.jpg"
+          imageUrl={window.sessionStorage.getItem("imageUrl")}
         />
         {window.sessionStorage.getItem("name")}
+        <div className="div-profile-date">
+          {today.format("YYYY.MM.DD")}
+          {td.getDay() === 0 || td.getDay() === 5 || td.getDay() === 6 ? (
+            <div
+              className="div-profile-check-section"
+              onClick={async (e) => {
+                const Location = await fetch(
+                  "https://geolocation-db.com/json/"
+                );
+                const location = await Location.json();
+                location.IPv4 === "210.94.182.243"
+                  ? write(location.IPv4, td)
+                  : console.log("ip가 다릅니다.");
+              }}
+            >
+              출석
+            </div>
+          ) : (
+            <div className="div-profile-check-section">
+              <div style={{ backgroundColor: "rgba(0, 0, 0, 0.2)" }}>출석</div>
+            </div>
+          )}
+        </div>
       </div>
 
-      {/* <div className="div-profile-date">{today.format("YYYY.MM.DD")}</div> */}
-      {td.getDay() === 0 || td.getDay() === 5 || td.getDay() === 6 ? (
-        <div
-          className="div-profile-check-section"
-          onClick={async (e) => {
-            const Location = await fetch("https://geolocation-db.com/json/");
-            const location = await Location.json();
-            location.IPv4 === "210.94.182.243"
-              ? write(location.IPv4, td)
-              : console.log("ip가 다릅니다.");
-          }}
-        >
-          <div className="button-profile-check">출석</div>
-        </div>
-      ) : (
-        <div className="div-profile-check-section">
-          <div
-            className="button-profile-check"
-            style={{ backgroundColor: "rgba(0, 0, 0, 0.2)" }}
-          >
-            출석
-          </div>
-        </div>
-      )}
+      <div
+        className="button-profile-logout"
+        onClick={() => {
+          if (window.confirm("정말 로그아웃 하시겠습니까?")) {
+            handleLogout();
+          }
+        }}
+      >
+        로그아웃
+      </div>
     </>
   );
 }
