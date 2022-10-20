@@ -759,6 +759,12 @@ th {
 /*------------------------------*/ /* Notice.js */
 
 /* KakaoLogin.js */ /*------------------------------*/
+
+.input-pnum {
+  width: 80vw;
+  position: relative;
+}
+
 .div-kakaologin-body {
   position: absolute;
   top: 0;
@@ -801,6 +807,19 @@ th {
 }
 /*------------------------------*/ /* KakaoLogin.js */
 
+.div-profile-absence-section {
+  position: absolute;
+  bottom: 100px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 15px;
+}
+.div-profile-absence {
+  color: #d2000f;
+  font-size: 20px;
+  margin-bottom: 10px;
+}
 .div-absence-section-01 {
   position: absolute;
   top: 200px;
