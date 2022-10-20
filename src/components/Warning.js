@@ -2,18 +2,67 @@ import { React, useEffect, useState } from "react";
 import { HiRefresh, HiOutlineArrowLeft } from "react-icons/hi";
 import { NavLink } from "react-router-dom";
 
+const td = new Date();
+
 function Warning() {
   const [user, setUser] = useState([{}]);
   const getWarning = () => {
-    fetch("https://teammagnus.net/getWarning", {
+    if (td.getDay() === 4) {
+      console.log("업데이트");
+      setWarning();
+    } else {
+      fetch("https://teammagnus.net/getWarning", {
+        method: "post",
+        headers: { "content-type": "application/json" },
+      })
+        .then((res) => res.json())
+        .then((json) => {
+          console.log(json);
+          setUser(json);
+        });
+    }
+  };
+  const setWarning = () => {
+    fetch("https://teammagnus.net/setWarning1", {
       method: "post",
       headers: { "content-type": "application/json" },
-    })
-      .then((res) => res.json())
-      .then((json) => {
-        console.log(json);
-        setUser(json);
-      });
+    }).then(() => {
+      fetch("https://teammagnus.net/setWarning2", {
+        method: "post",
+        headers: { "content-type": "application/json" },
+      })
+        .then((res) => res.json())
+        .then((json) => {
+          console.log("-----------------");
+          json.map((j) => {
+            const post = {
+              n: j.n,
+              p: j.p,
+            };
+            fetch("https://teammagnus.net/setWarning3", {
+              method: "post",
+              headers: { "content-type": "application/json" },
+              body: JSON.stringify(post),
+            })
+              .then((res) => res.json())
+              .then((json) => {
+                console.log(json);
+              });
+          });
+        })
+        .then(() => {
+          fetch("https://teammagnus.net/getWarning", {
+            method: "post",
+            headers: { "content-type": "application/json" },
+          })
+            .then((res) => res.json())
+            .then((json) => {
+              console.log("~~~~~~~~~~~~");
+              console.log(json);
+              setUser(json);
+            });
+        });
+    });
   };
 
   useEffect(() => {
@@ -22,8 +71,8 @@ function Warning() {
 
   const showWarning = user.map((user, idx) => (
     <div key={idx} className="div-warning-section-02">
-      <div>{user.name}</div>
-      <div>{user.pnum}</div>
+      <div>{user.n}</div>
+      <div>{user.p}</div>
     </div>
   ));
 
