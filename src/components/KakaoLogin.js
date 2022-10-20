@@ -3,6 +3,7 @@ import { BsCheck } from "react-icons/bs";
 
 import { REST_API_KEY, REDIRECT_URI } from "./LoginData";
 import profile from "./Profile";
+import ReactSquircle from "react-squircle";
 
 function KaKaoLogin() {
   const PARAMS = new URL(document.location).searchParams; // URL에 있는 파라미터(code) 받아오기
@@ -71,14 +72,10 @@ function KaKaoLogin() {
 
   function searchUser(id) {
     const post = {
-      query:
-        "SELECT EXISTS (SELECT id FROM test_user WHERE id = " +
-        id +
-        ") AS ISREGISTER;",
+      id: id,
     };
 
-    console.log(post.query);
-    fetch("https://hansori.net:443/SQL1", {
+    fetch("https://teammagnus.net/searchUser", {
       method: "post",
       headers: { "content-type": "application/json" },
       body: JSON.stringify(post),
@@ -92,30 +89,42 @@ function KaKaoLogin() {
 
   function saveKakaoUserInfo({ id, name, pnum, imageUrl: image }) {
     console.log("start");
-    const post = {
-      query:
-        "INSERT INTO test_user (id, name, pnum, image) VALUES ('" +
-        id +
-        "', '" +
-        name +
-        "', '" +
-        pnum +
-        "', '" +
-        image +
-        "');",
+    const p =
+      pnum.substr(0, 3) + "-" + pnum.substr(3, 4) + "-" + pnum.substr(7, 4);
+    const post1 = {
+      p: p,
     };
-
-    console.log(post.query);
-    fetch("https://hansori.net:443/SQL1", {
+    fetch("https://teammagnus.net/isMember", {
       method: "post",
       headers: { "content-type": "application/json" },
-      body: JSON.stringify(post),
+      body: JSON.stringify(post1),
     })
-      .then(() => {
-        alert("회원가입이 완료되었습니다.");
-      })
-      .then(() => {
-        login();
+      .then((res) => res.json())
+      .then((json) => {
+        console.log(json);
+        if (json.ISMEMBER) {
+          const post = {
+            i: id,
+            n: name,
+            p: p,
+            img: image,
+          };
+
+          fetch("https://teammagnus.net/saveKakaoUserInfo", {
+            method: "post",
+            headers: { "content-type": "application/json" },
+            body: JSON.stringify(post),
+          })
+            .then(() => {
+              alert("회원가입이 완료되었습니다.");
+            })
+            .then(() => {
+              login();
+            });
+        } else {
+          alert("등록된 회원이 아닙니다.");
+          window.location.href = "/";
+        }
       });
   }
 
@@ -135,12 +144,17 @@ function KaKaoLogin() {
         </div>
       ) : (
         <div className="div-kakaologin-register-wrapper">
-          <h2>환영합니다!</h2>
-          <img src={info.imageUrl || profile} alt="" />
+          <ReactSquircle
+            width="80px"
+            height="80px"
+            fit=""
+            className="squircle"
+            imageUrl={info.imageUrl || profile}
+          />
           {info.name}
           <div style={{ position: "relative" }}>
-            <textarea
-              placeholder="전화번호를 입력해주세요"
+            <input
+              placeholder="전화번호를 입력해주세요."
               maxLength="11"
               onChange={onChange}
             />
