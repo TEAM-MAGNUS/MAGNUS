@@ -711,7 +711,6 @@ th {
   border: none;
   font-size: 20px;
   background: none;
-  border-radius: 5px;
   font-family: "Nh";
   text-align: center;
 }
@@ -723,7 +722,6 @@ th {
   border: none;
   font-size: 20px;
   background: none;
-
   border-radius: 5px;
   font-family: "Nh";
   text-align: center;
@@ -733,8 +731,6 @@ th {
   border: none;
   font-size: 12px;
   background: none;
-
-  border-radius: 5px;
   font-family: "Nh";
 }
 ::placeholder {
@@ -860,7 +856,6 @@ th {
   height: 5vh;
   padding: 0 15vw 0 5vw;
   border-bottom: 1.5px solid rgba(0, 0, 0, 0.2);
-
   font-size: 20px;
   display: flex;
   justify-content: space-around;
