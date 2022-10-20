@@ -1,6 +1,7 @@
 import React from "react";
 import profile from "../asset/profile/profile.png";
 import dayjs from "dayjs";
+import ReactSquircle from "react-squircle";
 
 function write(ip, date) {
   console.log(`ip: ${ip === "210.94.182.243" ? "true" : "false"}`);
@@ -40,18 +41,20 @@ function Profile() {
   return (
     <>
       <div className="div-profile-profile">
-        <img
-          className="img-profile-profile"
-          src={window.sessionStorage.getItem("imageUrl") || profile}
-          alt=""
+        <ReactSquircle
+          width="120px"
+          height="120px"
+          fit=""
+          className="squircle"
+          imageUrl="http://k.kakaocdn.net/dn/bAZtjp/btrO0ppACsB/Wn7au7tbcs2eWIeTcNYZU1/img_110x110.jpg"
         />
-        {window.sessionStorage.getItem("userName") ||
-          "로그인 후 이용 가능합니다."}
+        {window.sessionStorage.getItem("name")}
       </div>
-      <div className="div-profile-date">{today.format("YYYY.MM.DD")}</div>
+
+      {/* <div className="div-profile-date">{today.format("YYYY.MM.DD")}</div> */}
       {td.getDay() === 0 || td.getDay() === 5 || td.getDay() === 6 ? (
         <div
-          className="div-profile-check"
+          className="div-profile-check-section"
           onClick={async (e) => {
             const Location = await fetch("https://geolocation-db.com/json/");
             const location = await Location.json();
@@ -60,10 +63,17 @@ function Profile() {
               : console.log("ip가 다릅니다.");
           }}
         >
-          출석
+          <div className="button-profile-check">출석</div>
         </div>
       ) : (
-        <div className="div-profile-check">ㅡ</div>
+        <div className="div-profile-check-section">
+          <div
+            className="button-profile-check"
+            style={{ backgroundColor: "rgba(0, 0, 0, 0.2)" }}
+          >
+            출석
+          </div>
+        </div>
       )}
     </>
   );
