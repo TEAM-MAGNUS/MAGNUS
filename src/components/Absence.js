@@ -91,7 +91,7 @@ function Absence() {
     </div>
   ));
   return (
-    <div>
+    <div className="div-absence">
       <div className="div-attendance-section">
         <div className="div-notice-header"></div>
         <div className="div-month">
