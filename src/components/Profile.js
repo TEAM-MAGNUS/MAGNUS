@@ -21,20 +21,22 @@ function isManager() {
     });
 }
 
-function write(ip, date) {
-  console.log(`ip: ${ip === "210.94.182.243" ? "true" : "false"}`);
+function write(date) {
   console.log(`날짜: ${date.getMonth()}월 ${date.getDate()}일`);
+
   const post = {
     query:
-      "INSERT INTO magnus_attendance (ip, date) VALUES ('" +
-      ip +
+      "INSERT INTO magnus_attendance (id, name, attendance, attendance_date, attendance_time) VALUES ('" +
+      window.sessionStorage.getItem("id") +
       "', '" +
+      window.sessionStorage.getItem("name") +
+      "', 0, '" +
       date.getFullYear() +
       "-" +
       (date.getMonth() + 1) +
       "-" +
       date.getDate() +
-      " " +
+      "', '" +
       date.getHours() +
       ":" +
       date.getMinutes() +
@@ -42,9 +44,10 @@ function write(ip, date) {
       date.getSeconds() +
       "');",
   };
+  console.log(JSON.stringify(post));
 
-  fetch("http://15.165.207.25:80/SQL1", {
-    // fetch("https://hansori.net:443/SQL1", {
+  // fetch("http://15.165.207.25:80/SQL1", {
+ fetch("https://hansori.net:443/SQL1", {
     method: "post",
     headers: { "content-type": "application/json" },
     body: JSON.stringify(post),
@@ -133,7 +136,7 @@ function Profile() {
                 );
                 const location = await Location.json();
                 location.IPv4 === "210.94.182.243"
-                  ? write(location.IPv4, td)
+                  ? write(td)
                   : console.log("ip가 다릅니다.");
               }}
             >
