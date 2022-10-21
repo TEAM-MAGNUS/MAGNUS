@@ -204,7 +204,7 @@ body {
 }
 .div-profile-date {
   margin-top: 50px;
-  width: 60vw;
+  width: 30vw;
   height: 100px;
   display: flex;
   flex-direction: column;
@@ -216,6 +216,7 @@ body {
   margin-top: 15px;
   background-color: #d2000f;
   display: flex;
+  width: 30vw;
   padding: 10px 20px 10px 20px;
   border-radius: 10px;
   flex-direction: column;
@@ -376,6 +377,12 @@ th {
   margin-top: 20px;
   display: flex;
   flex-direction: column;
+}
+.div-attendance-no {
+  position: absolute;
+  top: 50vh;
+  font-size: 25px;
+  transform: translateY(-50%);
 }
 .div-manage-attendance-section-01 {
   margin-top: 20px;

@@ -111,22 +111,22 @@ function Header() {
             >
               NOTICE
             </NavLink>
-            {/* {window.sessionStorage.getItem("m") == 1 && ( */}
-            <>
-              <br />
-              -
-              <br />
-              <NavLink
-                className="link-header"
-                to="/manage"
-                onClick={() => {
-                  onToggle();
-                }}
-              >
-                MANAGE
-              </NavLink>
-            </>
-            {/* )} */}
+            {window.sessionStorage.getItem("m") == 1 && (
+              <>
+                <br />
+                -
+                <br />
+                <NavLink
+                  className="link-header"
+                  to="/manage"
+                  onClick={() => {
+                    onToggle();
+                  }}
+                >
+                  MANAGE
+                </NavLink>
+              </>
+            )}
           </div>
         </div>
       )}

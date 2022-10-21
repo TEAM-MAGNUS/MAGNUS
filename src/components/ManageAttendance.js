@@ -467,7 +467,15 @@ function ManageAttendance() {
             <HiPlus
               className="button-manage-attendance-check"
               onClick={() => {
-                if (name != "" && pnum != "") addAttendance();
+                if (name != "" && pnum != "") {
+                  if (
+                    window.confirm(
+                      "이름/번호를 확인해주세요. (" + name + "/" + pnum + ")"
+                    )
+                  ) {
+                    addAttendance();
+                  }
+                }
               }}
               style={{
                 backgroundColor:
