@@ -18,7 +18,7 @@ function Main() {
 
   useEffect(() => {
     console.log(isLogin());
-  }, [])
+  }, []);
 
   return (
     <>
@@ -29,7 +29,8 @@ function Main() {
             <div className="section">
               <div className="div-main-section-01">
                 <img className="img-main" src={logo} alt="" />
-                {!login && (
+                {!isLogin() && (
+                  // {!login && (
                   <img
                     className="img-main"
                     style={{ marginTop: "50px" }}

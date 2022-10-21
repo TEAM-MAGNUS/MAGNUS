@@ -10,7 +10,6 @@ import {
 } from "react-icons/hi";
 import { NavLink } from "react-router-dom";
 import MemberAttendance from "./MemberAttendance";
-import IsManager from "./IsManager";
 
 var checkedList = [100];
 
@@ -34,7 +33,6 @@ function Member() {
   };
 
   useEffect(() => {
-    IsManager();
     getMember();
   }, []);
 

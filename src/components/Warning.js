@@ -1,9 +1,6 @@
 import { React, useEffect, useState } from "react";
 import { HiRefresh, HiOutlineArrowLeft } from "react-icons/hi";
 import { NavLink } from "react-router-dom";
-import IsManager from "./IsManager";
-
-const td = new Date();
 
 function Warning() {
   const [user, setUser] = useState([{}]);
@@ -20,7 +17,6 @@ function Warning() {
   };
 
   useEffect(() => {
-    IsManager();
     getWarning();
   }, []);
 
