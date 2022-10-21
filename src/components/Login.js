@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect } from "react";
 
 // function isLogin() {
 //   const id = window.sessionStorage.getItem("id");
@@ -28,4 +28,6 @@ function isLogin() {
   else return false;
 }
 
+
 export default isLogin;
+

@@ -1,8 +1,12 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Navigate, Route } from "react-router-dom";
+import IsMe from "./IsMe";
 import isLogin from "./Login";
 
 const Protected = ({ element: Element, ...rest }) => {
+  useEffect(() => {
+    IsMe();
+  }, []);
   if (isLogin()) {
     return <Element />;
   } else {

@@ -34,7 +34,9 @@ function Notice() {
       method: "post",
       headers: { "content-type": "application/json" },
       body: JSON.stringify(post),
-    }).then(window.location.reload());
+    }).then(() => {
+      window.location.reload();
+    });
   };
 
   const removeNotice = (num) => {
@@ -45,7 +47,9 @@ function Notice() {
       method: "post",
       headers: { "content-type": "application/json" },
       body: JSON.stringify(post),
-    }).then(window.location.reload());
+    }).then(() => {
+      window.location.reload();
+    });
   };
 
   const [num, setNum] = useState("");
