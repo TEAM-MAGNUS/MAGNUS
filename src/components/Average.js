@@ -7,6 +7,7 @@ import {
 } from "react-icons/hi";
 import { PieChart, Pie, Sector, Cell } from "recharts";
 import { NavLink } from "react-router-dom";
+import IsManager from "./IsManager";
 
 const td = new Date();
 
@@ -186,7 +187,6 @@ function Average() {
 
   const [count, setCount] = useState(null);
   const getDateAttendance = (date) => {
-    console.log(month);
     const post = {
       date: year + "-" + (month + 1) + "-" + date,
     };
@@ -202,6 +202,7 @@ function Average() {
   };
 
   useEffect(() => {
+    IsManager();
     getWholeAttendance(thisYear, thisMonth);
     getUserNum(thisYear, thisMonth);
   }, []);

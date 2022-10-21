@@ -1,6 +1,5 @@
 export default function IsMe() {
   const post = {
-    name: window.sessionStorage.getItem("name"),
     id: window.sessionStorage.getItem("id"),
   };
   fetch("https://teammagnus.net/isMe", {
@@ -11,8 +10,8 @@ export default function IsMe() {
     .then((res) => res.json())
 
     .then((json) => {
-      console.log("p: " + json.p);
-      if (!window.sessionStorage.getItem("pnum")) {
+      if (!window.sessionStorage.getItem("name")) {
+        window.sessionStorage.setItem("name", json.n);
         window.sessionStorage.setItem("pnum", json.p);
         window.location.reload();
       }
