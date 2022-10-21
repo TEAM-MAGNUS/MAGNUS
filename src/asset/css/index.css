@@ -70,6 +70,16 @@ body {
   left: 50%;
   transform: translate(-50%, -50%);
 }
+.div-main-instagram-kakao {
+  position: absolute;
+  bottom: 2.5vh;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.div-main-instagram-kakao img {
+  margin: 0 5px 0 5px;
+}
+
 /*------------------------------*/ /* Main.js */
 
 /* Header.js */ /*------------------------------*/
@@ -825,6 +835,14 @@ th {
   color: rgba(0, 0, 0, 0.2);
 }
 /*------------------------------*/ /* KakaoLogin.js */
+
+.div-absence {
+  width: 100vw;
+  height: 100vh;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
 
 .div-profile-absence-section {
   margin-bottom: 80px;

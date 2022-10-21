@@ -7,6 +7,8 @@ import { REST_API_KEY, REDIRECT_URI } from "./LoginData";
 import isLogin from "./Login.js";
 
 import logo from "../asset/main/logo.png";
+import instagram from "../asset/main/instagram.png";
+import kakao from "../asset/main/kakao.png";
 import loginbtn from "../asset/login/kakao_login.png";
 
 function Main() {
@@ -92,6 +94,10 @@ function Main() {
                 빠지, 스키장 등 함께 놀러가는 동아리 mt <br />
                 주말 주짓수 이외에도 헬스장 무제한 사용가능 <br />
                 다양한 학교 친구들과 교류할 수 있는 절호의 기회
+              </div>
+              <div className="div-main-instagram-kakao">
+                <img src={instagram} alt="" style={{ width: "30px" }} />
+                <img src={kakao} alt="" style={{ width: "30px" }} />
               </div>
             </div>
           </div>
