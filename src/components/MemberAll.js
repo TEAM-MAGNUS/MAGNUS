@@ -1,6 +1,5 @@
 import React, { useCallback, useEffect, useState } from "react";
 import dayjs from "dayjs";
-import IsManager from "./IsManager";
 
 import { PieChart, Pie, Sector, Cell } from "recharts";
 const td = new Date();
@@ -84,7 +83,6 @@ function MemberAll(props) {
   update();
 
   useEffect(() => {
-    IsManager();
     getAll();
     getJoin();
   }, []);

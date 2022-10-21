@@ -2,7 +2,6 @@ import { React, useEffect, useState } from "react";
 import { HiOutlineArrowLeft } from "react-icons/hi";
 import { NavLink } from "react-router-dom";
 import { HiPlus, HiX, HiMinus, HiCheck } from "react-icons/hi";
-import IsManager from "./IsManager";
 
 function Absence() {
   const [name, setName] = useState("");
@@ -37,10 +36,11 @@ function Absence() {
     });
   };
 
-  const cancelAbsence = (name, date) => {
+  const cancelAbsence = (name, date, pnum) => {
     const post = {
       name: name,
       date: date,
+      pnum: pnum,
     };
     console.log(post.query);
     fetch("https://teammagnus.net/cancelAbsence", {
@@ -53,7 +53,6 @@ function Absence() {
   };
 
   useEffect(() => {
-    IsManager();
     getAbsence();
   }, []);
 
@@ -84,7 +83,7 @@ function Absence() {
           className="button-absence-minus"
           onClick={() => {
             if (window.confirm("정말 삭제하시겠습니까?")) {
-              cancelAbsence(user.name, user.date);
+              cancelAbsence(user.n, user.date, user.p);
             }
           }}
         />
@@ -94,6 +93,7 @@ function Absence() {
   return (
     <div>
       <div className="div-attendance-section">
+        <div className="div-notice-header"></div>
         <div className="div-month">
           <NavLink to="/manage" className="link-header">
             <HiOutlineArrowLeft size="20" className="icon-back" />

@@ -11,7 +11,6 @@ import {
 import { PieChart, Pie, Sector, Cell } from "recharts";
 import { NavLink } from "react-router-dom";
 import { BsSdCardFill } from "react-icons/bs";
-import IsManager from "./IsManager";
 
 const td = new Date();
 
@@ -200,7 +199,6 @@ function ManageAttendance() {
   };
 
   useEffect(() => {
-    IsManager();
     getUserNum(thisYear, thisMonth);
   }, []);
 
