@@ -28,6 +28,7 @@ function App() {
       <BrowserRouter>
         <Header />
         <Routes>
+          <Route path="/login" element={<Login />} />
           <Route path="/" element={<Main />} />
           <Route path="/profile" element={<Protected element={Profile} />} />
           <Route
