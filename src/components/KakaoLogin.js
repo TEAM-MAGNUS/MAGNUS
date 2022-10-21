@@ -71,6 +71,22 @@ function KaKaoLogin() {
   };
 
   const login = () => {
+    const post = {
+      query: 
+        "UPDATE magnus_user SET image = '" + 
+        info.image +
+        "' WHERE id = '" +
+        info.id +
+        "';"
+    }
+    console.log(post.query);
+    fetch("https://hansori.net:443/SQL1", {
+      method: "post",
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify(post)
+    })
+      .then(console.log("img update success"));
+
     window.sessionStorage.setItem("id", info.id);
     window.sessionStorage.setItem("imageUrl", info.imageUrl);
     window.location.href = "/profile";
