@@ -9,6 +9,7 @@ import {
 import { PieChart, Pie, Sector, Cell } from "recharts";
 import ReactFullpage from "@fullpage/react-fullpage";
 import All from "./All";
+import IsMe from "./IsMe";
 
 const td = new Date();
 
@@ -20,25 +21,18 @@ function Attendance() {
   const [month, setMonth] = useState(thisMonth);
 
   const pnum = window.sessionStorage.getItem("pnum");
-  // const pnum = isMe();
-
-  ///////////////////////////////////////////////
-
-  // const name = window.sessionStorage.getItem("name");
   const name = window.sessionStorage.getItem("name");
-
-  // const pnum = window.sessionStorage.getItem("pnum");
-
-  ///////////////////////////////////////////////
 
   const preMonth = () => {
     if (month == 0) {
       getAttendance(year - 1, 11);
       setYear(year - 1);
       setMonth(11);
+      getPre(year - 1, 11);
     } else {
       getAttendance(year, month - 1);
       setMonth(month - 1);
+      getPre(year, month - 1);
     }
   };
   const nextMonth = () => {
@@ -46,12 +40,45 @@ function Attendance() {
       getAttendance(year + 1, 0);
       setYear(year + 1);
       setMonth(0);
+      getPre(year + 1, 0);
     } else {
       getAttendance(year, month + 1);
       setMonth(month + 1);
+      getPre(year, month + 1);
     }
   };
-
+  const [isLast, setIsLast] = useState(false);
+  const [join, setJoin] = useState("");
+  console.log("join: " + join);
+  const getPre = (year, month) => {
+    console.log("getpre");
+    if (month == 0) {
+      setIsLast(join.substring(0, 4) >= year);
+    } else {
+      console.log(
+        join.substring(0, 4) >= year && join.substring(5, 7) - 1 > month
+      );
+      setIsLast(
+        join.substring(0, 4) >= year &&
+          parseInt(join.substring(5, 7) - 1) >= parseInt(month)
+      );
+    }
+  };
+  const getJoin = () => {
+    const post = {
+      pnum: pnum,
+    };
+    fetch("https://teammagnus.net/getJoin", {
+      method: "post",
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify(post),
+    })
+      .then((res) => res.json())
+      .then((json) => {
+        setJoin(json.date);
+        getPre();
+      });
+  };
   var calendar = [
     [
       { date: null, attendance: null },
@@ -140,7 +167,9 @@ function Attendance() {
   update();
 
   useEffect(() => {
+    IsMe();
     getAttendance(thisYear, thisMonth);
+    getJoin();
   }, []);
 
   const setColor = (date) => {
@@ -373,11 +402,13 @@ function Attendance() {
             <div className="section">
               <div className="div-attendance-section">
                 <div className="div-month">
-                  <HiChevronLeft
-                    className="icon-left"
-                    size="20"
-                    onClick={() => preMonth()}
-                  />
+                  {!isLast && (
+                    <HiChevronLeft
+                      className="icon-left"
+                      size="20"
+                      onClick={() => preMonth()}
+                    />
+                  )}
                   {year}.{month + 1}
                   {(year != thisYear || month != thisMonth) && (
                     <HiChevronRight
