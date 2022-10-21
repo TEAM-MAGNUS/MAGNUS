@@ -26,9 +26,11 @@ function MemberAttendance(props) {
       getAttendance(year - 1, 11);
       setYear(year - 1);
       setMonth(11);
+      getPre(year - 1, 11);
     } else {
       getAttendance(year, month - 1);
       setMonth(month - 1);
+      getPre(year, month - 1);
     }
   };
   const nextMonth = () => {
@@ -36,12 +38,42 @@ function MemberAttendance(props) {
       getAttendance(year + 1, 0);
       setYear(year + 1);
       setMonth(0);
+      getPre(year + 1, 0);
     } else {
       getAttendance(year, month + 1);
       setMonth(month + 1);
+      getPre(year, month + 1);
     }
   };
-
+  const [isLast, setIsLast] = useState(false);
+  const [join, setJoin] = useState("");
+  console.log("join: " + join);
+  const getPre = (year, month) => {
+    console.log("getpre");
+    if (month == 0) {
+      setIsLast(join.substring(0, 4) >= year);
+    } else {
+      setIsLast(
+        join.substring(0, 4) >= year &&
+          parseInt(join.substring(5, 7) - 1) >= parseInt(month)
+      );
+    }
+  };
+  const getJoin = () => {
+    const post = {
+      pnum: pnum,
+    };
+    fetch("https://teammagnus.net/getJoin", {
+      method: "post",
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify(post),
+    })
+      .then((res) => res.json())
+      .then((json) => {
+        setJoin(json.date);
+        getPre();
+      });
+  };
   var calendar = [
     [
       { date: null, attendance: null },
@@ -131,6 +163,7 @@ function MemberAttendance(props) {
 
   useEffect(() => {
     getAttendance(thisYear, thisMonth);
+    getJoin();
   }, []);
 
   const setColor = (date) => {
@@ -362,11 +395,13 @@ function MemberAttendance(props) {
 
       <div className="div-attendance-section">
         <div className="div-month">
-          <HiChevronLeft
-            className="icon-left"
-            size="20"
-            onClick={() => preMonth()}
-          />
+          {!isLast && (
+            <HiChevronLeft
+              className="icon-left"
+              size="20"
+              onClick={() => preMonth()}
+            />
+          )}
           {year}.{month + 1}
           {year == thisYear && month == thisMonth ? (
             <></>

@@ -87,6 +87,25 @@ function getAttendance(date) {
   // else return 2;
 };
 
+function isManager() {
+  const post = {
+    id: window.sessionStorage.getItem("id"),
+  };
+  fetch("https://teammagnus.net/isManager", {
+    method: "post",
+    headers: { "content-type": "application/json" },
+    body: JSON.stringify(post),
+  })
+    .then((res) => res.json())
+    .then((json) => {
+      if (json.m == 1) {
+        window.sessionStorage.setItem("m", 1);
+      } else {
+        window.sessionStorage.setItem("m", 0);
+      }
+    });
+}
+
 function write(date) {
   console.log(`날짜: ${date.getMonth()}월 ${date.getDate()}일`);
   const attendance = getAttendance(date);
@@ -163,6 +182,7 @@ function Profile() {
       });
   };
   useEffect(() => {
+    isManager();
     getMyAbsence();
     getMyWarning();
   }, []);
