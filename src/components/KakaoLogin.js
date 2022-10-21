@@ -74,7 +74,7 @@ function KaKaoLogin() {
     const post = {
       query: 
         "UPDATE magnus_user SET image = '" + 
-        info.image +
+        info.imageUrl +
         "' WHERE id = '" +
         info.id +
         "';"
