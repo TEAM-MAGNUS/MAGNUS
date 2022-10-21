@@ -1,4 +1,4 @@
-import React from "react";
+import { React, useState, useEffect } from "react";
 import ReactFullpage from "@fullpage/react-fullpage";
 
 import { HiChevronDown } from "react-icons/hi";
@@ -10,10 +10,15 @@ import logo from "../asset/main/logo.png";
 import loginbtn from "../asset/login/kakao_login.png";
 
 function Main() {
+  const [login, setLogin] = useState(false);
   const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}&response_type=code`;
   const handleLogin = () => {
     window.location.href = KAKAO_AUTH_URL;
   };
+
+  useEffect(() => {
+    console.log(isLogin());
+  }, [])
 
   return (
     <>
@@ -24,7 +29,7 @@ function Main() {
             <div className="section">
               <div className="div-main-section-01">
                 <img className="img-main" src={logo} alt="" />
-                {!isLogin() && (
+                {!login && (
                   <img
                     className="img-main"
                     style={{ marginTop: "50px" }}
