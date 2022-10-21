@@ -5,6 +5,9 @@ import { HiPlus, HiX, HiMinus, HiCheck } from "react-icons/hi";
 import IsManager from "./IsManager";
 
 function Absence() {
+  const [name, setName] = useState("");
+  const [pnum, setPnum] = useState("");
+  const [date, setDate] = useState("");
   const [user, setUser] = useState([{}]);
 
   const getAbsence = () => {
@@ -18,17 +21,20 @@ function Absence() {
       });
   };
 
-  const addAbsence = (name, date) => {
+  const addAbsence = () => {
     const post = {
       name: name,
       date: date,
+      pnum: pnum,
     };
     console.log(post.query);
     fetch("https://teammagnus.net/addAbsence", {
       method: "post",
       headers: { "content-type": "application/json" },
       body: JSON.stringify(post),
-    }).then(window.location.reload());
+    }).then(() => {
+      window.location.reload();
+    });
   };
 
   const cancelAbsence = (name, date) => {
@@ -41,17 +47,15 @@ function Absence() {
       method: "post",
       headers: { "content-type": "application/json" },
       body: JSON.stringify(post),
-    }).then(window.location.reload());
+    }).then(() => {
+      window.location.reload();
+    });
   };
 
   useEffect(() => {
     IsManager();
     getAbsence();
   }, []);
-
-  const [name, setName] = useState("");
-  const [pnum, setPnum] = useState("");
-  const [date, setDate] = useState("");
 
   const onChange = (e) => {
     switch (e.target.name) {
@@ -126,11 +130,13 @@ function Absence() {
               <HiPlus
                 className="button-absence-minus"
                 onClick={() => {
-                  if (name != "" && date != "") addAbsence(name, date);
+                  if (name != "" && pnum != "" && date != "") addAbsence();
                 }}
                 style={{
                   backgroundColor:
-                    name != "" && date != "" ? "#e79b42" : "rgba(0, 0, 0, 0.2)",
+                    name != "" && pnum != "" && date != ""
+                      ? "#e79b42"
+                      : "rgba(0, 0, 0, 0.2)",
                 }}
               />
             </div>

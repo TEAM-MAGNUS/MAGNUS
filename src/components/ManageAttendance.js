@@ -372,7 +372,9 @@ function ManageAttendance() {
       method: "post",
       headers: { "content-type": "application/json" },
       body: JSON.stringify(post),
-    }).then(window.location.reload());
+    }).then(() => {
+      window.location.reload();
+    });
   };
   const removeAttendance = (name, pnum) => {
     const post = {
@@ -385,7 +387,9 @@ function ManageAttendance() {
       method: "post",
       headers: { "content-type": "application/json" },
       body: JSON.stringify(post),
-    }).then(window.location.reload());
+    }).then(() => {
+      window.location.reload();
+    });
   };
   const [name, setName] = useState("");
   const [pnum, setPnum] = useState("");

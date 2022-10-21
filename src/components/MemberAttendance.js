@@ -90,6 +90,7 @@ function MemberAttendance(props) {
       year: year,
       month: month,
       name: name,
+      pnum: pnum,
     };
     fetch("https://teammagnus.net/getAttendance", {
       method: "post",
