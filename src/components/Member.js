@@ -70,7 +70,9 @@ function Member() {
       body: JSON.stringify(post),
     })
       .then((res) => res.json())
-      .then(window.location.reload());
+      .then(() => {
+        window.location.reload();
+      });
   };
 
   const addPage = (
@@ -118,10 +120,12 @@ function Member() {
         method: "post",
         headers: { "content-type": "application/json" },
         body: JSON.stringify(post),
-      }).then((res) => res.json());
+      })
+        .then((res) => res.json())
+        .then(() => {
+          window.location.reload();
+        });
     });
-
-    window.location.reload();
   };
 
   const showMember = member.map((user, idx) => (

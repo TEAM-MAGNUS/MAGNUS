@@ -6,7 +6,6 @@ import { PieChart, Pie, Sector, Cell } from "recharts";
 const td = new Date();
 
 function MemberAll(props) {
-  const name = props.name;
   const pnum = props.pnum;
   const thisYear = td.getFullYear();
   const thisMonth = td.getMonth();
@@ -45,7 +44,7 @@ function MemberAll(props) {
     attendance3 = 0;
 
     const post = {
-      name: name,
+      p: pnum,
     };
     fetch("https://teammagnus.net/getAll", {
       method: "post",

@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import profile from "../asset/profile/profile.png";
 import dayjs from "dayjs";
 import ReactSquircle from "react-squircle";
 import IsMe from "./IsMe";
@@ -9,8 +8,7 @@ function isManager() {
   const post = {
     id: window.sessionStorage.getItem("id"),
   };
-  fetch("https://localhost/IsManager", {
-    // fetch("https://teammagnus.net/IsManager", {
+  fetch("https://teammagnus.net/isManager", {
     method: "post",
     headers: { "content-type": "application/json" },
     body: JSON.stringify(post),
@@ -95,7 +93,7 @@ function Profile() {
       });
   };
   useEffect(() => {
-    if (!window.sessionStorage.getItem("m")) isManager();
+    isManager();
     IsMe();
     getMyAbsence();
     getMyWarning();
