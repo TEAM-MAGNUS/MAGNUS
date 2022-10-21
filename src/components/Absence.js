@@ -2,9 +2,11 @@ import { React, useEffect, useState } from "react";
 import { HiOutlineArrowLeft } from "react-icons/hi";
 import { NavLink } from "react-router-dom";
 import { HiPlus, HiX, HiMinus, HiCheck } from "react-icons/hi";
-import IsManager from "./IsManager";
 
 function Absence() {
+  const [name, setName] = useState("");
+  const [pnum, setPnum] = useState("");
+  const [date, setDate] = useState("");
   const [user, setUser] = useState([{}]);
 
   const getAbsence = () => {
@@ -18,40 +20,41 @@ function Absence() {
       });
   };
 
-  const addAbsence = (name, date) => {
+  const addAbsence = () => {
     const post = {
       name: name,
       date: date,
+      pnum: pnum,
     };
     console.log(post.query);
     fetch("https://teammagnus.net/addAbsence", {
       method: "post",
       headers: { "content-type": "application/json" },
       body: JSON.stringify(post),
-    }).then(window.location.reload());
+    }).then(() => {
+      window.location.reload();
+    });
   };
 
-  const cancelAbsence = (name, date) => {
+  const cancelAbsence = (name, date, pnum) => {
     const post = {
       name: name,
       date: date,
+      pnum: pnum,
     };
     console.log(post.query);
     fetch("https://teammagnus.net/cancelAbsence", {
       method: "post",
       headers: { "content-type": "application/json" },
       body: JSON.stringify(post),
-    }).then(window.location.reload());
+    }).then(() => {
+      window.location.reload();
+    });
   };
 
   useEffect(() => {
-    IsManager();
     getAbsence();
   }, []);
-
-  const [name, setName] = useState("");
-  const [pnum, setPnum] = useState("");
-  const [date, setDate] = useState("");
 
   const onChange = (e) => {
     switch (e.target.name) {
@@ -80,7 +83,7 @@ function Absence() {
           className="button-absence-minus"
           onClick={() => {
             if (window.confirm("정말 삭제하시겠습니까?")) {
-              cancelAbsence(user.name, user.date);
+              cancelAbsence(user.n, user.date, user.p);
             }
           }}
         />
@@ -90,6 +93,7 @@ function Absence() {
   return (
     <div>
       <div className="div-attendance-section">
+        <div className="div-notice-header"></div>
         <div className="div-month">
           <NavLink to="/manage" className="link-header">
             <HiOutlineArrowLeft size="20" className="icon-back" />
@@ -126,11 +130,13 @@ function Absence() {
               <HiPlus
                 className="button-absence-minus"
                 onClick={() => {
-                  if (name != "" && date != "") addAbsence(name, date);
+                  if (name != "" && pnum != "" && date != "") addAbsence();
                 }}
                 style={{
                   backgroundColor:
-                    name != "" && date != "" ? "#e79b42" : "rgba(0, 0, 0, 0.2)",
+                    name != "" && pnum != "" && date != ""
+                      ? "#e79b42"
+                      : "rgba(0, 0, 0, 0.2)",
                 }}
               />
             </div>

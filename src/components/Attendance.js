@@ -9,7 +9,6 @@ import {
 import { PieChart, Pie, Sector, Cell } from "recharts";
 import ReactFullpage from "@fullpage/react-fullpage";
 import All from "./All";
-import IsMe from "./IsMe";
 
 const td = new Date();
 
@@ -141,7 +140,6 @@ function Attendance() {
   update();
 
   useEffect(() => {
-    IsMe();
     getAttendance(thisYear, thisMonth);
   }, []);
 

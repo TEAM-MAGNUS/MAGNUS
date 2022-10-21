@@ -182,7 +182,9 @@ function Calendar() {
       method: "post",
       headers: { "content-type": "application/json" },
       body: JSON.stringify(post),
-    }).then(window.location.reload());
+    }).then(() => {
+      window.location.reload();
+    });
   };
 
   const removeSchedule = (date) => {
@@ -196,7 +198,9 @@ function Calendar() {
       method: "post",
       headers: { "content-type": "application/json" },
       body: JSON.stringify(post),
-    }).then(window.location.reload());
+    }).then(() => {
+      window.location.reload();
+    });
   };
 
   const showSchedule = (

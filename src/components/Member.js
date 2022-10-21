@@ -10,7 +10,6 @@ import {
 } from "react-icons/hi";
 import { NavLink } from "react-router-dom";
 import MemberAttendance from "./MemberAttendance";
-import IsManager from "./IsManager";
 
 var checkedList = [100];
 
@@ -34,7 +33,6 @@ function Member() {
   };
 
   useEffect(() => {
-    IsManager();
     getMember();
   }, []);
 
@@ -70,7 +68,9 @@ function Member() {
       body: JSON.stringify(post),
     })
       .then((res) => res.json())
-      .then(window.location.reload());
+      .then(() => {
+        window.location.reload();
+      });
   };
 
   const addPage = (
@@ -118,10 +118,12 @@ function Member() {
         method: "post",
         headers: { "content-type": "application/json" },
         body: JSON.stringify(post),
-      }).then((res) => res.json());
+      })
+        .then((res) => res.json())
+        .then(() => {
+          window.location.reload();
+        });
     });
-
-    window.location.reload();
   };
 
   const showMember = member.map((user, idx) => (

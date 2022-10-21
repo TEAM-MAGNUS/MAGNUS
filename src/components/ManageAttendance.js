@@ -11,7 +11,6 @@ import {
 import { PieChart, Pie, Sector, Cell } from "recharts";
 import { NavLink } from "react-router-dom";
 import { BsSdCardFill } from "react-icons/bs";
-import IsManager from "./IsManager";
 
 const td = new Date();
 
@@ -200,7 +199,6 @@ function ManageAttendance() {
   };
 
   useEffect(() => {
-    IsManager();
     getUserNum(thisYear, thisMonth);
   }, []);
 
@@ -372,7 +370,9 @@ function ManageAttendance() {
       method: "post",
       headers: { "content-type": "application/json" },
       body: JSON.stringify(post),
-    }).then(window.location.reload());
+    }).then(() => {
+      window.location.reload();
+    });
   };
   const removeAttendance = (name, pnum) => {
     const post = {
@@ -385,7 +385,9 @@ function ManageAttendance() {
       method: "post",
       headers: { "content-type": "application/json" },
       body: JSON.stringify(post),
-    }).then(window.location.reload());
+    }).then(() => {
+      window.location.reload();
+    });
   };
   const [name, setName] = useState("");
   const [pnum, setPnum] = useState("");

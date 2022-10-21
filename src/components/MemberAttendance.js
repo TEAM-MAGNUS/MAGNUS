@@ -8,7 +8,6 @@ import {
 } from "react-icons/hi";
 import { PieChart, Pie, Sector, Cell } from "recharts";
 import MemberAll from "./MemberAll";
-import IsManager from "./IsManager";
 
 const td = new Date();
 
@@ -90,6 +89,7 @@ function MemberAttendance(props) {
       year: year,
       month: month,
       name: name,
+      pnum: pnum,
     };
     fetch("https://teammagnus.net/getAttendance", {
       method: "post",
@@ -130,7 +130,6 @@ function MemberAttendance(props) {
   update();
 
   useEffect(() => {
-    IsManager();
     getAttendance(thisYear, thisMonth);
   }, []);
 
