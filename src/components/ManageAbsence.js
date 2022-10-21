@@ -10,6 +10,7 @@ import {
 } from "react-icons/hi";
 import { PieChart, Pie, Sector, Cell } from "recharts";
 import { NavLink } from "react-router-dom";
+import IsManager from "./IsManager";
 
 const td = new Date();
 
@@ -220,6 +221,7 @@ function ManageAbsence() {
   };
 
   useEffect(() => {
+    IsManager();
     getWholeAttendance(thisYear, thisMonth);
     getUserNum(thisYear, thisMonth);
   }, []);

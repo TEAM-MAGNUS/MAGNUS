@@ -1,5 +1,5 @@
 import React, { useState, useEffect, startTransition } from "react";
-import { BsCheck } from "react-icons/bs";
+import { HiCheck } from "react-icons/hi";
 
 import { REST_API_KEY, REDIRECT_URI } from "./LoginData";
 import profile from "./Profile";
@@ -10,7 +10,9 @@ function KaKaoLogin() {
   const KAKAO_CODE = PARAMS.get("code");
 
   const [Loading, setLoading] = useState(true);
-  const [visible, setVisible] = useState("none");
+  const [visible, setVisible] = useState(false);
+  const [smsClick, setSmsClick] = useState(false);
+  const [sms, setSms] = useState("");
   const [info, setInfo] = useState({
     id: "",
     name: "",
@@ -18,17 +20,58 @@ function KaKaoLogin() {
     pnum: "",
   });
 
+  const [verified, setVerified] = useState(false);
+
+  console.log(info.name);
   const onChange = (e) => {
-    setInfo((prevInfo) => ({
-      ...prevInfo,
-      pnum: e.target.value,
-    }));
-    e.target.value.length === 11 ? setVisible("block") : setVisible("none");
+    switch (e.target.name) {
+      case "name":
+        setInfo((prevInfo) => ({
+          ...prevInfo,
+          name: e.target.value,
+        }));
+
+        break;
+      case "pnum":
+        setInfo((prevInfo) => ({
+          ...prevInfo,
+          pnum: e.target.value,
+        }));
+        e.target.value.length === 11 ? setVisible(true) : setVisible(false);
+        break;
+      case "sms":
+        setSms(e.target.value);
+        if (e.target.value == code) setVerified(true);
+        else setVerified(false);
+
+        break;
+      default:
+    }
+  };
+
+  const [code, setCode] = useState(null);
+  const smsAuth = () => {
+    // console.log("sms!");
+    // const post = {
+    //   p: info.pnum,
+    // };
+
+    // fetch("https://localhost/smsAuth", {
+    //   // fetch("https://teammagnus.net/smsAuth", {
+    //   method: "post",
+    //   headers: { "content-type": "application/json" },
+    //   body: JSON.stringify(post),
+    // })
+    //   .then((res) => res.text())
+    //   .then((code) => {
+    //     console.log(code);
+    //     setCode(code);
+    //   });
+    setCode(999999);
   };
 
   const login = () => {
     window.sessionStorage.setItem("id", info.id);
-    window.sessionStorage.setItem("name", info.name);
     window.sessionStorage.setItem("imageUrl", info.imageUrl);
     window.location.href = "/profile";
   };
@@ -88,7 +131,6 @@ function KaKaoLogin() {
   }
 
   function saveKakaoUserInfo({ id, name, pnum, imageUrl: image }) {
-    console.log("start");
     const p =
       pnum.substr(0, 3) + "-" + pnum.substr(3, 4) + "-" + pnum.substr(7, 4);
     const post1 = {
@@ -105,7 +147,6 @@ function KaKaoLogin() {
         if (json.ISMEMBER) {
           const post = {
             i: id,
-            n: name,
             p: p,
             img: image,
           };
@@ -136,6 +177,7 @@ function KaKaoLogin() {
     info.id ? searchUser(info.id) : console.log("no id");
   }, [info.id]);
 
+  console.log("v: " + verified);
   return (
     <div className="div-kakaologin-body">
       {Loading ? (
@@ -151,27 +193,81 @@ function KaKaoLogin() {
             className="squircle"
             imageUrl={info.imageUrl || profile}
           />
-          {info.name}
-          <div className="input-pnum">
+          {/* <div className="div-login-input-pnum">
+            이름(실명)을 입력해주세요.
             <input
-              placeholder="전화번호를 입력해주세요."
               maxLength="11"
               onChange={onChange}
+              name="name"
+              value={info.name}
             />
-            <BsCheck
-              style={{
-                position: "absolute",
-                right: "5px",
-                bottom: "7px",
-                width: "30px",
-                height: "30px",
-                display: visible,
-              }}
-              onClick={() => {
-                saveKakaoUserInfo(info);
-              }}
+            {info.name != "" && <HiCheck className="icon-login-check" />}
+          </div> */}
+          <div className="div-login-input-pnum">
+            휴대전화번호를 입력해주세요.
+            <input
+              maxLength="11"
+              onChange={onChange}
+              name="pnum"
+              value={info.pnum}
             />
+            {visible && (
+              <>
+                <HiCheck className="icon-login-check" />
+              </>
+            )}
+            {visible && !smsClick && (
+              <div className="div-login-input-pnum">
+                <div
+                  className="button-login-sms "
+                  onClick={() => {
+                    if (!smsClick) {
+                      setSmsClick(true);
+                      smsAuth();
+                    }
+                  }}
+                  style={{
+                    backgroundColor: smsClick && "rgba(0, 0, 0, 0.2)",
+                  }}
+                >
+                  인증번호 받기
+                </div>
+              </div>
+            )}
           </div>
+
+          {smsClick && (
+            <>
+              <div className="div-login-input-pnum">
+                인증번호를 입력해주세요.
+                <input
+                  maxLength="6"
+                  onChange={onChange}
+                  name="sms"
+                  value={sms}
+                />
+              </div>
+              {sms.length == 6 && !verified && (
+                <div className="div-login-sms-not">
+                  인증번호가 일치하지 않습니다.
+                </div>
+              )}
+            </>
+          )}
+          {verified && (
+            <>
+              <HiCheck className="icon-login-check" />
+              {info.name != "" && visible && (
+                <HiCheck
+                  className="button-login-check"
+                  onClick={() => {
+                    if (window.confirm("회원가입을 진행하시겠습니까?"))
+                      saveKakaoUserInfo(info);
+                  }}
+                />
+              )}
+            </>
+          )}
         </div>
       )}
     </div>

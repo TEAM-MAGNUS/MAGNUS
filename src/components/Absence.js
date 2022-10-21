@@ -2,6 +2,7 @@ import { React, useEffect, useState } from "react";
 import { HiOutlineArrowLeft } from "react-icons/hi";
 import { NavLink } from "react-router-dom";
 import { HiPlus, HiX, HiMinus, HiCheck } from "react-icons/hi";
+import IsManager from "./IsManager";
 
 function Absence() {
   const [user, setUser] = useState([{}]);
@@ -44,6 +45,7 @@ function Absence() {
   };
 
   useEffect(() => {
+    IsManager();
     getAbsence();
   }, []);
 

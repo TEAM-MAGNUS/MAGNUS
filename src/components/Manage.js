@@ -1,7 +1,12 @@
-import React from "react";
+import { React, useEffect } from "react";
 import { NavLink } from "react-router-dom";
+import IsManager from "./IsManager";
 
 function Manage() {
+  useEffect(() => {
+    IsManager();
+  }, []);
+
   return (
     <div className="div-manage-section">
       <div className="div-manage-grid-section">

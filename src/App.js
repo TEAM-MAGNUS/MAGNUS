@@ -20,6 +20,7 @@ import ManageAbsence from "./components/ManageAbsence";
 import NotFound from "./components/NotFound";
 
 import Protected from "./components/Protected";
+import ProtectedM from "./components/ProtectedM";
 
 function App() {
   return (
@@ -37,18 +38,23 @@ function App() {
           <Route path="/ranking" element={<Protected element={Ranking} />} />
           <Route path="/calendar" element={<Protected element={Calendar} />} />
           <Route path="/notice" element={<Protected element={Notice} />} />
-          <Route path="/manage" element={<Protected element={Manage} />} />
-          <Route path="/warning" element={<Protected element={Warning} />} />
-          <Route path="/average" element={<Protected element={Average} />} />
-          <Route path="/absence" element={<Protected element={Absence} />} />
-          <Route path="/member" element={<Protected element={Member} />} />
+          <Route path="/manage" element={<ProtectedM element={Manage} />} />
+          <Route path="/warning" element={<ProtectedM element={Warning} />} />
+          <Route path="/average" element={<ProtectedM element={Average} />} />
+          <Route path="/absence" element={<ProtectedM element={Absence} />} />
+          <Route path="/member" element={<ProtectedM element={Member} />} />
           <Route
             path="/memberAttendance"
-            element={<Protected element={MemberAttendance} />}
+            element={<ProtectedM element={MemberAttendance} />}
           />
-          <Route path="/all" element={<Protected element={All} />} />
-          <Route path="/manageAttendance" element={<ManageAttendance />} />
-          <Route path="/manageAbsence" element={<ManageAbsence />} />
+          <Route
+            path="/manageAttendance"
+            element={<ProtectedM element={ManageAttendance} />}
+          />
+          <Route
+            path="/manageAbsence"
+            element={<ProtectedM element={ManageAbsence} />}
+          />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
