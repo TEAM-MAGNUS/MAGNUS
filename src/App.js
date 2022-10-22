@@ -21,6 +21,7 @@ import NotFound from "./components/NotFound";
 
 import Protected from "./components/Protected";
 import ProtectedM from "./components/ProtectedM";
+import SetIP from "./components/SetIP";
 
 function App() {
   return (
@@ -56,6 +57,7 @@ function App() {
             path="/manageAbsence"
             element={<ProtectedM element={ManageAbsence} />}
           />
+          <Route path="/setIP" element={<ProtectedM element={SetIP} />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>

@@ -23,6 +23,9 @@ function Manage() {
         <NavLink to="/average" className="link-header div-manage-grid-item">
           <div>출석 통계</div>
         </NavLink>
+        <NavLink to="/setIP" className="link-header div-manage-grid-item">
+          <div>IP 변경</div>
+        </NavLink>
       </div>
     </div>
   );
