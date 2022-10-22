@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   HiPlus,
   HiX,
@@ -9,6 +9,29 @@ import {
 } from "react-icons/hi";
 
 const td = new Date();
+
+function isManager() {
+  const post = {
+    id: window.sessionStorage.getItem("id"),
+  };
+  fetch("https://teammagnus.net/isManager", {
+    method: "post",
+    headers: { "content-type": "application/json" },
+    body: JSON.stringify(post),
+  })
+    .then((res) => res.json())
+    .then((json) => {
+      if (json.m == 1) {
+        window.sessionStorage.setItem("m", 1);
+      } else {
+        if (window.sessionStorage.getItem("m") == 1) {
+          window.sessionStorage.setItem("m", 0);
+          window.location.reload();
+        }
+        window.sessionStorage.setItem("m", 0);
+      }
+    });
+}
 
 function Calendar() {
   const thisYear = td.getFullYear();
@@ -232,22 +255,26 @@ function Calendar() {
             )}
           </>
         ) : (
-          <HiPlus
+          window.sessionStorage.getItem("m") == 1 && (
+            <HiPlus
+              className="button-calendar-schedule-write"
+              onClick={() => {
+                setOpen2(true);
+              }}
+            />
+          )
+        )
+      ) : (
+        window.sessionStorage.getItem("m") == 1 && (
+          <HiMinus
             className="button-calendar-schedule-write"
             onClick={() => {
-              setOpen2(true);
+              if (window.confirm("정말 삭제하시겠습니까?")) {
+                removeSchedule(now.date);
+              }
             }}
           />
         )
-      ) : (
-        <HiMinus
-          className="button-calendar-schedule-write"
-          onClick={() => {
-            if (window.confirm("정말 삭제하시겠습니까?")) {
-              removeSchedule(now.date);
-            }
-          }}
-        />
       )}
     </>
   );
@@ -279,6 +306,7 @@ function Calendar() {
                   if (w[0].date) {
                     openSchedule(index, w[0].date, 0);
                     setClicked({ week: index, date: w[0].date });
+                    isManager();
                   }
                 }}
               >
@@ -298,6 +326,7 @@ function Calendar() {
                   if (w[1].date) {
                     openSchedule(index, w[1].date, 1);
                     setClicked({ week: index, date: w[1].date });
+                    isManager();
                   }
                 }}
               >
@@ -317,6 +346,7 @@ function Calendar() {
                   if (w[2].date) {
                     openSchedule(index, w[2].date, 2);
                     setClicked({ week: index, date: w[2].date });
+                    isManager();
                   }
                 }}
               >

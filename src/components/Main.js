@@ -96,8 +96,23 @@ function Main() {
                 다양한 학교 친구들과 교류할 수 있는 절호의 기회
               </div>
               <div className="div-main-instagram-kakao">
-                <img src={instagram} alt="" style={{ width: "30px" }} />
-                <img src={kakao} alt="" style={{ width: "30px" }} />
+                <img
+                  src={instagram}
+                  alt=""
+                  style={{ width: "30px" }}
+                  onClick={() =>
+                    (window.location.href =
+                      "https://www.instagram.com/team_magnus_bjj/")
+                  }
+                />
+                <img
+                  src={kakao}
+                  alt=""
+                  style={{ width: "30px" }}
+                  onClick={() =>
+                    (window.location.href = "https://open.kakao.com/o/gKneLTHd")
+                  }
+                />
               </div>
             </div>
           </div>
