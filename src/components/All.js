@@ -10,6 +10,9 @@ function All(props) {
   const thisYear = td.getFullYear();
   const thisMonth = td.getMonth();
 
+  console.log("name: " + name);
+  console.log("pnum: " + pnum);
+
   const [year, setYear] = useState(thisYear);
   const [month, setMonth] = useState(thisMonth);
   const [attendance, setAttendance] = useState([
@@ -44,7 +47,7 @@ function All(props) {
     attendance3 = 0;
 
     const post = {
-      name: name,
+      p: pnum,
     };
     fetch("https://teammagnus.net/getAll", {
       method: "post",

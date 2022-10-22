@@ -10,7 +10,7 @@ async function IsAttend(date) {
     d: date.getDate(),
   };
 
-  const result = await fetch("https://localhost/IsAttend", {
+  const result = await fetch("https://teammagnus.net/IsAttend", {
     method: "post",
     headers: { "content-type": "application/json" },
     body: JSON.stringify(post),
@@ -89,7 +89,7 @@ const getDateAttendanceType = (date) => {
     d: date.getDate(),
   };
 
-  fetch("https://localhost/getDateAttendanceType", {
+  fetch("https://teammagnus.net/getDateAttendanceType", {
     method: "post",
     headers: { "content-type": "application/json" },
     body: JSON.stringify(post),
@@ -131,7 +131,7 @@ function write(date) {
   };
   console.log(JSON.stringify(post));
 
-  fetch("https://localhost/writeDate", {
+  fetch("https://teammagnus.net/writeDate", {
     method: "post",
     headers: { "content-type": "application/json" },
     body: JSON.stringify(post),
@@ -162,6 +162,20 @@ function Profile() {
       });
   };
 
+  const [ip, setIp] = useState(null);
+  const getIP = () => {
+    fetch("https://teammagnus.net/getIP", {
+      method: "post",
+      headers: { "content-type": "application/json" },
+    })
+      .then((res) => res.json())
+      .then((json) => {
+        setIp(json.ip);
+      });
+  };
+
+  console.log(ip);
+
   const [isWarning, setIsWarning] = useState(false);
   const getMyWarning = () => {
     const post = {
@@ -180,6 +194,7 @@ function Profile() {
       });
   };
   useEffect(() => {
+    getIP();
     isManager();
     getMyAbsence();
     getMyWarning();
@@ -219,22 +234,19 @@ function Profile() {
               <div
                 className="div-profile-check-section"
                 onClick={async (e) => {
-                  if (!window.sessionStorage.getItem("isAttend")) {
-                    const attend = await IsAttend(td);
-                    if (attend) {
-                      window.sessionStorage.setItem("isAttend", true);
-                      alert("이미 출석하셨습니다.");
-                      window.location.reload();
-                    } else {
-                      const Location = await fetch(
-                        "https://geolocation-db.com/json/"
-                      );
-                      const location = await Location.json();
-                      location.IPv4 === "110.15.68.114"
-                        ? // location.IPv4 === "121.160.20.182"
-                          write(td)
-                        : console.log("ip가 다릅니다.");
-                    }
+                  const attend = await IsAttend(td);
+                  if (attend) {
+                    window.sessionStorage.setItem("isAttend", true);
+                    alert("이미 출석하셨습니다.");
+                    window.location.reload();
+                  } else {
+                    const Location = await fetch(
+                      "https://geolocation-db.com/json/"
+                    );
+                    const location = await Location.json();
+                    location.IPv4 === ip
+                      ? write(td)
+                      : window.alert("'러쉬클랜_3F' 와이파이로 접속해주세요.");
                   }
                 }}
               >
