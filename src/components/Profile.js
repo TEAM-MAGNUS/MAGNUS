@@ -1,91 +1,65 @@
 import React, { useState, useEffect } from "react";
 import dayjs from "dayjs";
 import ReactSquircle from "react-squircle";
-import { HiExternalLink } from "react-icons/hi";
 
-// function isManager() {
-//   console.log("mmm");
-//   const post = {
-//     id: window.sessionStorage.getItem("id"),
-//   };
-//   fetch("https://teammagnus.net/isManager", {
-//     method: "post",
-//     headers: { "content-type": "application/json" },
-//     body: JSON.stringify(post),
-//   })
-//     .then((res) => res.json())
-//     .then((json) => {
-//       if (json.m == 1) {
-//         window.sessionStorage.setItem("m", 1);
-//       } else {
-//         window.sessionStorage.setItem("m", 0);
-//       }
-//     });
-// }
 async function IsAttend(date) {
-
   const post = {
-    query:
-      "SELECT EXISTS (SELECT attendance_date FROM magnus_attendance where id = '" +
-      window.sessionStorage.getItem("id") +
-      "' AND attendance_date = '" +
-      date.getFullYear() +
-      "-" +
-      (date.getMonth() + 1) +
-      "-" +
-      date.getDate() +
-      "') AS ISATTEND;"
-  }
-  console.log(post.query);
+    id: window.sessionStorage.getItem("pnum"),
+    y: date.getFullYear(),
+    m: date.getMonth() + 1,
+    d: date.getDate(),
+  };
 
-  const result = await fetch("https://hansori.net:443/SQL1", {
+  const result = await fetch("https://localhost/IsAttend", {
     method: "post",
     headers: { "content-type": "application/json" },
-    body: JSON.stringify(post)
-  })
-    .then(res => res.json())
+    body: JSON.stringify(post),
+  }).then((res) => res.json());
   console.log("result:    " + result.ISATTEND);
   return result.ISATTEND;
 }
 
 function getAttendance(date) {
   const lessonTime = [
-      // [시, 분, 수업 시간]
-      [20, 0, 90], 
-      [14, 0, 120],
-      [16, 0, 120]
-  ]
+    // [시, 분, 지각기준]
+    [20, 0, 30],
+    [14, 0, 30],
+    [16, 0, 30],
+  ];
 
   var todayLessonTime;
   switch (date.getDay()) {
-      case 0:
-          console.log("sunday");
-          todayLessonTime = lessonTime[0];
-          break;
-      case 5:
-          console.log("Friday");
-          todayLessonTime = lessonTime[1];
-          break;
-      case 6:
-          console.log("Saturday");
-          todayLessonTime = lessonTime[2];
-          break;
-      default:
-          console.log("error: not day");
+    case 0:
+      console.log("sunday");
+      todayLessonTime = lessonTime[0];
+      break;
+    case 5:
+      console.log("Friday");
+      todayLessonTime = lessonTime[1];
+      break;
+    case 6:
+      console.log("Saturday");
+      todayLessonTime = lessonTime[2];
+      break;
+    default:
+      console.log("error: not day");
   }
 
-  const minutesDiff = 60 * (date.getHours() - todayLessonTime[0]) + date.getMinutes() - todayLessonTime[1] ;
-  
+  const minutesDiff =
+    60 * (date.getHours() - todayLessonTime[0]) +
+    date.getMinutes() -
+    todayLessonTime[1];
+
   var attendance;
   if (minutesDiff <= 0) attendance = 0;
   else if (minutesDiff < todayLessonTime[2]) attendance = 1;
-  else return attendance = 2;
+  else return (attendance = 2);
   return attendance;
 
   // if (minutesDiff <= 0) return 0;
   // else if (minutesDiff < todayLessonTime[2]) return 1;
   // else return 2;
-};
+}
 
 function isManager() {
   const post = {
@@ -106,41 +80,65 @@ function isManager() {
     });
 }
 
+const getDateAttendanceType = (date) => {
+  const post = {
+    id: window.sessionStorage.getItem("pnum"),
+    name: window.sessionStorage.getItem("name"),
+    y: date.getFullYear(),
+    m: date.getMonth() + 1,
+    d: date.getDate(),
+  };
+
+  fetch("https://localhost/getDateAttendanceType", {
+    method: "post",
+    headers: { "content-type": "application/json" },
+    body: JSON.stringify(post),
+  })
+    .then((res) => res.json())
+    .then((json) => {
+      switch (json.a) {
+        case 0:
+          window.sessionStorage.setItem("dateAttendanceType", "출석");
+          break;
+        case 1:
+          window.sessionStorage.setItem("dateAttendanceType", "지각");
+          break;
+        case 2:
+          window.sessionStorage.setItem("dateAttendanceType", "불참");
+          break;
+        default:
+      }
+    })
+    .catch(() => {
+      window.sessionStorage.setItem("dateAttendanceType", 9);
+    });
+};
+
 function write(date) {
   console.log(`날짜: ${date.getMonth()}월 ${date.getDate()}일`);
   const attendance = getAttendance(date);
 
   const post = {
-    query:
-      "INSERT INTO magnus_attendance (id, name, attendance, attendance_date, attendance_time) VALUES ('" +
-      window.sessionStorage.getItem("id") +
-      "', '" +
-      window.sessionStorage.getItem("name") +
-      "', " +
-      attendance +
-      ", '" +
-      date.getFullYear() +
-      "-" +
-      (date.getMonth() + 1) +
-      "-" +
-      date.getDate() +
-      "', '" +
-      date.getHours() +
-      ":" +
-      date.getMinutes() +
-      ":" +
-      date.getSeconds() +
-      "');",
+    id: window.sessionStorage.getItem("pnum"),
+    name: window.sessionStorage.getItem("name"),
+    a: attendance,
+    y: date.getFullYear(),
+    m: date.getMonth() + 1,
+    d: date.getDate(),
+    h: date.getHours(),
+    mm: date.getMinutes(),
+    s: date.getSeconds(),
   };
   console.log(JSON.stringify(post));
 
-  // fetch("http://15.165.207.25:80/SQL1", {
-  fetch("https://hansori.net:443/SQL1", {
+  fetch("https://localhost/writeDate", {
     method: "post",
     headers: { "content-type": "application/json" },
     body: JSON.stringify(post),
   }).then(() => {
     console.log("success");
+    window.sessionStorage.setItem("isAttend", true);
+    window.location.reload();
   });
 }
 
@@ -185,6 +183,7 @@ function Profile() {
     isManager();
     getMyAbsence();
     getMyWarning();
+    getDateAttendanceType(td);
   }, []);
 
   const handleLogout = () => {
@@ -216,25 +215,39 @@ function Profile() {
         <div className="div-profile-date">
           {today.format("YYYY.MM.DD")}
           {td.getDay() === 0 || td.getDay() === 5 || td.getDay() === 6 ? (
-            <div
-              className="div-profile-check-section"
-              onClick={async (e) => {
-                const attend = await IsAttend(td);
-                if (attend) {
-                  alert("이미 출석하셨습니다.");
-                } else {
-                  const Location = await fetch(
-                    "https://geolocation-db.com/json/"
-                  );
-                  const location = await Location.json();
-                  location.IPv4 === "121.160.20.182"
-                    ? write(td)
-                    : console.log("ip가 다릅니다.");
-                }
-              }}
-            >
-              출석
-            </div>
+            window.sessionStorage.getItem("dateAttendanceType") == 9 ? (
+              <div
+                className="div-profile-check-section"
+                onClick={async (e) => {
+                  if (!window.sessionStorage.getItem("isAttend")) {
+                    const attend = await IsAttend(td);
+                    if (attend) {
+                      window.sessionStorage.setItem("isAttend", true);
+                      alert("이미 출석하셨습니다.");
+                      window.location.reload();
+                    } else {
+                      const Location = await fetch(
+                        "https://geolocation-db.com/json/"
+                      );
+                      const location = await Location.json();
+                      location.IPv4 === "110.15.68.114"
+                        ? // location.IPv4 === "121.160.20.182"
+                          write(td)
+                        : console.log("ip가 다릅니다.");
+                    }
+                  }
+                }}
+              >
+                출석
+              </div>
+            ) : (
+              <div
+                className="div-profile-check-section"
+                style={{ background: "none", color: "#d2000f" }}
+              >
+                {window.sessionStorage.getItem("dateAttendanceType")}
+              </div>
+            )
           ) : (
             <div className="div-profile-check-section">
               <div style={{ backgroundColor: "rgba(0, 0, 0, 0.2)" }}>출석</div>
