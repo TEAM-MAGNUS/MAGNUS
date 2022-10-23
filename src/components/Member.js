@@ -66,11 +66,10 @@ function Member() {
       method: "post",
       headers: { "content-type": "application/json" },
       body: JSON.stringify(post),
-    })
-      .then((res) => res.json())
-      .then(() => {
-        window.location.reload();
-      });
+    }).then(() => {
+      window.alert("추가 완료되었습니다.");
+      window.location.reload();
+    });
   };
 
   const addPage = (
@@ -118,11 +117,9 @@ function Member() {
         method: "post",
         headers: { "content-type": "application/json" },
         body: JSON.stringify(post),
-      })
-        .then((res) => res.json())
-        .then(() => {
-          window.location.reload();
-        });
+      }).then(() => {
+        window.location.reload();
+      });
     });
   };
 
@@ -203,7 +200,17 @@ function Member() {
                 className="button-member-check"
                 onClick={() => {
                   if (newName != "" && newPnum != "" && newJoindate != "")
-                    addMember(newName, newPnum, newJoindate);
+                    if (
+                      window.confirm(
+                        "이름, 번호, 가입기수를 확인해주세요.\n이름:" +
+                          newName +
+                          "\n번호: " +
+                          newPnum +
+                          "\n가입기수: " +
+                          newJoindate
+                      )
+                    )
+                      addMember(newName, newPnum, newJoindate);
                 }}
                 style={{
                   backgroundColor:
