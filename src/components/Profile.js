@@ -19,6 +19,13 @@ async function IsAttend(date) {
   return result.ISATTEND;
 }
 
+var currentIP;
+async function getCurrentIP() {
+  const Location = await fetch("https://geolocation-db.com/json/");
+  currentIP = await Location.json();
+  window.sessionStorage.setItem("currentIP", currentIP.IPv4);
+}
+
 function getAttendance(date) {
   const lessonTime = [
     // [시, 분, 지각기준]
@@ -162,7 +169,7 @@ function Profile() {
       });
   };
 
-  const [ip, setIp] = useState(null);
+  const [ip, setIp] = useState([]);
   const getIP = () => {
     fetch("https://teammagnus.net/getIP", {
       method: "post",
@@ -170,7 +177,7 @@ function Profile() {
     })
       .then((res) => res.json())
       .then((json) => {
-        setIp(json.ip);
+        setIp(json);
       });
   };
 
@@ -199,6 +206,7 @@ function Profile() {
     getMyAbsence();
     getMyWarning();
     getDateAttendanceType(td);
+    getCurrentIP();
   }, []);
 
   const handleLogout = () => {
@@ -244,9 +252,13 @@ function Profile() {
                       "https://geolocation-db.com/json/"
                     );
                     const location = await Location.json();
-                    location.IPv4 === ip
+                    var ipCheck = 0;
+                    ip.map((i) => {
+                      if (location.IPv4 === i.ip) ipCheck = 1;
+                    });
+                    ipCheck
                       ? write(td)
-                      : window.alert("'러쉬클랜_3F' 와이파이로 접속해주세요.");
+                      : window.alert("접속 IP를 확인해주세요.");
                   }
                 }}
               >
@@ -261,8 +273,11 @@ function Profile() {
               </div>
             )
           ) : (
-            <div className="div-profile-check-section">
-              <div style={{ backgroundColor: "rgba(0, 0, 0, 0.2)" }}>출석</div>
+            <div
+              className="div-profile-check-section"
+              style={{ background: "none", width: "300px", fontSize: "15px" }}
+            >
+              <div>훈련일이 아닙니다.</div>
             </div>
           )}
         </div>

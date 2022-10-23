@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { HiChevronLeft, HiChevronRight } from "react-icons/hi";
+import ReactSquircle from "react-squircle";
+import logo from "../asset/main/logo.png";
 const td = new Date();
 
 function Ranking() {
@@ -33,6 +35,26 @@ function Ranking() {
     }
   };
 
+  function getProfileImage(id) {
+    const post = {
+      id: id,
+    };
+    fetch("https://localhost/getProfileImage", {
+      // fetch("https://teammagnus.net/getProfileImage", {
+      method: "post",
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify(post),
+    })
+      .then((res) => res.json())
+      .then((json) => {
+        console.log(json.p);
+        return '"' + json.p + '"';
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+  }
+
   const getRanking = (year, month) => {
     const post = {
       year: year,
@@ -45,7 +67,6 @@ function Ranking() {
     })
       .then((res) => res.json())
       .then((json) => {
-        console.log(json.t);
         setTotal(json.t);
       });
 
@@ -56,8 +77,8 @@ function Ranking() {
     })
       .then((res) => res.json())
       .then((json) => {
-        console.log(json);
         setRanking(json);
+        return json;
       });
   };
 
@@ -65,14 +86,29 @@ function Ranking() {
     getRanking(thisYear, thisMonth);
   }, []);
 
+  // const [profileList, setProfileList] = useState([]);
+
+  // async function setProfileImage() {
+  //   var userList = await getRanking(thisYear, thisMonth);
+  //   console.log("userList: " + userList);
+
+  //   // var imageUrl;
+  //   // userList.map((user) => {
+  //   //   imageUrl = getProfileImage(user.id);
+  //   //   setProfileList([...profileList, { url: imageUrl }]);
+  //   // });
+  //   // console.log(profileList);
+  // }
   var rank = 1;
   const showRanking = ranking.map((user, idx) => (
     <div key={idx} className="div-ranking-section-02">
       <div>
         {idx > 0 && ranking[idx].c < ranking[idx - 1].c ? ++rank : rank}
       </div>
-
+      {/* <div className="div-ranking-img-name">
+        <ReactSquircle className="img-ranking" imageUrl={"image"} /> */}
       <div className={rank == 1 && "div-ranking-first"}>{user.name}</div>
+      {/* </div> */}
       <div className="div-ranking-percent">
         {((user.c / total) * 100).toFixed(1)}%
       </div>
@@ -97,7 +133,7 @@ function Ranking() {
           />
         )}
       </div>
-      <div className="div-ranking-section-01"> {showRanking}</div>
+      <div className="div-ranking-section-01">{showRanking}</div>
     </div>
   );
 }
