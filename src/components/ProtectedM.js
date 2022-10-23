@@ -6,6 +6,7 @@ import isLogin from "./Login";
 
 const ProtectedM = ({ element: Element, ...rest }) => {
   useEffect(() => {
+    IsMe();
     IsManager();
   }, []);
   if (isLogin()) {
