@@ -1,16 +1,12 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   HiPlus,
-  HiX,
   HiMinus,
-  HiCheck,
   HiOutlineArrowLeft,
   HiChevronLeft,
   HiChevronRight,
 } from "react-icons/hi";
-import { PieChart, Pie, Sector, Cell } from "recharts";
 import { NavLink } from "react-router-dom";
-import { BsSdCardFill } from "react-icons/bs";
 
 const td = new Date();
 
@@ -371,6 +367,7 @@ function ManageAttendance() {
       headers: { "content-type": "application/json" },
       body: JSON.stringify(post),
     }).then(() => {
+      window.alert("추가 완료되었습니다.");
       window.location.reload();
     });
   };
@@ -470,7 +467,10 @@ function ManageAttendance() {
                 if (name != "" && pnum != "") {
                   if (
                     window.confirm(
-                      "이름/번호를 확인해주세요. (" + name + "/" + pnum + ")"
+                      "이름, 번호를 확인해주세요. \n이름: " +
+                        name +
+                        "\n번호: " +
+                        pnum
                     )
                   ) {
                     addAttendance();
