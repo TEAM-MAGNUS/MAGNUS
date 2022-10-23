@@ -1,26 +1,75 @@
 import { React, useEffect, useState } from "react";
-import { HiOutlineArrowLeft, HiCheck } from "react-icons/hi";
+import {
+  HiOutlineArrowLeft,
+  HiPlus,
+  HiX,
+  HiMinus,
+  HiCheck,
+} from "react-icons/hi";
 import { NavLink } from "react-router-dom";
 function SetIP() {
-  const [text, setText] = useState("");
+  const [ip, setIP] = useState(window.sessionStorage.getItem("currentIP"));
   const onChange = (e) => {
-    setText(e.target.value);
+    setIP(e.target.value);
   };
 
-  const changeIP = () => {
+  const addIP = () => {
     const post = {
-      ip: text,
+      ip: ip,
     };
 
-    fetch("https://teammagnus.net/changeIP", {
+    fetch("https://teammagnus.net/addIP", {
       method: "post",
       headers: { "content-type": "application/json" },
       body: JSON.stringify(post),
     }).then(() => {
       window.alert("변경 완료되었습니다.");
-      window.location.href = "/manage";
+      window.location.reload();
     });
   };
+
+  const [ipList, setIpList] = useState([]);
+
+  const getIP = () => {
+    fetch("https://teammagnus.net/getIP", {
+      method: "post",
+      headers: { "content-type": "application/json" },
+    })
+      .then((res) => res.json())
+      .then((json) => {
+        setIpList(json);
+      });
+  };
+  console.log(ipList);
+  const removeIP = (ip) => {
+    const post = {
+      ip: ip,
+    };
+    fetch("https://teammagnus.net/removeIP", {
+      method: "post",
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify(post),
+    }).then(() => {
+      window.location.reload();
+    });
+  };
+
+  useEffect(() => {
+    getIP();
+  }, []);
+  const showIP = ipList.map((i, idx) => (
+    <div key={idx} className="div-ip-section-02">
+      {i.ip}
+      <HiMinus
+        className="button-ip-minus"
+        onClick={() => {
+          if (window.confirm("정말 삭제하시겠습니까?")) {
+            removeIP(i.ip);
+          }
+        }}
+      />
+    </div>
+  ));
 
   return (
     <div>
@@ -31,25 +80,27 @@ function SetIP() {
         <div className="div-month" style={{ marginBottom: "60px" }}>
           IP 변경
         </div>
-        <div className="div-calendar-schedule-write">
-          <input
-            className="input-ip"
-            maxLength={30}
-            onChange={onChange}
-            value={text}
-          />
+        {showIP}
+        <div className="div-ip-section-02">
+          <div style={{ display: "flex", alignItems: "center" }}>
+            <input
+              className="input-absence-write-date"
+              onChange={onChange}
+              name="ip"
+              value={ip}
+              placeholder={"IP를 입력해주세요."}
+            />
+            <HiPlus
+              className="button-ip-minus"
+              onClick={() => {
+                if (ip != "") addIP();
+              }}
+              style={{
+                backgroundColor: ip != "" ? "#e79b42" : "rgba(0, 0, 0, 0.2)",
+              }}
+            />
+          </div>
         </div>
-        {text != "" && (
-          <HiCheck
-            className="button-calendar-schedule-write"
-            style={{ backgroundColor: "#e79b42", marginTop: "20px" }}
-            onClick={() => {
-              if (window.confirm("출석 IP 주소를 변경하시겠습니까?")) {
-                changeIP();
-              }
-            }}
-          />
-        )}
       </div>
     </div>
   );

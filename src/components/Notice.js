@@ -6,6 +6,30 @@ function Notice() {
   const [contentOpen, setContentOpen] = useState(false);
   const [writeOpen, setWriteOpen] = useState(false);
 
+  const isManager = () => {
+    console.log("manager!");
+    const post = {
+      id: window.sessionStorage.getItem("id"),
+    };
+    fetch("https://teammagnus.net/isManager", {
+      method: "post",
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify(post),
+    })
+      .then((res) => res.json())
+      .then((json) => {
+        if (json.m == 1) {
+          window.sessionStorage.setItem("m", 1);
+        } else {
+          if (window.sessionStorage.getItem("m") == 1) {
+            window.sessionStorage.setItem("m", 0);
+            window.location.reload();
+          }
+          window.sessionStorage.setItem("m", 0);
+        }
+      });
+  };
+
   const getNotice = () => {
     fetch("https://teammagnus.net/getNotice", {
       method: "post",
@@ -19,6 +43,7 @@ function Notice() {
 
   useEffect(() => {
     getNotice();
+    isManager();
   }, []);
 
   const [newTitle, setNewTitle] = useState("");
@@ -60,6 +85,7 @@ function Notice() {
     <div
       className="div-notice-section-02"
       onClick={() => {
+        isManager();
         setNum(n.num);
         setTitle(n.title);
         setContent(n.content);
@@ -79,14 +105,17 @@ function Notice() {
         className="icon-notice-close"
         onClick={() => setContentOpen(false)}
       />
-      <HiMinus
-        className="icon-notice-close"
-        onClick={() => {
-          if (window.confirm("정말 삭제하시겠습니까?")) {
-            removeNotice(num);
-          }
-        }}
-      />
+      {window.sessionStorage.getItem("m") == 1 && (
+        <HiMinus
+          className="icon-notice-close"
+          onClick={() => {
+            isManager();
+            if (window.confirm("정말 삭제하시겠습니까?")) {
+              removeNotice(num);
+            }
+          }}
+        />
+      )}
     </div>
   );
 
@@ -152,16 +181,16 @@ function Notice() {
       <div className="div-month">공지사항</div>
       <div className="div-notice-section-01"> {showTitle}</div>
       {contentOpen && showContent}
-      {writeOpen ? (
-        writePage
-      ) : (
-        <HiPlus
-          className="button-notice-write"
-          onClick={() => {
-            setWriteOpen(true);
-          }}
-        />
-      )}
+      {writeOpen
+        ? writePage
+        : window.sessionStorage.getItem("m") == 1 && (
+            <HiPlus
+              className="button-notice-write"
+              onClick={() => {
+                setWriteOpen(true);
+              }}
+            />
+          )}
     </div>
   );
 }
