@@ -23,7 +23,7 @@ function SetIP() {
       headers: { "content-type": "application/json" },
       body: JSON.stringify(post),
     }).then(() => {
-      window.alert("변경 완료되었습니다.");
+      window.alert("추가  완료되었습니다.");
       window.location.reload();
     });
   };
@@ -84,7 +84,7 @@ function SetIP() {
         <div className="div-ip-section-02">
           <div style={{ display: "flex", alignItems: "center" }}>
             <input
-              className="input-absence-write-date"
+              className="input-ip-write-date"
               onChange={onChange}
               name="ip"
               value={ip}

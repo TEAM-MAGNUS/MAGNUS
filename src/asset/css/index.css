@@ -273,6 +273,7 @@ body {
 .div-ranking-section-01 {
   position: absolute;
   top: 200px;
+  padding-bottom: 5vh;
 }
 .div-ranking-section-02 {
   width: 80vw;
@@ -783,7 +784,15 @@ th {
   font-family: "Nh";
   text-align: right;
 }
-
+.input-ip-write-date {
+  width: 40vw;
+  border: none;
+  font-size: 20px;
+  background: none;
+  font-family: "Nh";
+  text-align: right;
+  text-align: center;
+}
 .textarea-notice-write-content {
   font-size: 20px;
   width: 100%;
@@ -1076,6 +1085,7 @@ th {
 .div-member-section-01 {
   position: absolute;
   top: 195px;
+  padding-bottom: 5vh;
 }
 .icon-color {
   color: #d2000f;
