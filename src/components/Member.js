@@ -20,6 +20,7 @@ function Member() {
     const post = {
       order1: order1,
       order2: order2,
+      id: window.sessionStorage.getItem("id"),
     };
     fetch("https://teammagnus.net/getMember", {
       method: "post",
