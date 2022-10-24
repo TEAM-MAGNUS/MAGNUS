@@ -1,4 +1,4 @@
-import React, { useState, useEffect, startTransition } from "react";
+import React, { useState, useEffect } from "react";
 import { HiCheck } from "react-icons/hi";
 
 import { REST_API_KEY, REDIRECT_URI } from "./LoginData";
@@ -41,51 +41,64 @@ function KaKaoLogin() {
         break;
       case "sms":
         setSms(e.target.value);
-        if (e.target.value == code) setVerified(true);
-        else setVerified(false);
-
         break;
       default:
     }
   };
 
-  const [code, setCode] = useState(null);
   const smsAuth = () => {
-    // console.log("sms!");
-    // const post = {
-    //   p: info.pnum,
-    // };
+    console.log("sms!");
+    const post = {
+      p: info.pnum,
+    };
 
-    // fetch("https://localhost/smsAuth", {
-    //   // fetch("https://teammagnus.net/smsAuth", {
-    //   method: "post",
-    //   headers: { "content-type": "application/json" },
-    //   body: JSON.stringify(post),
-    // })
-    //   .then((res) => res.text())
-    //   .then((code) => {
-    //     console.log(code);
-    //     setCode(code);
-    //   });
-    setCode(999999);
+    fetch("https://teammagnus.net/smsAuth", {
+      method: "post",
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify(post),
+    })
+      .then((res) => res.json())
+      .then((json) => {
+        if (json.result) {
+          setSmsClick(true);
+        } else {
+          window.alert("등록된 회원이 아닙니다.");
+        }
+      });
+  };
+
+  const codeCheck = () => {
+    const post = {
+      code: sms,
+    };
+
+    fetch("https://teammagnus.net/codeCheck", {
+      method: "post",
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify(post),
+    })
+      .then((res) => res.json())
+      .then((json) => {
+        if (json.result) {
+          setVerified(true);
+        } else {
+          window.alert("인증번호를 다시 확인해주세요.");
+        }
+      });
   };
 
   const login = () => {
     const post = {
-      query: 
-        "UPDATE magnus_user SET image = '" + 
-        info.imageUrl +
-        "' WHERE id = '" +
-        info.id +
-        "';"
-    }
+      img: info.imageUrl,
+      id: info.id,
+    };
+
     console.log(post.query);
-    fetch("https://hansori.net:443/SQL1", {
+    fetch("https://teammagnus.net/login", {
       method: "post",
       headers: { "content-type": "application/json" },
-      body: JSON.stringify(post)
-    })
-      .then(console.log("img update success"));
+      body: JSON.stringify(post),
+    }).then(console.log("img update success"));
 
     window.sessionStorage.setItem("id", info.id);
     window.sessionStorage.setItem("imageUrl", info.imageUrl);
@@ -238,12 +251,8 @@ function KaKaoLogin() {
                   className="button-login-sms "
                   onClick={() => {
                     if (!smsClick) {
-                      setSmsClick(true);
                       smsAuth();
                     }
-                  }}
-                  style={{
-                    backgroundColor: smsClick && "rgba(0, 0, 0, 0.2)",
                   }}
                 >
                   인증번호 받기
@@ -264,8 +273,15 @@ function KaKaoLogin() {
                 />
               </div>
               {sms.length == 6 && !verified && (
-                <div className="div-login-sms-not">
-                  인증번호가 일치하지 않습니다.
+                <div className="div-login-input-pnum">
+                  <div
+                    className="button-login-sms "
+                    onClick={() => {
+                      codeCheck();
+                    }}
+                  >
+                    인증 완료
+                  </div>
                 </div>
               )}
             </>
