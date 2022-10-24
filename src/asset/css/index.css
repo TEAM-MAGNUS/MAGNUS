@@ -62,7 +62,7 @@ body {
 }
 
 .img-main {
-  width: 70vw;
+  width: 270px;
 }
 .icon-main-arrow-down {
   position: absolute;
@@ -72,14 +72,33 @@ body {
 }
 .div-main-instagram-kakao {
   position: absolute;
-  bottom: 2.5vh;
+  bottom: 20px;
   left: 50%;
   transform: translate(-50%, -50%);
 }
 .div-main-instagram-kakao img {
   margin: 0 5px 0 5px;
 }
-
+.div-main-footer {
+  position: absolute;
+  bottom: 0.5vh;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 8px;
+  font-family: "Neb";
+  width: 90vw;
+  border-top: 1px solid rgba(0, 0, 0, 0.2);
+  padding: 5px 5px 0 5px;
+  display: flex;
+  justify-content: space-between;
+}
+.div-main-footer-name-section {
+  display: flex;
+}
+.div-main-footer-name {
+  font-family: "Nh";
+  padding-left: 4px;
+}
 /*------------------------------*/ /* Main.js */
 
 /* Header.js */ /*------------------------------*/
