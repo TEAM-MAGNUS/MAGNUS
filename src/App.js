@@ -14,7 +14,6 @@ import Average from "./components/Average";
 import Absence from "./components/Absence";
 import Member from "./components/Member";
 import MemberAttendance from "./components/MemberAttendance";
-import All from "./components/All";
 import ManageAttendance from "./components/ManageAttendance";
 import ManageAbsence from "./components/ManageAbsence";
 import NotFound from "./components/NotFound";
