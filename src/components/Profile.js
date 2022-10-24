@@ -19,55 +19,6 @@ async function IsAttend(date) {
   return result.ISATTEND;
 }
 
-var currentIP;
-async function getCurrentIP() {
-  const Location = await fetch("https://geolocation-db.com/json/");
-  currentIP = await Location.json();
-  window.sessionStorage.setItem("currentIP", currentIP.IPv4);
-}
-
-function getAttendance(date) {
-  const lessonTime = [
-    // [시, 분, 지각기준]
-    [20, 0, 30],
-    [14, 0, 30],
-    [16, 0, 30],
-  ];
-
-  var todayLessonTime;
-  switch (date.getDay()) {
-    case 0:
-      console.log("sunday");
-      todayLessonTime = lessonTime[0];
-      break;
-    case 5:
-      console.log("Friday");
-      todayLessonTime = lessonTime[1];
-      break;
-    case 6:
-      console.log("Saturday");
-      todayLessonTime = lessonTime[2];
-      break;
-    default:
-      console.log("error: not day");
-  }
-
-  const minutesDiff =
-    60 * (date.getHours() - todayLessonTime[0]) +
-    date.getMinutes() -
-    todayLessonTime[1];
-
-  var attendance;
-  if (minutesDiff <= 0) attendance = 0;
-  else if (minutesDiff < todayLessonTime[2]) attendance = 1;
-  else return (attendance = 2);
-  return attendance;
-
-  // if (minutesDiff <= 0) return 0;
-  // else if (minutesDiff < todayLessonTime[2]) return 1;
-  // else return 2;
-}
-
 function isManager() {
   const post = {
     id: window.sessionStorage.getItem("id"),
@@ -121,34 +72,6 @@ const getDateAttendanceType = (date) => {
     });
 };
 
-function write(date) {
-  console.log(`날짜: ${date.getMonth()}월 ${date.getDate()}일`);
-  const attendance = getAttendance(date);
-
-  const post = {
-    id: window.sessionStorage.getItem("pnum"),
-    name: window.sessionStorage.getItem("name"),
-    a: attendance,
-    y: date.getFullYear(),
-    m: date.getMonth() + 1,
-    d: date.getDate(),
-    h: date.getHours(),
-    mm: date.getMinutes(),
-    s: date.getSeconds(),
-  };
-  console.log(JSON.stringify(post));
-
-  fetch("https://teammagnus.net/writeDate", {
-    method: "post",
-    headers: { "content-type": "application/json" },
-    body: JSON.stringify(post),
-  }).then(() => {
-    console.log("success");
-    window.sessionStorage.setItem("isAttend", true);
-    window.location.reload();
-  });
-}
-
 function Profile() {
   const [absence, setAbsence] = useState(null);
 
@@ -169,19 +92,29 @@ function Profile() {
       });
   };
 
-  const [ip, setIp] = useState([]);
-  const getIP = () => {
-    fetch("https://teammagnus.net/getIP", {
+  const checkIP = () => {
+    const post = {
+      id: window.sessionStorage.getItem("id"),
+    };
+
+    fetch("https://teammagnus.net/checkIP", {
       method: "post",
       headers: { "content-type": "application/json" },
+      body: JSON.stringify(post),
     })
       .then((res) => res.json())
       .then((json) => {
-        setIp(json);
+        console.log(json);
+        if (json.success) {
+          window.sessionStorage.setItem("isAttend", true);
+          getDateAttendanceType(td);
+          window.alert("출석이 완료되었습니다.");
+          window.location.reload();
+        } else {
+          window.alert("접속 IP를 확인해주세요.");
+        }
       });
   };
-
-  console.log(ip);
 
   const [isWarning, setIsWarning] = useState(false);
   const getMyWarning = () => {
@@ -201,12 +134,11 @@ function Profile() {
       });
   };
   useEffect(() => {
-    getIP();
+    // getIP();
     isManager();
     getMyAbsence();
     getMyWarning();
     getDateAttendanceType(td);
-    getCurrentIP();
   }, []);
 
   const handleLogout = () => {
@@ -248,17 +180,7 @@ function Profile() {
                     alert("이미 출석하셨습니다.");
                     window.location.reload();
                   } else {
-                    const Location = await fetch(
-                      "https://geolocation-db.com/json/"
-                    );
-                    const location = await Location.json();
-                    var ipCheck = 0;
-                    ip.map((i) => {
-                      if (location.IPv4 === i.ip) ipCheck = 1;
-                    });
-                    ipCheck
-                      ? write(td)
-                      : window.alert("접속 IP를 확인해주세요.");
+                    checkIP();
                   }
                 }}
               >
