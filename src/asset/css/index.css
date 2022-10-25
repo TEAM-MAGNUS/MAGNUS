@@ -279,6 +279,9 @@ body {
 .div-ranking-img-name {
   display: flex;
   align-items: center;
+  justify-content: flex-start;
+  width: 25vw;
+  white-space: nowrap;
 }
 .div-ranking {
   width: 100vw;
@@ -307,16 +310,17 @@ body {
   align-items: center;
   margin-top: 20px;
 }
-
+.div-ranking-name {
+  text-align: center;
+  font-size: auto;
+}
 .div-ranking-percent {
   color: #d2000f;
   width: 40px;
   display: flex;
   justify-content: ease-in;
 }
-.div-ranking-first {
-  color: #e79b42;
-}
+
 /*------------------------------*/ /* Ranking.js */
 
 /* Calendar.js */ /*------------------------------*/
