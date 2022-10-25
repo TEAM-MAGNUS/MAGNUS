@@ -32,6 +32,7 @@ function Absence() {
       headers: { "content-type": "application/json" },
       body: JSON.stringify(post),
     }).then(() => {
+      window.alert("추가 완료되었습니다.");
       window.location.reload();
     });
   };

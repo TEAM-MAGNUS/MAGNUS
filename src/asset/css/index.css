@@ -474,7 +474,12 @@ th {
 :focus {
   outline: none;
 }
-
+.button-ip-current {
+  margin-top: 12px;
+  padding: 5px 10px 5px 10px;
+  font-size: 12px;
+  color: #d2000f;
+}
 .button-calendar-schedule-write {
   margin-top: 10px;
   width: 15px;
