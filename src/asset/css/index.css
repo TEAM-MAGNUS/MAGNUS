@@ -130,7 +130,7 @@ body {
 }
 .div-main-instagram-kakao {
   position: absolute;
-  bottom: 30px;
+  bottom: 20px;
   left: 50%;
   transform: translate(-50%, -50%);
 }
@@ -141,23 +141,16 @@ body {
   position: absolute;
   bottom: 15px;
   left: 50%;
-  transform: translate(-50%, -50%);
+  transform: translateX(-50%);
   font-size: 8px;
   font-family: "Neb";
   width: 90vw;
   border-top: 1px solid rgba(0, 0, 0, 0.2);
-  padding: 5px 5px 0 5px;
+  padding-top: 5px;
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
 }
-.div-main-footer-name-section {
-  display: flex;
-}
-.div-main-footer-name {
-  font-family: "Nh";
-  font-size: 10px;
-  padding-left: 4px;
-}
+
 /*------------------------------*/ /* Main.js */
 
 /* Header.js */ /*------------------------------*/
@@ -329,9 +322,15 @@ body {
   display: none;
 }
 .img-ranking {
+  margin-right: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.img-ranking-squircle {
   width: 5vh;
   height: 5vh;
-  margin-right: 10px;
+  object-fit: cover;
 }
 .div-ranking-img-name {
   display: flex;
@@ -946,11 +945,7 @@ th {
   font-size: 20px;
   font-family: "Neb";
 }
-.div-kakaologin-register-wrapper img {
-  border-radius: 10px;
-  margin-top: 10%;
-  margin-bottom: 10px;
-}
+
 .div-kakaologin-register-wrapper input {
   background-color: rgba(255, 255, 255, 0.3);
   width: calc(100% - 20px);
@@ -1330,6 +1325,14 @@ th {
   font-family: "Nh";
   text-align: right;
 }
-.squircle {
+.squircle-profile {
   margin-bottom: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.img-profile-squircle {
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
 }

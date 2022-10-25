@@ -3,7 +3,7 @@ import { HiCheck } from "react-icons/hi";
 
 import { REST_API_KEY, REDIRECT_URI } from "./LoginData";
 import profile from "./Profile";
-import ReactSquircle from "react-squircle";
+import SuperEllipse from "react-superellipse";
 
 function KaKaoLogin() {
   const PARAMS = new URL(document.location).searchParams; // URL에 있는 파라미터(code) 받아오기
@@ -133,7 +133,8 @@ function KaKaoLogin() {
         setInfo({
           id: data.id,
           name: data.kakao_account.profile.nickname,
-          imageUrl: data.kakao_account.profile.thumbnail_image_url,
+          imageUrl:
+            "https" + data.kakao_account.profile.thumbnail_image_url.substr(4),
         });
         console.log(data);
       })
@@ -212,17 +213,17 @@ function KaKaoLogin() {
     <div className="div-kakaologin-body">
       {Loading ? (
         <div id="loading">
-          <img id="loadingElement" src="loading.png" />
+          <img id="loadingElement" src="loading.png" alt="" />
         </div>
       ) : (
         <div className="div-kakaologin-register-wrapper">
-          <ReactSquircle
-            width="80px"
-            height="80px"
-            fit=""
-            className="squircle"
-            imageUrl={info.imageUrl || profile}
-          />
+          <SuperEllipse className="squircle-profile" r1={0.14} r2={0.5}>
+            <img
+              className="img-profile-squircle"
+              src={info.imageUrl || profile}
+              alt=""
+            />
+          </SuperEllipse>
           <div className="div-login-input-pnum">
             휴대전화번호를 입력해주세요.
             <input
