@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import dayjs from "dayjs";
-import ReactSquircle from "react-squircle";
+import SuperEllipse from "react-superellipse";
 
 async function IsAttend(date) {
   const post = {
@@ -159,13 +159,13 @@ function Profile() {
         {isWarning && (
           <div className="div-profile-warning ">2주 연속 불참입니다!</div>
         )}
-        <ReactSquircle
-          width="80px"
-          height="80px"
-          fit=""
-          className="squircle"
-          imageUrl={window.localStorage.getItem("imageUrl")}
-        />
+        <SuperEllipse className="squircle-profile" r1={0.14} r2={0.5}>
+          <img
+            className="img-profile-squircle"
+            src={window.localStorage.getItem("imageUrl")}
+            alt=""
+          />
+        </SuperEllipse>
         {window.localStorage.getItem("name")}
         <div className="div-profile-date">
           {today.format("YYYY.MM.DD")}

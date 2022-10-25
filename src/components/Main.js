@@ -95,7 +95,7 @@ function Main() {
                 <img
                   src={instagram}
                   alt=""
-                  style={{ width: "30px" }}
+                  style={{ width: "25px" }}
                   onClick={() =>
                     (window.location.href =
                       "https://www.instagram.com/team_magnus_bjj/")
@@ -104,7 +104,7 @@ function Main() {
                 <img
                   src={kakao}
                   alt=""
-                  style={{ width: "30px" }}
+                  style={{ width: "25px" }}
                   onClick={() =>
                     (window.location.href = "https://open.kakao.com/o/gKneLTHd")
                   }
@@ -112,24 +112,27 @@ function Main() {
               </div>
               <div className="div-main-footer">
                 Copyright 2022. TEAM MAGNUS All rights reserved.
-                <div className="div-main-footer-name-section">
-                  <div
-                    className="div-main-footer-name"
-                    onClick={() => {
-                      window.location.href = "https://github.com/changnos";
-                    }}
-                  >
-                    이창진
+                {/* <div className="div-main-footer-section">
+                  developed by
+                  <div className="div-main-footer-name-section">
+                    <div
+                      className="div-main-footer-name"
+                      onClick={() => {
+                        window.location.href = "https://github.com/changnos";
+                      }}
+                    >
+                      이창진
+                    </div>
+                    <div
+                      className="div-main-footer-name"
+                      onClick={() => {
+                        window.location.href = "https://github.com/Gyudol1231";
+                      }}
+                    >
+                      정규용
+                    </div>
                   </div>
-                  <div
-                    className="div-main-footer-name"
-                    onClick={() => {
-                      window.location.href = "https://github.com/Gyudol1231";
-                    }}
-                  >
-                    정규용
-                  </div>
-                </div>
+                </div> */}
               </div>
             </div>
           </div>
