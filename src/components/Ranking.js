@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { HiChevronLeft, HiChevronRight } from "react-icons/hi";
 import ReactSquircle from "react-squircle";
 import logo from "../asset/main/logo.png";
+
 const td = new Date();
 
 function Ranking() {
@@ -70,21 +71,47 @@ function Ranking() {
         setTotal(json.t);
       });
 
-    fetch("https://teammagnus.net/getRanking", {
+    // fetch("https://teammagnus.net/getRanking", {
+    //   method: "post",
+    //   headers: { "content-type": "application/json" },
+    //   body: JSON.stringify(post),
+    // })
+    //   .then((res) => res.json())
+    //   .then((json) => {
+    //     setRanking(json);
+    //     return json;
+    //   });
+
+    const post2 = {
+      query:
+        "SELECT a.id, a.name, COUNT(a.id) AS c, b.image from magnus_attendance a LEFT JOIN magnus_user b ON a.id = b.pnum WHERE (YEAR(attendance_date) = " + 
+        year +
+        " AND MONTH(attendance_date) = " +
+        (month + 1) +
+        ") AND (attendance = 0) GROUP BY id ORDER BY c DESC;"
+    }
+    console.log(JSON.stringify(post2));
+    fetch("https://teammagnus.net:443/SQL2", {
       method: "post",
-      headers: { "content-type": "application/json" },
-      body: JSON.stringify(post),
+      headers: { "content-type": "application/json"},
+      body: JSON.stringify(post2)
     })
-      .then((res) => res.json())
-      .then((json) => {
+      .catch(err => console.log(err))
+      .then(res => res.json())
+      .then(json => {
+        console.log("json: " + json);
         setRanking(json);
-        return json;
       });
   };
 
   useEffect(() => {
     getRanking(thisYear, thisMonth);
   }, []);
+
+  useEffect(() => {
+    console.log(ranking);
+    console.log(total);
+  }, [ranking]);
 
   // const [profileList, setProfileList] = useState([]);
 
@@ -105,10 +132,10 @@ function Ranking() {
       <div>
         {idx > 0 && ranking[idx].c < ranking[idx - 1].c ? ++rank : rank}
       </div>
-      {/* <div className="div-ranking-img-name">
-        <ReactSquircle className="img-ranking" imageUrl={"image"} /> */}
-      <div className={rank == 1 && "div-ranking-first"}>{user.name}</div>
-      {/* </div> */}
+      <div className="div-ranking-img-name">
+        <ReactSquircle className="img-ranking" imageUrl={user.image || logo} />
+        <div style={{ color: rank == 1 ? "#e79b42" : "black" }}>{user.name}</div>
+      </div>
       <div className="div-ranking-percent">
         {((user.c / total) * 100).toFixed(1)}%
       </div>
