@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 
 // function isLogin() {
-//   const id = window.sessionStorage.getItem("id");
+//   const id = window.localStorage.getItem("id");
 //   var result;
 
 //   if(id) {
@@ -24,10 +24,8 @@ import React, { useEffect } from "react";
 // }
 
 function isLogin() {
-  if (window.sessionStorage.getItem("id")) return true;
+  if (window.localStorage.getItem("id")) return true;
   else return false;
 }
 
-
 export default isLogin;
-

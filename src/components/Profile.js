@@ -4,7 +4,7 @@ import ReactSquircle from "react-squircle";
 
 async function IsAttend(date) {
   const post = {
-    id: window.sessionStorage.getItem("pnum"),
+    id: window.localStorage.getItem("pnum"),
     y: date.getFullYear(),
     m: date.getMonth() + 1,
     d: date.getDate(),
@@ -21,7 +21,7 @@ async function IsAttend(date) {
 
 function isManager() {
   const post = {
-    id: window.sessionStorage.getItem("id"),
+    id: window.localStorage.getItem("id"),
   };
   fetch("https://teammagnus.net/isManager", {
     method: "post",
@@ -31,17 +31,17 @@ function isManager() {
     .then((res) => res.json())
     .then((json) => {
       if (json.m == 1) {
-        window.sessionStorage.setItem("m", 1);
+        window.localStorage.setItem("m", 1);
       } else {
-        window.sessionStorage.setItem("m", 0);
+        window.localStorage.setItem("m", 0);
       }
     });
 }
 
 const getDateAttendanceType = (date) => {
   const post = {
-    id: window.sessionStorage.getItem("pnum"),
-    name: window.sessionStorage.getItem("name"),
+    id: window.localStorage.getItem("pnum"),
+    name: window.localStorage.getItem("name"),
     y: date.getFullYear(),
     m: date.getMonth() + 1,
     d: date.getDate(),
@@ -56,19 +56,19 @@ const getDateAttendanceType = (date) => {
     .then((json) => {
       switch (json.a) {
         case 0:
-          window.sessionStorage.setItem("dateAttendanceType", "출석");
+          window.localStorage.setItem("dateAttendanceType", "출석");
           break;
         case 1:
-          window.sessionStorage.setItem("dateAttendanceType", "지각");
+          window.localStorage.setItem("dateAttendanceType", "지각");
           break;
         case 2:
-          window.sessionStorage.setItem("dateAttendanceType", "불참");
+          window.localStorage.setItem("dateAttendanceType", "불참");
           break;
         default:
       }
     })
     .catch(() => {
-      window.sessionStorage.setItem("dateAttendanceType", 9);
+      window.localStorage.setItem("dateAttendanceType", 9);
     });
 };
 
@@ -77,8 +77,8 @@ function Profile() {
 
   const getMyAbsence = () => {
     const post = {
-      name: window.sessionStorage.getItem("name"),
-      pnum: window.sessionStorage.getItem("pnum"),
+      name: window.localStorage.getItem("name"),
+      pnum: window.localStorage.getItem("pnum"),
     };
     fetch("https://teammagnus.net/getMyAbsence", {
       method: "post",
@@ -94,7 +94,7 @@ function Profile() {
 
   const checkIP = () => {
     const post = {
-      id: window.sessionStorage.getItem("id"),
+      id: window.localStorage.getItem("id"),
     };
 
     fetch("https://teammagnus.net/checkIP", {
@@ -106,7 +106,7 @@ function Profile() {
       .then((json) => {
         console.log(json);
         if (json.success) {
-          window.sessionStorage.setItem("isAttend", true);
+          window.localStorage.setItem("isAttend", true);
           getDateAttendanceType(td);
           window.alert("출석이 완료되었습니다.");
           window.location.reload();
@@ -119,8 +119,8 @@ function Profile() {
   const [isWarning, setIsWarning] = useState(false);
   const getMyWarning = () => {
     const post = {
-      name: window.sessionStorage.getItem("name"),
-      p: window.sessionStorage.getItem("pnum"),
+      name: window.localStorage.getItem("name"),
+      p: window.localStorage.getItem("pnum"),
     };
     fetch("https://teammagnus.net/getMyWarning", {
       method: "post",
@@ -142,7 +142,7 @@ function Profile() {
   }, []);
 
   const handleLogout = () => {
-    window.sessionStorage.clear();
+    window.localStorage.clear();
     window.location.reload();
   };
   const today = dayjs(new Date());
@@ -164,19 +164,19 @@ function Profile() {
           height="80px"
           fit=""
           className="squircle"
-          imageUrl={window.sessionStorage.getItem("imageUrl")}
+          imageUrl={window.localStorage.getItem("imageUrl")}
         />
-        {window.sessionStorage.getItem("name")}
+        {window.localStorage.getItem("name")}
         <div className="div-profile-date">
           {today.format("YYYY.MM.DD")}
           {td.getDay() === 0 || td.getDay() === 5 || td.getDay() === 6 ? (
-            window.sessionStorage.getItem("dateAttendanceType") == 9 ? (
+            window.localStorage.getItem("dateAttendanceType") == 9 ? (
               <div
                 className="div-profile-check-section"
                 onClick={async (e) => {
                   const attend = await IsAttend(td);
                   if (attend) {
-                    window.sessionStorage.setItem("isAttend", true);
+                    window.localStorage.setItem("isAttend", true);
                     alert("이미 출석하셨습니다.");
                     window.location.reload();
                   } else {
@@ -191,7 +191,7 @@ function Profile() {
                 className="div-profile-check-section"
                 style={{ background: "none", color: "#d2000f" }}
               >
-                {window.sessionStorage.getItem("dateAttendanceType")}
+                {window.localStorage.getItem("dateAttendanceType")}
               </div>
             )
           ) : (

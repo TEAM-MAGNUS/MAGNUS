@@ -9,7 +9,7 @@ function Notice() {
   const isManager = () => {
     console.log("manager!");
     const post = {
-      id: window.sessionStorage.getItem("id"),
+      id: window.localStorage.getItem("id"),
     };
     fetch("https://teammagnus.net/isManager", {
       method: "post",
@@ -19,13 +19,13 @@ function Notice() {
       .then((res) => res.json())
       .then((json) => {
         if (json.m == 1) {
-          window.sessionStorage.setItem("m", 1);
+          window.localStorage.setItem("m", 1);
         } else {
-          if (window.sessionStorage.getItem("m") == 1) {
-            window.sessionStorage.setItem("m", 0);
+          if (window.localStorage.getItem("m") == 1) {
+            window.localStorage.setItem("m", 0);
             window.location.reload();
           }
-          window.sessionStorage.setItem("m", 0);
+          window.localStorage.setItem("m", 0);
         }
       });
   };
@@ -106,7 +106,7 @@ function Notice() {
         className="icon-notice-close"
         onClick={() => setContentOpen(false)}
       />
-      {window.sessionStorage.getItem("m") == 1 && (
+      {window.localStorage.getItem("m") == 1 && (
         <HiMinus
           className="icon-notice-close"
           onClick={() => {
@@ -184,7 +184,7 @@ function Notice() {
       {contentOpen && showContent}
       {writeOpen
         ? writePage
-        : window.sessionStorage.getItem("m") == 1 && (
+        : window.localStorage.getItem("m") == 1 && (
             <HiPlus
               className="button-notice-write"
               onClick={() => {
