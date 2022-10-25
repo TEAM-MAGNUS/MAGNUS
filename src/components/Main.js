@@ -32,7 +32,6 @@ function Main() {
               <div className="div-main-section-01">
                 <img className="img-main" src={logo} alt="" />
                 {!isLogin() && (
-                  // {!login && (
                   <img
                     className="img-main"
                     style={{ marginTop: "50px" }}
@@ -42,11 +41,10 @@ function Main() {
                   />
                 )}
               </div>
-              <HiChevronDown
-                className="icon-main-arrow-down"
-                size="20"
-                onClick={() => fullpageApi.moveSectionDown()}
-              />
+              <div onClick={() => fullpageApi.moveSectionDown()}>
+                <HiChevronDown className="icon-main-arrow-down1" size="20" />
+                <HiChevronDown className="icon-main-arrow-down2" size="20" />
+              </div>
             </div>
             <div className="section">
               <div className="div-main-section-01-01">
@@ -55,11 +53,10 @@ function Main() {
                 충무로 러쉬클랜에서
                 <br /> 훈련을 진행합니다.
               </div>
-              <HiChevronDown
-                className="icon-main-arrow-down"
-                size="20"
-                onClick={() => fullpageApi.moveSectionDown()}
-              />
+              <div onClick={() => fullpageApi.moveSectionDown()}>
+                <HiChevronDown className="icon-main-arrow-down1" size="20" />
+                <HiChevronDown className="icon-main-arrow-down2" size="20" />
+              </div>
             </div>
             <div className="section">
               <div className="div-main-section-01-02">
@@ -78,11 +75,10 @@ function Main() {
                 토요일, 일요일에는 훈련 후 <br />
                 재미있는 뒷풀이가 종종 있습니다!
               </div>
-              <HiChevronDown
-                className="icon-main-arrow-down"
-                size="20"
-                onClick={() => fullpageApi.moveSectionDown()}
-              />
+              <div onClick={() => fullpageApi.moveSectionDown()}>
+                <HiChevronDown className="icon-main-arrow-down1" size="20" />
+                <HiChevronDown className="icon-main-arrow-down2" size="20" />
+              </div>
             </div>
             <div className="section">
               <div className="div-main-section-01-03">
