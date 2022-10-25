@@ -8,7 +8,7 @@ import {
 } from "react-icons/hi";
 import { NavLink } from "react-router-dom";
 function SetIP() {
-  const [ip, setIP] = useState(window.sessionStorage.getItem("currentIP"));
+  const [ip, setIP] = useState(window.localStorage.getItem("currentIP"));
   const onChange = (e) => {
     setIP(e.target.value);
   };

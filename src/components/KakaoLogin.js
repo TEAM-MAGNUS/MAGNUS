@@ -60,6 +60,7 @@ function KaKaoLogin() {
       .then((res) => res.json())
       .then((json) => {
         if (json.result) {
+          window.alert("인증번호가 발송되었습니다.");
           setSmsClick(true);
         } else {
           window.alert("등록된 회원이 아닙니다.");
@@ -100,8 +101,8 @@ function KaKaoLogin() {
       body: JSON.stringify(post),
     }).then(console.log("img update success"));
 
-    window.sessionStorage.setItem("id", info.id);
-    window.sessionStorage.setItem("imageUrl", info.imageUrl);
+    window.localStorage.setItem("id", info.id);
+    window.localStorage.setItem("imageUrl", info.imageUrl);
     window.location.href = "/profile";
   };
 
@@ -137,7 +138,7 @@ function KaKaoLogin() {
         console.log(data);
       })
       .catch(() => {
-        window.sessionStorage.clear();
+        window.localStorage.clear();
         window.location.href = "/";
       });
   };
@@ -222,16 +223,6 @@ function KaKaoLogin() {
             className="squircle"
             imageUrl={info.imageUrl || profile}
           />
-          {/* <div className="div-login-input-pnum">
-            이름(실명)을 입력해주세요.
-            <input
-              maxLength="11"
-              onChange={onChange}
-              name="name"
-              value={info.name}
-            />
-            {info.name != "" && <HiCheck className="icon-login-check" />}
-          </div> */}
           <div className="div-login-input-pnum">
             휴대전화번호를 입력해주세요.
             <input
@@ -239,6 +230,7 @@ function KaKaoLogin() {
               onChange={onChange}
               name="pnum"
               value={info.pnum}
+              disabled={smsClick}
             />
             {visible && (
               <>
@@ -270,7 +262,13 @@ function KaKaoLogin() {
                   onChange={onChange}
                   name="sms"
                   value={sms}
+                  disabled={verified}
                 />
+                {verified && (
+                  <>
+                    <HiCheck className="icon-login-check" />
+                  </>
+                )}
               </div>
               {sms.length == 6 && !verified && (
                 <div className="div-login-input-pnum">
@@ -280,25 +278,24 @@ function KaKaoLogin() {
                       codeCheck();
                     }}
                   >
-                    인증 완료
+                    인증 완료하기
                   </div>
                 </div>
               )}
             </>
           )}
           {verified && (
-            <>
-              <HiCheck className="icon-login-check" />
-              {info.name != "" && visible && (
-                <HiCheck
-                  className="button-login-check"
-                  onClick={() => {
-                    if (window.confirm("회원가입을 진행하시겠습니까?"))
-                      saveKakaoUserInfo(info);
-                  }}
-                />
-              )}
-            </>
+            <div className="div-login-input-pnum">
+              <div
+                className="button-login-sms "
+                onClick={() => {
+                  if (window.confirm("회원가입을 진행하시겠습니까?"))
+                    saveKakaoUserInfo(info);
+                }}
+              >
+                회원가입
+              </div>
+            </div>
           )}
         </div>
       )}

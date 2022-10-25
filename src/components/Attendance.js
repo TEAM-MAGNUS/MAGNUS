@@ -20,8 +20,8 @@ function Attendance() {
   const [year, setYear] = useState(thisYear);
   const [month, setMonth] = useState(thisMonth);
 
-  const pnum = window.sessionStorage.getItem("pnum");
-  const name = window.sessionStorage.getItem("name");
+  const pnum = window.localStorage.getItem("pnum");
+  const name = window.localStorage.getItem("name");
 
   const preMonth = () => {
     if (month == 0) {
@@ -324,7 +324,7 @@ function Attendance() {
           textAnchor="middle"
           style={{ fontSize: "20px" }}
         >
-          {window.sessionStorage.getItem("name")}
+          {window.localStorage.getItem("name")}
         </text>
         <Sector
           cx={cx}

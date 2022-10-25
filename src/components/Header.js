@@ -111,7 +111,7 @@ function Header() {
             >
               NOTICE
             </NavLink>
-            {window.sessionStorage.getItem("m") == 1 && (
+            {window.localStorage.getItem("m") == 1 && (
               <>
                 <br />
                 -

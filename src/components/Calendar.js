@@ -12,7 +12,7 @@ const td = new Date();
 
 function isManager() {
   const post = {
-    id: window.sessionStorage.getItem("id"),
+    id: window.localStorage.getItem("id"),
   };
   fetch("https://teammagnus.net/isManager", {
     method: "post",
@@ -22,13 +22,13 @@ function isManager() {
     .then((res) => res.json())
     .then((json) => {
       if (json.m == 1) {
-        window.sessionStorage.setItem("m", 1);
+        window.localStorage.setItem("m", 1);
       } else {
-        if (window.sessionStorage.getItem("m") == 1) {
-          window.sessionStorage.setItem("m", 0);
+        if (window.localStorage.getItem("m") == 1) {
+          window.localStorage.setItem("m", 0);
           window.location.reload();
         }
-        window.sessionStorage.setItem("m", 0);
+        window.localStorage.setItem("m", 0);
       }
     });
 }
@@ -256,7 +256,7 @@ function Calendar() {
             )}
           </>
         ) : (
-          window.sessionStorage.getItem("m") == 1 && (
+          window.localStorage.getItem("m") == 1 && (
             <HiPlus
               className="button-calendar-schedule-write"
               onClick={() => {
@@ -266,7 +266,7 @@ function Calendar() {
           )
         )
       ) : (
-        window.sessionStorage.getItem("m") == 1 && (
+        window.localStorage.getItem("m") == 1 && (
           <HiMinus
             className="button-calendar-schedule-write"
             onClick={() => {

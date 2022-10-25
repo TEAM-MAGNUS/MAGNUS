@@ -1,6 +1,6 @@
 export default function IsMe() {
   const post = {
-    id: window.sessionStorage.getItem("id"),
+    id: window.localStorage.getItem("id"),
   };
   fetch("https://teammagnus.net/isMe", {
     method: "post",
@@ -10,21 +10,21 @@ export default function IsMe() {
     .then((res) => res.json())
     .then((json) => {
       console.log(json);
-      if (!window.sessionStorage.getItem("name")) {
-        window.sessionStorage.setItem("name", json.n);
-        window.sessionStorage.setItem("pnum", json.p);
+      if (!window.localStorage.getItem("name")) {
+        window.localStorage.setItem("name", json.n);
+        window.localStorage.setItem("pnum", json.p);
         window.location.reload();
       } else if (
-        window.sessionStorage.getItem("name") != json.n ||
-        window.sessionStorage.getItem("pnum") != json.p
+        window.localStorage.getItem("name") != json.n ||
+        window.localStorage.getItem("pnum") != json.p
       ) {
         console.log("ssssss");
-        window.sessionStorage.clear();
+        window.localStorage.clear();
         window.location.href = "/";
       }
     })
     .catch((e) => {
-      window.sessionStorage.clear();
+      window.localStorage.clear();
       window.location.href = "/";
     });
 }
