@@ -60,7 +60,7 @@ function Notice() {
       headers: { "content-type": "application/json" },
       body: JSON.stringify(post),
     }).then(() => {
-      window.alert("추가 완료되었습니다.");
+      window.alert("작성 완료되었습니다.");
       window.location.reload();
     });
   };

@@ -97,7 +97,8 @@ function Profile() {
       id: window.localStorage.getItem("id"),
     };
 
-    fetch("https://teammagnus.net/checkIP", {
+    fetch("https://localhost/checkIP", {
+      // fetch("https://teammagnus.net/checkIP", {
       method: "post",
       headers: { "content-type": "application/json" },
       body: JSON.stringify(post),
