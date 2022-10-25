@@ -1,9 +1,10 @@
 import { React, useState } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
 
 import { HiX, HiOutlineUser, HiOutlineMenuAlt4 } from "react-icons/hi";
 
 function Header() {
+  let location = useLocation();
   const [open, setOpen] = useState(false);
   const [animation0, setAnimation0] = useState("");
   const [animation00, setAnimation00] = useState("");
@@ -45,7 +46,13 @@ function Header() {
               className={`${animation00}`}
             />
           )}
-          <NavLink className="link-header div-header-logo" to="/">
+          <NavLink
+            className="link-header div-header-logo"
+            to="/"
+            onClick={() => {
+              if (location.pathname === "/") window.location.reload();
+            }}
+          >
             TEAM MAGNUS
           </NavLink>
           <NavLink className="link-header" to="/profile">

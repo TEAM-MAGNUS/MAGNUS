@@ -33,6 +33,21 @@ body {
   src: url("./NanumSquareNeo-dEb.ttf");
 }
 /* Main.js */ /*------------------------------*/
+.div-main-header {
+  width: 60vw;
+  height: 60px;
+  display: flex;
+  position: absolute;
+  top: 0;
+  left: 50vw;
+  font-size: 22px;
+  transform: translateX(-50%);
+  z-index: 500;
+  background-color: red;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 .div-main-section-01 {
   width: 100vw;
   height: 100vh;
@@ -63,6 +78,49 @@ body {
 
 .img-main {
   width: 270px;
+}
+
+.icon-main-arrow-down1 {
+  position: absolute;
+  bottom: 5vh;
+  left: 50%;
+  transform: translateX(-50%);
+  animation: animate1 2s infinite;
+  animation-delay: -0.2s;
+}
+.icon-main-arrow-down2 {
+  position: absolute;
+  bottom: 5vh;
+  left: 50%;
+  transform: translate(-50%, -10px);
+  animation: animate2 2s infinite;
+}
+
+@keyframes animate1 {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, 0px);
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-50%, 10px);
+  }
+}
+@keyframes animate2 {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -5px);
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-50%, 5px);
+  }
 }
 .icon-main-arrow-down {
   position: absolute;
@@ -111,7 +169,6 @@ body {
   top: 0;
   left: 5%;
   z-index: 200;
-  /* border-bottom: 1.5px solid black; */
 }
 .div-header-wrap {
   width: 100%;
@@ -279,9 +336,12 @@ body {
 .div-ranking-img-name {
   display: flex;
   align-items: center;
-  justify-content: flex-start;
+  justify-content: center;
   width: 25vw;
   white-space: nowrap;
+}
+.div-ranking-name-font {
+  font-size: 15px;
 }
 .div-ranking {
   width: 100vw;
@@ -309,11 +369,19 @@ body {
   justify-content: space-between;
   align-items: center;
   margin-top: 20px;
+  animation: ranking-down 1s;
+  animation-timing-function: cubic-bezier(0.165, 0.84, 0.44, 1);
 }
-.div-ranking-name {
-  text-align: center;
-  font-size: auto;
+
+@keyframes ranking-down {
+  from {
+    transform: translateY(-50%);
+  }
+  to {
+    transform: translateY(0);
+  }
 }
+
 .div-ranking-percent {
   color: #d2000f;
   width: 40px;
@@ -1263,6 +1331,5 @@ th {
   text-align: right;
 }
 .squircle {
-  background-color: red;
   margin-bottom: 30px;
 }
