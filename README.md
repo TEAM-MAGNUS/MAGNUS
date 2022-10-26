@@ -1,70 +1,68 @@
-# Getting Started with Create React App
+# teammagnus.net
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+  
 
-## Available Scripts
+## Members & roles
 
-In the project directory, you can run:
+* 이창진: 프로젝트 총괄, 서버 구축, pc 및 모바일 프론트 엔드 구현
 
-### `npm start`
+* 정규용: 로그인, 출석체크
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Description
 
-### `npm test`
+1. 팀마그누스 동아리원들의 출석을 관리하는 사이트 제작
+2. 팀마그누스 운영진들의 동아리 운영을 도와주는 운영진 전용 기능 제작
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+[hansori.net](https://hansori.net) << pc, 모바일 어느 곳에서든 사용 가능
 
-### `npm run build`
+## Page
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### Main
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+#### PC
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+* **동국대학교 공과대 풍물패 배너**
+* **동아리 사진** << 클릭 시 갤러리 페이지로 이동
+* **풍물 아이콘** << 클릭 시 풍물 페이지로 이동
 
-### `npm run eject`
+#### 모바일
+* **동국대 공과대 풍물패** 3*3으로 출력 
+* 아래로 스와이프 시 동아리 정보 나옴, about 페이지와 내용이 같다.
+*  제일 아래 **풍물 아이콘** << 클릭시 풍물 페이지로 이동
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+### About
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+* 한소리 동아리에 관한 정보를 알려준다. 
+* 아래로 스크롤하면 애니메이션 효과와 함께 다른 정보들도 볼 수 있다.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+### Gallery
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+* 동아리 활동 사진을 볼 수 있음.
+*  우측 하단 연도별 책갈피를 클릭 시 해당 연도의 구글 포토 라이브러리로 접속된다. 
+	* 한소리넷에 로그인을 해야 이용 가능한 서비스이다.
 
-## Learn More
+### Pungsa
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+* 오프라인 풍사와 비슷한 역할을 하기를 기대하며 만든 페이지.
+* 부원들이 자유롭게 게시글 열람 가능.
+* **글 작성은 로그인한 유저만 가능**
+* 글을 작성하고 열람하는 방식에 차이가 있어 PC와 모바일 페이지를 분리했음.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+#### PC
 
-### Code Splitting
+* 글을 게시하고 싶은 위치에 마우스를 클릭한 후 글을 작성할 수 있음.
+* 화면 양 옆의 화살표를 통해 다른 쪽으로 이동할 수 있음.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+#### 모바일
 
-### Analyzing the Bundle Size
+* 아래로 스크롤하며 글 열람.
+	* 가장 최근에 작성한 글 순으로 위쪽부터 배치됨.
+* \+ 버튼을 눌러 새로운 글 작성.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+#### 풍물
 
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+* 랜덤한 위치와 크기로 쇠, 소고, 징, 장구, 북이 배치되어 있음.
+* 아이콘을 누르면 해당 악기의 소리가 남.
+* 우측 하단의 책갈피모양 버튼을 통해 소리 종류를 바꿀 수 있음.
+	* 주사위 아이콘을 누르면 소리 종류가 랜덤으로 설정됨.
