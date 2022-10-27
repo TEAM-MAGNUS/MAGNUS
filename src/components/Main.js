@@ -9,6 +9,7 @@ import isLogin from "./Login.js";
 import logo from "../asset/main/logo.png";
 import instagram from "../asset/main/instagram.png";
 import kakao from "../asset/main/kakao.png";
+import rushclan from "../asset/main/rushclan.png";
 import loginbtn from "../asset/login/kakao_login.png";
 
 function Main() {
@@ -47,12 +48,42 @@ function Main() {
               </div>
             </div>
             <div className="section">
-              <div className="div-main-section-01-01">
-                금 20:00~21:30 <br />토 14:00~16:00 <br />일 16:00~18:00 <br />
-                <br />
+              <div className="div-main-section-01-01-01">
+                <div className="div-main-section-01-01-01-schedule">
+                  <div className="div-main-section-01-01-01-left">금</div>
+                  <div className="div-main-section-01-01-01-right">
+                    20:00~21:30
+                  </div>
+                </div>
+                <div className="div-main-section-01-01-01-schedule">
+                  <div className="div-main-section-01-01-01-left">토</div>
+                  <div className="div-main-section-01-01-01-right">
+                    14:00~16:00
+                  </div>
+                </div>
+                <div className="div-main-section-01-01-01-schedule">
+                  <div className="div-main-section-01-01-01-left">일</div>
+                  <div className="div-main-section-01-01-01-right">
+                    16:00~18:00
+                  </div>
+                </div>
+              </div>
+              <br />
+              <div className="div-main-section-01-01-02">
                 충무로 러쉬클랜에서
                 <br /> 훈련을 진행합니다.
               </div>
+              <div className="div-main-rushclan">
+                <img
+                  className="img-main-rushclan"
+                  src={rushclan}
+                  alt=""
+                  onClick={() =>
+                    (window.location.href = "https://naver.me/FXZPKnCR")
+                  }
+                />
+              </div>
+
               <div onClick={() => fullpageApi.moveSectionDown()}>
                 <HiChevronDown className="icon-main-arrow-down1" size="20" />
                 <HiChevronDown className="icon-main-arrow-down2" size="20" />

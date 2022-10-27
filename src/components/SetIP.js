@@ -2,6 +2,7 @@ import { React, useEffect, useState } from "react";
 import { HiOutlineArrowLeft, HiPlus, HiMinus } from "react-icons/hi";
 import { NavLink } from "react-router-dom";
 function SetIP() {
+  const [currentIP, setCurrentIP] = useState("currentIP");
   function getCurrentIP() {
     console.log("current!");
     fetch("https://teammagnus.net/getCurrentIP", {
@@ -10,13 +11,13 @@ function SetIP() {
     })
       .then((res) => res.json())
       .then((json) => {
+        setIP(json.ip);
+        setCurrentIP(json.ip);
         console.log("current: " + json.ip);
-        window.localStorage.setItem("currentIP", json.ip);
-        window.location.reload();
       });
   }
 
-  const [ip, setIP] = useState(window.localStorage.getItem("currentIP"));
+  const [ip, setIP] = useState("");
   const onChange = (e) => {
     setIP(e.target.value);
   };
@@ -109,14 +110,16 @@ function SetIP() {
             />
           </div>
         </div>
-        <div
-          className="button-ip-current"
-          onClick={() => {
-            getCurrentIP();
-          }}
-        >
-          접속 IP 불러오기
-        </div>
+        {currentIP != ip && (
+          <div
+            className="button-ip-current"
+            onClick={() => {
+              getCurrentIP();
+            }}
+          >
+            접속 IP 불러오기
+          </div>
+        )}
       </div>
     </div>
   );

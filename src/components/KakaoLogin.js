@@ -61,8 +61,8 @@ function KaKaoLogin() {
       .then((json) => {
         if (json.result) {
           window.alert("인증번호가 발송되었습니다.");
-          setSmsClick(true);
         } else {
+          setSmsClick(false);
           window.alert("등록된 회원이 아닙니다.");
         }
       });
@@ -244,6 +244,7 @@ function KaKaoLogin() {
                   className="button-login-sms "
                   onClick={() => {
                     if (!smsClick) {
+                      setSmsClick(true);
                       smsAuth();
                     }
                   }}

@@ -97,8 +97,7 @@ function Profile() {
       id: window.localStorage.getItem("id"),
     };
 
-    fetch("https://localhost/checkIP", {
-      // fetch("https://teammagnus.net/checkIP", {
+    fetch("https://teammagnus.net/checkIP", {
       method: "post",
       headers: { "content-type": "application/json" },
       body: JSON.stringify(post),
@@ -135,7 +134,6 @@ function Profile() {
       });
   };
   useEffect(() => {
-    // getIP();
     isManager();
     getMyAbsence();
     getMyWarning();
