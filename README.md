@@ -75,7 +75,7 @@
 
 * 날짜를 터치하면 그날의 훈련일정을 확인할 수 있다.
 
-* 매달 출석율을 기준으로 실시간 랭킹을 보여준다.
+* 매달 출석률을 기준으로 실시간 랭킹을 보여준다.
 
 * 공지사항을 확인할 수 있다. 
 	* 공지사항과 캘린더는 운영진만 수정 가능하다.
@@ -101,8 +101,8 @@
 <img width="120px" src="https://user-images.githubusercontent.com/84197474/198040417-8e497290-968f-443d-afac-c30d0bef29b3.png">
 <img width="120px" src="https://user-images.githubusercontent.com/84197474/198041148-ff365379-81c2-434b-a0c1-0030abd1926a.png">
 <img width="120px" src="https://user-images.githubusercontent.com/84197474/198040425-7e59db38-fc70-4170-912e-8e41f977c3a2.png">
-<img width="120px" src="https://user-images.githubusercontent.com/84197474/198040448-ca9ac886-1671-4a84-ba55-282ec2da536a.png">
-<img width="120px" src="https://user-images.githubusercontent.com/84197474/198040666-4b25a57f-6a31-47fa-9d89-237e0cfe63ad.png">
+<img width="120px" src="https://user-images.githubusercontent.com/84197474/198351298-5e65510d-6f5e-4204-ad12-9dfec83bc705.png">
+<img width="120px" src="https://user-images.githubusercontent.com/84197474/198351293-d51e84d3-8d1b-4d79-96d7-898a63be34bc.png">
 <div>
 
 * 이름, 가입기수를 기준으로 정렬하여 조회가 가능하다.
@@ -135,6 +135,15 @@
 	* 현재 접속 IP 불러오기 기능을 통해 편의성을 높였다.
 
 
+### 가입 기수
+<div>
+<img width="120px" src="https://user-images.githubusercontent.com/84197474/198350497-f3b4dd3c-6f93-4dcf-80d2-375d01f6969c.png">
+<img width="120px" src="https://user-images.githubusercontent.com/84197474/198350487-cc46baf3-8748-4b5b-b8a5-d5291cac5973.png">
+<div>
 
+* 가입 기수별로 회원을 조회할 수 있다. 
+
+* 가입 기수를 터치하면 해당 기수 회원들을 보여준다.
+	* 해당 기수의 평균 출석률을 나타내는 파이차트도 추가하였다.
 
 
