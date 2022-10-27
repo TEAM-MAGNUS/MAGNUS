@@ -1,10 +1,11 @@
 import React, { useCallback, useEffect, useState } from "react";
 import dayjs from "dayjs";
 import {
-  HiOutlineArrowLeft,
+  HiOutlineChartPie,
   HiOutlineArrowRight,
   HiChevronLeft,
   HiChevronRight,
+  HiOutlineCalendar,
 } from "react-icons/hi";
 import { PieChart, Pie, Sector, Cell } from "recharts";
 import MemberAll from "./MemberAll";
@@ -372,27 +373,33 @@ function MemberAttendance(props) {
 
   return (
     <div className="div-member-attendance-section">
-      {detailOpen ? (
-        <HiOutlineArrowLeft
+      {/* {detailOpen ? (
+        <HiOutlineChartPie
           size="20"
-          className="icon-back"
+          className="icon-go"
           onClick={() => setDetailOpen(false)}
         />
       ) : (
         <>
-          <HiOutlineArrowLeft
-            size="20"
-            className="icon-back"
-            onClick={() => window.location.reload()}
-          />
-          <HiOutlineArrowRight
+          <HiOutlineCalendar
             size="20"
             className="icon-go"
             onClick={() => setDetailOpen(true)}
           />
         </>
-      )}
-
+      )} */}
+      <HiOutlineChartPie
+        size="20"
+        className="icon-pie"
+        onClick={() => setDetailOpen(false)}
+        style={{ color: !detailOpen && "#d2000f" }}
+      />
+      <HiOutlineCalendar
+        size="20"
+        className="icon-calendar"
+        onClick={() => setDetailOpen(true)}
+        style={{ color: detailOpen && "#d2000f" }}
+      />
       <div className="div-attendance-section">
         <div className="div-month">
           {!isLast && (

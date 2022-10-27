@@ -26,6 +26,9 @@ function Manage() {
         <NavLink to="/setIP" className="link-header div-manage-grid-item">
           <div>IP 변경</div>
         </NavLink>
+        <NavLink to="/joinDate" className="link-header div-manage-grid-item">
+          <div>가입 기수</div>
+        </NavLink>
       </div>
     </div>
   );

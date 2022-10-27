@@ -21,6 +21,7 @@ import NotFound from "./components/NotFound";
 import Protected from "./components/Protected";
 import ProtectedM from "./components/ProtectedM";
 import SetIP from "./components/SetIP";
+import JoinDate from "./components/JoinDate";
 
 function App() {
   return (
@@ -57,6 +58,7 @@ function App() {
             element={<ProtectedM element={ManageAbsence} />}
           />
           <Route path="/setIP" element={<ProtectedM element={SetIP} />} />
+          <Route path="/joinDate" element={<ProtectedM element={JoinDate} />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
