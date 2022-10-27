@@ -178,6 +178,11 @@ function Member() {
       {isAddOpen ? (
         <>
           <MemberAttendance name={name} pnum={pnum} />
+          <HiX
+            size="20"
+            className="icon-back"
+            onClick={() => setIsAddOpen(false)}
+          />
         </>
       ) : (
         <div className="div-ranking">

@@ -85,9 +85,11 @@ function Ranking() {
       </div>
       {user.image ? (
         <div className="div-ranking-img-name">
-          <SuperEllipse className="img-ranking" r1={0.14} r2={0.5}>
-            <img className="img-ranking-squircle" src={user.image} alt="" />
-          </SuperEllipse>
+          <div className="div-ranking-img">
+            <SuperEllipse className="img-ranking" r1={0.14} r2={0.5}>
+              <img className="img-ranking-squircle" src={user.image} alt="" />
+            </SuperEllipse>
+          </div>
           <div
             className="div-ranking-name-font"
             style={{ color: rank == 1 ? "#e79b42" : "black" }}

@@ -353,15 +353,21 @@ body {
   height: 5vh;
   object-fit: cover;
 }
+.div-ranking-img {
+  width: 10vw;
+  display: flex;
+  justify-content: right;
+}
 .div-ranking-img-name {
   display: flex;
   align-items: center;
-  justify-content: center;
-  width: 25vw;
+  justify-content: space-between;
+  width: 20vw;
   white-space: nowrap;
 }
 .div-ranking-name-font {
   font-size: 15px;
+  width: 10vw;
 }
 .div-ranking {
   width: 100vw;
@@ -668,6 +674,9 @@ th {
   justify-content: center;
   align-items: center;
 }
+.div-joindate-piechart {
+  margin-top: 30px;
+}
 .div-attendance-piechart-02 {
   position: absolute;
   bottom: 100px;
@@ -768,6 +777,7 @@ th {
   font-size: 20px;
   padding: 5vw;
   border-radius: 5px;
+  line-height: 150%;
 }
 
 .div-ranking-percent {
@@ -917,6 +927,7 @@ th {
   border: none;
   background: none;
   font-family: "Neb";
+  line-height: 150%;
 }
 ::placeholder {
   color: rgba(0, 0, 0, 0.2);
@@ -1114,7 +1125,22 @@ th {
   transform: translateY(50%);
   z-index: 20;
 }
+
 .icon-go {
+  position: absolute;
+  right: 5vw;
+  top: 100px;
+  transform: translateY(50%);
+  z-index: 20;
+}
+.icon-pie {
+  position: absolute;
+  right: 11vw;
+  top: 100px;
+  transform: translateY(50%);
+  z-index: 20;
+}
+.icon-calendar {
   position: absolute;
   right: 5vw;
   top: 100px;
@@ -1143,6 +1169,17 @@ th {
   align-items: center;
   margin-bottom: 10px;
 }
+.div-joindate-section {
+  width: 80vw;
+  padding: 20px 5vw 20px 5vw;
+  border-radius: 5px;
+  background-color: rgba(255, 255, 255, 0.3);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 10px;
+  font-size: 20px;
+}
 .div-manage-attendance-section {
   width: 70vw;
   height: 6vh;
@@ -1159,6 +1196,7 @@ th {
   width: 25vw;
   text-align: left;
 }
+
 .div-absence-name {
   font-size: 20px;
   margin-bottom: 10px;
@@ -1174,6 +1212,10 @@ th {
 .div-member-pnum {
   font-size: 10px;
   width: 35vw;
+  text-align: center;
+}
+.div-joindate-pnum {
+  font-size: 15px;
   text-align: center;
 }
 .div-member-join {
@@ -1208,6 +1250,7 @@ th {
   top: 195px;
   padding-bottom: 5vh;
 }
+
 .icon-color {
   color: #d2000f;
 }
