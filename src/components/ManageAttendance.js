@@ -253,7 +253,7 @@ function ManageAttendance() {
       <tbody>
         {calendar.map((w, index) => (
           <tr>
-            {w[0].date < date || !isNow() ? (
+            {w[0].date <= date || !isNow() ? (
               <th
                 className={
                   clicked.week === index && clicked.date === w[0].date
@@ -285,7 +285,7 @@ function ManageAttendance() {
                 {w[0].date}
               </th>
             )}
-            {w[1].date < date || !isNow() ? (
+            {w[1].date <= date || !isNow() ? (
               <th
                 className={
                   clicked.week === index && clicked.date === w[1].date
@@ -317,7 +317,7 @@ function ManageAttendance() {
                 {w[1].date}
               </th>
             )}
-            {w[2].date < date || !isNow() ? (
+            {w[2].date <= date || !isNow() ? (
               <th
                 className={
                   clicked.week === index && clicked.date === w[2].date
