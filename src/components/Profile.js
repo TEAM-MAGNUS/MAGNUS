@@ -38,42 +38,43 @@ function isManager() {
     });
 }
 
-const getDateAttendanceType = (date) => {
-  const post = {
-    id: window.localStorage.getItem("pnum"),
-    name: window.localStorage.getItem("name"),
-    y: date.getFullYear(),
-    m: date.getMonth() + 1,
-    d: date.getDate(),
-  };
-
-  fetch("https://teammagnus.net/getDateAttendanceType", {
-    method: "post",
-    headers: { "content-type": "application/json" },
-    body: JSON.stringify(post),
-  })
-    .then((res) => res.json())
-    .then((json) => {
-      switch (json.a) {
-        case 0:
-          window.localStorage.setItem("dateAttendanceType", "출석");
-          break;
-        case 1:
-          window.localStorage.setItem("dateAttendanceType", "지각");
-          break;
-        case 2:
-          window.localStorage.setItem("dateAttendanceType", "불참");
-          break;
-        default:
-      }
-    })
-    .catch(() => {
-      window.localStorage.setItem("dateAttendanceType", 9);
-    });
-};
-
 function Profile() {
   const [absence, setAbsence] = useState(null);
+  const [attendanceType, setAttendanceType] = useState("");
+
+  const getDateAttendanceType = (date) => {
+    const post = {
+      id: window.localStorage.getItem("pnum"),
+      name: window.localStorage.getItem("name"),
+      y: date.getFullYear(),
+      m: date.getMonth() + 1,
+      d: date.getDate(),
+    };
+
+    fetch("https://teammagnus.net/getDateAttendanceType", {
+      method: "post",
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify(post),
+    })
+      .then((res) => res.json())
+      .then((json) => {
+        switch (json.a) {
+          case 0:
+            setAttendanceType("출석");
+            break;
+          case 1:
+            setAttendanceType("지각");
+            break;
+          case 2:
+            setAttendanceType("불참");
+            break;
+          default:
+        }
+      })
+      .catch(() => {
+        setAttendanceType(9);
+      });
+  };
 
   const getMyAbsence = () => {
     const post = {
@@ -107,7 +108,6 @@ function Profile() {
         console.log(json);
         if (json.success) {
           window.localStorage.setItem("isAttend", true);
-          getDateAttendanceType(td);
           window.alert("출석이 완료되었습니다.");
           window.location.reload();
         } else {
@@ -169,7 +169,7 @@ function Profile() {
         <div className="div-profile-date">
           {today.format("YYYY.MM.DD")}
           {td.getDay() === 0 || td.getDay() === 5 || td.getDay() === 6 ? (
-            window.localStorage.getItem("dateAttendanceType") == 9 ? (
+            attendanceType == 9 ? (
               <div
                 className="div-profile-check-section"
                 onClick={async (e) => {
@@ -183,14 +183,14 @@ function Profile() {
                   }
                 }}
               >
-                출석
+                출석하기
               </div>
             ) : (
               <div
                 className="div-profile-check-section"
                 style={{ background: "none", color: "#d2000f" }}
               >
-                {window.localStorage.getItem("dateAttendanceType")}
+                {attendanceType}
               </div>
             )
           ) : (

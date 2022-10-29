@@ -373,21 +373,6 @@ function MemberAttendance(props) {
 
   return (
     <div className="div-member-attendance-section">
-      {/* {detailOpen ? (
-        <HiOutlineChartPie
-          size="20"
-          className="icon-go"
-          onClick={() => setDetailOpen(false)}
-        />
-      ) : (
-        <>
-          <HiOutlineCalendar
-            size="20"
-            className="icon-go"
-            onClick={() => setDetailOpen(true)}
-          />
-        </>
-      )} */}
       <HiOutlineChartPie
         size="20"
         className="icon-pie"

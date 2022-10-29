@@ -20,8 +20,7 @@ function JoinDate() {
   const [pnum, setPnum] = useState("");
 
   const getJoinDate = () => {
-    fetch("https://localhost/getJoinDate", {
-      // fetch("https://teammagnus.net/getJoinDate", {
+    fetch("https://teammagnus.net/getJoinDate", {
       method: "post",
       headers: { "content-type": "application/json" },
     })
@@ -38,8 +37,7 @@ function JoinDate() {
       id: window.localStorage.getItem("id"),
     };
     console.log(post.j);
-    fetch("https://localhost/getJoinDateMember", {
-      // fetch("https://teammagnus.net/getJoinDateMember", {
+    fetch("https://teammagnus.net/getJoinDateMember", {
       method: "post",
       headers: { "content-type": "application/json" },
       body: JSON.stringify(post),
@@ -89,8 +87,7 @@ function JoinDate() {
       j: date,
     };
     console.log(post.j);
-    fetch("https://localhost/getJoinDateAttendance", {
-      // fetch("https://teammagnus.net/getJoinDateAttendance", {
+    fetch("https://teammagnus.net/getJoinDateAttendance", {
       method: "post",
       headers: { "content-type": "application/json" },
       body: JSON.stringify(post),
@@ -209,7 +206,7 @@ function JoinDate() {
   console.log("3: " + attendance3);
 
   const pieChart = (
-    <PieChart width={250} height={200}>
+    <PieChart width={400} height={200}>
       <Pie
         activeIndex={activeIndex}
         activeShape={renderActiveShape}
@@ -290,7 +287,7 @@ function JoinDate() {
               />
               <div className="div-month">{joinDate}</div>
               {pieChart}
-              {showMember}
+              <div style={{ paddingBottom: "5vh" }}>{showMember}</div>
             </>
           ) : (
             <>
