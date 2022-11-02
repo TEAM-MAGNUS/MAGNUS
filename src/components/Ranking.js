@@ -79,44 +79,56 @@ function Ranking() {
   }, [ranking]);
 
   var rank = 1;
-  const showRanking = ranking.map((user, idx) => (
-    <div key={idx} className="div-ranking-section-02">
-      <div>
-        {idx > 0 && ranking[idx].c < ranking[idx - 1].c ? ++rank : rank}
-      </div>
-      {user.image ? (
-        <div className="div-ranking-img-name">
-          <div className="div-ranking-img">
-            <SuperEllipse className="img-ranking" r1={0.14} r2={0.5}>
-              <img className="img-ranking-squircle" src={user.image} alt="" />
-            </SuperEllipse>
-          </div>
-          {rank == 1 ? (
-            <div className="div-ranking-crown-name">
-              <TbCrown className="icon-ranking-crown" />
-              {user.name}
-            </div>
-          ) : (
-            <div className="div-ranking-name-font">{user.name}</div>
-          )}
+  var sameCount = 0;
+  const showRanking = ranking.map((user, idx) => {
+  if (idx > 0 && ranking[idx].c < ranking[idx - 1].c) {
+    rank += sameCount;
+    sameCount = 1;
+    console.log("not same");
+  } else {
+    sameCount++;
+    console.log("same");
+  }
+  console.log(idx + ": " + rank);
+    return (
+      <div key={idx} className="div-ranking-section-02">
+        <div>
+          {rank}
         </div>
-      ) : (
-        <>
-          {rank == 1 ? (
-            <div className="div-ranking-crown-name">
-              <TbCrown className="icon-ranking-crown" />
-              {user.name}
+        {user.image ? (
+          <div className="div-ranking-img-name">
+            <div className="div-ranking-img">
+              <SuperEllipse className="img-ranking" r1={0.14} r2={0.5}>
+                <img className="img-ranking-squircle" src={user.image} alt="" />
+              </SuperEllipse>
             </div>
-          ) : (
-            <div className="div-ranking-name-font">{user.name}</div>
-          )}
-        </>
-      )}
-      <div className="div-ranking-percent">
-        {((user.c / total) * 100).toFixed(1)}%
+            {rank == 1 ? (
+              <div className="div-ranking-crown-name">
+                <TbCrown className="icon-ranking-crown" />
+                {user.name}
+              </div>
+            ) : (
+              <div className="div-ranking-name-font">{user.name}</div>
+            )}
+          </div>
+        ) : (
+          <>
+            {rank == 1 ? (
+              <div className="div-ranking-crown-name">
+                <TbCrown className="icon-ranking-crown" />
+                {user.name}
+              </div>
+            ) : (
+              <div className="div-ranking-name-font">{user.name}</div>
+            )}
+          </>
+        )}
+        <div className="div-ranking-percent">
+          {((user.c / total) * 100).toFixed(1)}%
+        </div>
       </div>
-    </div>
-  ));
+    );
+  });
 
   return (
     <div className="div-ranking">
