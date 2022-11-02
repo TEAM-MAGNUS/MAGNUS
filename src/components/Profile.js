@@ -111,7 +111,9 @@ function Profile() {
           window.alert("출석이 완료되었습니다.");
           window.location.reload();
         } else {
-          window.alert("접속 IP를 확인해주세요.");
+          window.alert(
+            "'러쉬클랜_3F' 또는 '러쉬클랜_4F' 와이파이를 이용해주세요."
+          );
         }
       });
   };

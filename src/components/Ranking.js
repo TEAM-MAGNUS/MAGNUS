@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { HiChevronLeft, HiChevronRight } from "react-icons/hi";
+import { TbCrown } from "react-icons/tb";
 import SuperEllipse from "react-superellipse";
 
 const td = new Date();
@@ -90,17 +91,26 @@ function Ranking() {
               <img className="img-ranking-squircle" src={user.image} alt="" />
             </SuperEllipse>
           </div>
-          <div
-            className="div-ranking-name-font"
-            style={{ color: rank == 1 ? "#e79b42" : "black" }}
-          >
-            {user.name}
-          </div>
+          {rank == 1 ? (
+            <div className="div-ranking-crown-name">
+              <TbCrown className="icon-ranking-crown" />
+              {user.name}
+            </div>
+          ) : (
+            <div className="div-ranking-name-font">{user.name}</div>
+          )}
         </div>
       ) : (
-        <div style={{ color: rank == 1 ? "#e79b42" : "black" }}>
-          {user.name}
-        </div>
+        <>
+          {rank == 1 ? (
+            <div className="div-ranking-crown-name">
+              <TbCrown className="icon-ranking-crown" />
+              {user.name}
+            </div>
+          ) : (
+            <div className="div-ranking-name-font">{user.name}</div>
+          )}
+        </>
       )}
       <div className="div-ranking-percent">
         {((user.c / total) * 100).toFixed(1)}%

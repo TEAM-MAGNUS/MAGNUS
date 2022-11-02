@@ -197,9 +197,9 @@ body {
   position: fixed;
   top: 0;
   left: 0;
-  background-color: #ae0000;
-  /* background-color: #d2000f; */
-  border-radius: 0 0 10px 10px;
+  background-color: #ede9d0;
+  /* background-color: #ae0000; */
+  border-radius: 0 0 5px 5px;
   padding-top: 90px;
   padding-bottom: 40px;
   width: 100vw;
@@ -319,7 +319,7 @@ body {
   display: flex;
   width: 20vw;
   padding: 10px 20px 10px 20px;
-  border-radius: 10px;
+  border-radius: 5px;
   flex-direction: column;
   align-items: center;
   justify-content: center;
@@ -368,7 +368,23 @@ body {
 .div-ranking-name-font {
   font-size: 15px;
   width: 10vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
+.div-ranking-crown-name {
+  font-size: 15px;
+  width: 10vw;
+  height: 6vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.icon-ranking-crown {
+  color: #e79b42;
+  font-size: 20px;
+}
+
 .div-ranking {
   width: 100vw;
   height: 100vh;
@@ -388,7 +404,7 @@ body {
   width: 80vw;
   height: 5vh;
   padding: 0 5vw 1vh 5vw;
-  border-bottom: 1.5px solid rgba(0, 0, 0, 0.2);
+  /* border-bottom: 1.5px solid rgba(0, 0, 0, 0.2); */
 
   font-size: 18px;
   display: flex;
@@ -406,13 +422,6 @@ body {
   to {
     transform: translateY(0);
   }
-}
-
-.div-ranking-percent {
-  color: #d2000f;
-  width: 40px;
-  display: flex;
-  justify-content: ease-in;
 }
 
 /*------------------------------*/ /* Ranking.js */
@@ -567,9 +576,9 @@ th {
   z-index: 100;
   width: 120px;
   padding: 60px 30px 60px 30px;
-  background-color: rgba(0, 0, 0, 0.8);
+  background-color: rgba(0, 0, 0, 0.7);
   color: white;
-  border-radius: 10px;
+  border-radius: 5px;
 }
 
 .div-attendance-info {
@@ -781,7 +790,7 @@ th {
 }
 
 .div-ranking-percent {
-  color: #d2000f;
+  /* color: #d2000f; */
   width: 40px;
   display: flex;
   justify-content: right;
@@ -850,8 +859,6 @@ th {
   border-radius: 100%;
 }
 .button-absence-minus {
-  position: absolute;
-  right: 5vw;
   width: 15px;
   height: 15px;
   padding: 5px;
@@ -904,12 +911,12 @@ th {
   color: rgba(0, 0, 0, 0.2);
 }
 .input-absence-write-date {
+  text-align: right;
   width: 30vw;
   border: none;
   font-size: 15px;
   background: none;
   font-family: "Nh";
-  text-align: right;
 }
 .input-ip-write-date {
   width: 40vw;
@@ -948,7 +955,7 @@ th {
   background-color: #d2000f;
   width: 270px;
   height: 40px;
-  border-radius: 10px;
+  border-radius: 5px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -990,7 +997,7 @@ th {
   padding: 10px;
   resize: none;
   border: none;
-  border-radius: 10px;
+  border-radius: 5px;
   font-size: 20px;
   text-align: center;
   margin-top: 15px;
@@ -1075,7 +1082,7 @@ th {
 }
 .div-manage-grid-item {
   width: 44vw;
-  height: 20vh;
+  height: 18vh;
   background-color: rgba(255, 255, 255, 0.3);
   display: flex;
   align-items: center;
@@ -1084,15 +1091,15 @@ th {
   border-radius: 5px;
 }
 .div-absence-section-02 {
-  width: 65vw;
+  width: 80vw;
   height: 7vh;
-  padding: 10px 20vw 10px 5vw;
-  border-radius: 5px;
-  background-color: rgba(255, 255, 255, 0.3);
-
+  padding: 10px 5vw 10px 5vw;
+  /* border-radius: 5px; */
+  /* background-color: rgba(255, 255, 255, 0.3); */
+  border-bottom: 1.5px solid rgba(0, 0, 0, 0.2);
   display: flex;
   align-items: center;
-  justify-content: space-around;
+  justify-content: space-between;
   margin-top: 10px;
 }
 .div-ip-section-02 {
@@ -1184,8 +1191,9 @@ th {
   width: 70vw;
   height: 6vh;
   padding: 10px 5vw 10px 5vw;
-  border-radius: 5px;
-  background-color: rgba(255, 255, 255, 0.3);
+  /* border-radius: 5px; */
+  /* background-color: rgba(255, 255, 255, 0.3); */
+  border-bottom: 1.5px solid rgba(0, 0, 0, 0.2);
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -1206,7 +1214,7 @@ th {
 }
 .div-absence-name-pnum {
   height: 6vh;
-  width: 30vw;
+  width: 25vw;
 }
 
 .div-member-pnum {
