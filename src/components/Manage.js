@@ -20,14 +20,17 @@ function Manage() {
         <NavLink to="/absence" className="link-header div-manage-grid-item">
           <div>미통보 불참</div>
         </NavLink>
-        <NavLink to="/average" className="link-header div-manage-grid-item">
-          <div>출석 통계</div>
+        <NavLink to="/injured" className="link-header div-manage-grid-item">
+          <div>병결</div>
+        </NavLink>
+        <NavLink to="/joinDate" className="link-header div-manage-grid-item">
+          <div>가입 기수</div>
         </NavLink>
         <NavLink to="/setIP" className="link-header div-manage-grid-item">
           <div>IP 변경</div>
         </NavLink>
-        <NavLink to="/joinDate" className="link-header div-manage-grid-item">
-          <div>가입 기수</div>
+        <NavLink to="/average" className="link-header div-manage-grid-item">
+          <div>출석 통계</div>
         </NavLink>
       </div>
     </div>

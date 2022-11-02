@@ -22,6 +22,7 @@ import Protected from "./components/Protected";
 import ProtectedM from "./components/ProtectedM";
 import SetIP from "./components/SetIP";
 import JoinDate from "./components/JoinDate";
+import Injured from "./components/Injured";
 
 function App() {
   return (
@@ -44,6 +45,7 @@ function App() {
           <Route path="/warning" element={<ProtectedM element={Warning} />} />
           <Route path="/average" element={<ProtectedM element={Average} />} />
           <Route path="/absence" element={<ProtectedM element={Absence} />} />
+          <Route path="/injured" element={<ProtectedM element={Injured} />} />
           <Route path="/member" element={<ProtectedM element={Member} />} />
           <Route
             path="/memberAttendance"

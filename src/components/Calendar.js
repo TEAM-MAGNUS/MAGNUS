@@ -294,7 +294,7 @@ function Calendar() {
       <tbody>
         {calendar.map((w, index) => (
           <tr>
-            {w[0].date < date && isNow() ? (
+            {w[0].date < date && isNow() && w[0].date != null ? (
               <th className="calendar-p">{w[0].date}</th>
             ) : (
               <th
@@ -314,7 +314,7 @@ function Calendar() {
                 {w[0].date}
               </th>
             )}
-            {w[1].date < date && isNow() ? (
+            {w[1].date < date && isNow() && w[1].date != null ? (
               <th className="calendar-p">{w[1].date}</th>
             ) : (
               <th
@@ -334,7 +334,7 @@ function Calendar() {
                 {w[1].date}
               </th>
             )}
-            {w[2].date < date && isNow() ? (
+            {w[2].date < date && isNow() && w[2].date != null ? (
               <th className="calendar-p">{w[2].date}</th>
             ) : (
               <th

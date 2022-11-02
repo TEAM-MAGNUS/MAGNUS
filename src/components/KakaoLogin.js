@@ -71,6 +71,7 @@ function KaKaoLogin() {
   const codeCheck = () => {
     const post = {
       code: sms,
+      // p: info.pnum,
     };
 
     fetch("https://teammagnus.net/codeCheck", {

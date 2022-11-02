@@ -3,14 +3,14 @@ import { HiOutlineArrowLeft } from "react-icons/hi";
 import { NavLink } from "react-router-dom";
 import { HiPlus, HiX, HiMinus, HiCheck } from "react-icons/hi";
 
-function Absence() {
+function Injured() {
   const [name, setName] = useState("");
   const [pnum, setPnum] = useState("");
   const [date, setDate] = useState("");
   const [user, setUser] = useState([]);
 
-  const getAbsence = () => {
-    fetch("https://teammagnus.net/getAbsence", {
+  const getInjured = () => {
+    fetch("https://teammagnus.net/getInjured", {
       method: "post",
       headers: { "content-type": "application/json" },
     })
@@ -20,14 +20,14 @@ function Absence() {
       });
   };
 
-  const addAbsence = () => {
+  const addInjured = () => {
     const post = {
       name: name,
       date: date,
       pnum: pnum,
     };
-    console.log(post.query);
-    fetch("https://teammagnus.net/addAbsence", {
+    console.log(post);
+    fetch("https://teammagnus.net/addInjured", {
       method: "post",
       headers: { "content-type": "application/json" },
       body: JSON.stringify(post),
@@ -37,14 +37,14 @@ function Absence() {
     });
   };
 
-  const cancelAbsence = (name, date, pnum) => {
+  const cancelInjured = (name, date, pnum) => {
     const post = {
       name: name,
       date: date,
       pnum: pnum,
     };
     console.log(post.query);
-    fetch("https://teammagnus.net/cancelAbsence", {
+    fetch("https://teammagnus.net/cancelInjured", {
       method: "post",
       headers: { "content-type": "application/json" },
       body: JSON.stringify(post),
@@ -54,7 +54,7 @@ function Absence() {
   };
 
   useEffect(() => {
-    getAbsence();
+    getInjured();
   }, []);
 
   const onChange = (e) => {
@@ -83,7 +83,7 @@ function Absence() {
         className="button-absence-minus"
         onClick={() => {
           if (window.confirm("정말 삭제하시겠습니까?")) {
-            cancelAbsence(user.n, user.date, user.p);
+            cancelInjured(user.n, user.date, user.p);
           }
         }}
       />
@@ -97,10 +97,9 @@ function Absence() {
           <NavLink to="/manage" className="link-header">
             <HiOutlineArrowLeft size="20" className="icon-back" />
           </NavLink>
-          미통보 불참
+          병결
         </div>
         <div className="div-absence-section-01">
-          {showWarning}
           <div className="div-absence-section-02">
             <div className="div-absence-name-pnum">
               <input
@@ -118,7 +117,12 @@ function Absence() {
                 placeholder="000-0000-0000"
               />
             </div>
-            <div style={{ display: "flex", alignItems: "center" }}>
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+              }}
+            >
               <input
                 className="input-absence-write-date"
                 onChange={onChange}
@@ -130,7 +134,7 @@ function Absence() {
             <HiPlus
               className="button-absence-minus"
               onClick={() => {
-                if (name != "" && pnum != "" && date != "") addAbsence();
+                if (name != "" && pnum != "" && date != "") addInjured();
               }}
               style={{
                 backgroundColor:
@@ -140,10 +144,11 @@ function Absence() {
               }}
             />
           </div>
+          {showWarning}
         </div>
       </div>
     </div>
   );
 }
 
-export default Absence;
+export default Injured;
