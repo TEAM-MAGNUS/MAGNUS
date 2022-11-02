@@ -14,7 +14,7 @@
 >Front-end: React<br/>
 >Back-end: Node.js<br/>
 >DB: MySQL<br/>
->Server: ASW Ubuntu 20.04 LTS
+>Server: AWS Ubuntu 20.04 LTS
 
 ## Page
 
