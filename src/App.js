@@ -23,6 +23,8 @@ import ProtectedM from "./components/ProtectedM";
 import SetIP from "./components/SetIP";
 import JoinDate from "./components/JoinDate";
 import Injured from "./components/Injured";
+import Technique from "./components/Technique";
+import ComingSoon from "./components/ComingSoon";
 
 function App() {
   return (
@@ -39,6 +41,10 @@ function App() {
           />
           <Route path="/kakaoLogin" element={<KakaoLogin />} />
           <Route path="/ranking" element={<Protected element={Ranking} />} />
+          <Route
+            path="/technique"
+            element={<Protected element={Technique} />}
+          />
           <Route path="/calendar" element={<Protected element={Calendar} />} />
           <Route path="/notice" element={<Protected element={Notice} />} />
           <Route path="/manage" element={<ProtectedM element={Manage} />} />
@@ -61,6 +67,10 @@ function App() {
           />
           <Route path="/setIP" element={<ProtectedM element={SetIP} />} />
           <Route path="/joinDate" element={<ProtectedM element={JoinDate} />} />
+          <Route
+            path="/comingsoon"
+            element={<ProtectedM element={ComingSoon} />}
+          />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>

@@ -105,7 +105,7 @@ function SetIP() {
                 if (ip != "") addIP();
               }}
               style={{
-                backgroundColor: ip != "" ? "#e79b42" : "rgba(0, 0, 0, 0.2)",
+                backgroundColor: ip != "" ? "#e79b42" : "rgba(0, 0, 0, 0.05)",
               }}
             />
           </div>

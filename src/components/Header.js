@@ -6,6 +6,7 @@ import { HiX, HiOutlineUser, HiOutlineMenuAlt4 } from "react-icons/hi";
 function Header() {
   let location = useLocation();
   const [open, setOpen] = useState(false);
+  // const [open, setOpen] = useState(true);
   const [animation0, setAnimation0] = useState("");
   const [animation00, setAnimation00] = useState("");
   const [animation1, setAnimation1] = useState("");
@@ -38,10 +39,10 @@ function Header() {
       >
         <div className="div-header-wrap">
           {open ? (
-            <HiX size="25" onClick={onToggle} className={`${animation0}`} />
+            <HiX size="22" onClick={onToggle} className={`${animation0}`} />
           ) : (
             <HiOutlineMenuAlt4
-              size="25"
+              size="22"
               onClick={onToggle}
               className={`${animation00}`}
             />
@@ -56,22 +57,22 @@ function Header() {
             TEAM MAGNUS
           </NavLink>
           <NavLink className="link-header" to="/profile">
-            <HiOutlineUser size="25" />
+            <HiOutlineUser size="22" />
           </NavLink>
         </div>
       </div>
       {open && (
         <div
           className={`div-header-menu-wrap ${animation1}`}
-          onClick={() => {
-            onToggle();
-          }}
+          // onClick={() => {
+          //   onToggle();
+          // }}
         >
           <div
             className={`div-header-menu ${animation2}`}
-            onClick={() => {
-              onToggle();
-            }}
+            // onClick={() => {
+            //   onToggle();
+            // }}
           >
             <NavLink
               className="link-header"
@@ -83,7 +84,18 @@ function Header() {
               ATTENDANCE
             </NavLink>
             <br />
-            -
+            <br />
+            <NavLink
+              className="link-header"
+              // to="/technique"
+              to="/technique"
+              onClick={() => {
+                onToggle();
+              }}
+            >
+              TECHNIQUE
+            </NavLink>
+            <br />
             <br />
             <NavLink
               className="link-header"
@@ -95,7 +107,6 @@ function Header() {
               CALENDAR
             </NavLink>
             <br />
-            -
             <br />
             <NavLink
               className="link-header"
@@ -107,7 +118,6 @@ function Header() {
               RANKING
             </NavLink>
             <br />
-            -
             <br />
             <NavLink
               className="link-header"
@@ -121,7 +131,6 @@ function Header() {
             {window.localStorage.getItem("m") == 1 && (
               <>
                 <br />
-                -
                 <br />
                 <NavLink
                   className="link-header"
@@ -135,6 +144,12 @@ function Header() {
               </>
             )}
           </div>
+          <div
+            className="div-header-menu-not"
+            onClick={() => {
+              onToggle();
+            }}
+          />
         </div>
       )}
     </>

@@ -101,7 +101,9 @@ function Notice() {
   const showContent = (
     <div className="div-notice-section-03">
       <div className="div-month-title">{title}</div>
-      <div className="div-notice-content">{content}</div>
+      <div className="div-notice-content">
+        <pre className="pre-notice-content">{content}</pre>
+      </div>
       <HiX
         className="icon-notice-close"
         onClick={() => setContentOpen(false)}
@@ -179,7 +181,7 @@ function Notice() {
       }
     >
       <div className="div-notice-header"></div>
-      <div className="div-month">공지사항</div>
+      <div className="div-title">NOTICE</div>
       <div className="div-notice-section-01"> {showTitle}</div>
       {contentOpen && showContent}
       {writeOpen
