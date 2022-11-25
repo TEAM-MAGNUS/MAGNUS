@@ -1,11 +1,5 @@
 import React, { useEffect, useState, useCallback } from "react";
-import {
-  HiPlus,
-  HiX,
-  HiCheck,
-  HiMinus,
-  HiOutlineArrowLeft,
-} from "react-icons/hi";
+import { HiX, HiOutlineArrowLeft } from "react-icons/hi";
 import { NavLink } from "react-router-dom";
 import MemberAttendance from "./MemberAttendance";
 import { PieChart, Pie, Sector, Cell } from "recharts";

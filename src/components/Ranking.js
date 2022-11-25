@@ -81,20 +81,17 @@ function Ranking() {
   var rank = 1;
   var sameCount = 0;
   const showRanking = ranking.map((user, idx) => {
-  if (idx > 0 && ranking[idx].c < ranking[idx - 1].c) {
-    rank += sameCount;
-    sameCount = 1;
-    console.log("not same");
-  } else {
-    sameCount++;
-    console.log("same");
-  }
-  console.log(idx + ": " + rank);
+    if (idx > 0 && ranking[idx].c < ranking[idx - 1].c) {
+      rank += sameCount;
+      sameCount = 1;
+      console.log("not same");
+    } else {
+      sameCount++;
+      console.log("same");
+    }
     return (
       <div key={idx} className="div-ranking-section-02">
-        <div>
-          {rank}
-        </div>
+        <div>{rank}</div>
         {user.image ? (
           <div className="div-ranking-img-name">
             <div className="div-ranking-img">

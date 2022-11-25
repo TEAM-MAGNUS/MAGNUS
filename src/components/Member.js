@@ -222,7 +222,7 @@ function Member() {
                   backgroundColor:
                     newName != "" && newPnum != "" && newJoindate != ""
                       ? "#e79b42"
-                      : "rgba(0, 0, 0, 0.2)",
+                      : "rgba(0, 0, 0, 0.05)",
                 }}
               />
             </>
@@ -259,7 +259,7 @@ function Member() {
                   backgroundColor:
                     removeMemberList.length != 0
                       ? "#e79b42"
-                      : "rgba(0, 0, 0, 0.2)",
+                      : "rgba(0, 0, 0, 0.05)",
                 }}
               />
               <HiX

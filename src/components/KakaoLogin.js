@@ -59,6 +59,7 @@ function KaKaoLogin() {
     })
       .then((res) => res.json())
       .then((json) => {
+        console.log(json);
         if (json.result) {
           window.alert("인증번호가 발송되었습니다.");
         } else {
@@ -71,7 +72,7 @@ function KaKaoLogin() {
   const codeCheck = () => {
     const post = {
       code: sms,
-      // p: info.pnum,
+      p: info.pnum,
     };
 
     fetch("https://teammagnus.net/codeCheck", {
@@ -82,6 +83,7 @@ function KaKaoLogin() {
       .then((res) => res.json())
       .then((json) => {
         if (json.result) {
+          window.alert("번호인증이 완료되었습니다.");
           setVerified(true);
         } else {
           window.alert("인증번호를 다시 확인해주세요.");

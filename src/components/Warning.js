@@ -7,39 +7,20 @@ function Warning() {
   const td = new Date();
 
   const [user, setUser] = useState([]);
-  const [injured, setInjured] = useState([]);
   const [isDetailOpen, setIsDetailOpen] = useState(false);
   const [name, setName] = useState("");
   const [pnum, setPnum] = useState("");
   const getWarning = () => {
-    fetch("https://teammagnus.net/getWarning", {
+    fetch("https://teammagnus.net/getWarningTest", {
       method: "post",
       headers: { "content-type": "application/json" },
     })
       .then((res) => res.json())
       .then((json) => {
-        console.log(json);
         setUser(json);
-        getWarningInjured(json);
       });
   };
-  const getWarningInjured = (user) => {
-    var post;
-    for (let i = 0; i < user.length; ++i) {
-      post = { p: user[i].p };
-      fetch("https://teammagnus.net/getWarningInjured", {
-        method: "post",
-        headers: { "content-type": "application/json" },
-        body: JSON.stringify(post),
-      })
-        .then((res) => res.json())
-        .then((json) => {
-          setInjured([...injured, { c: json.c }]);
-        });
-    }
-  };
 
-  console.log(injured);
   useEffect(() => {
     getWarning();
   }, []);
@@ -53,10 +34,10 @@ function Warning() {
         setName(user.n);
         setPnum(user.p);
       }}
+      style={{ backgroundColor: user.i > 0 && "rgba(0, 0, 0, 0.2)" }}
     >
       <div className="div-member-name">{user.n}</div>
       <div className="div-joindate-pnum">{user.p}</div>
-      {injured[idx] > 0 && <div>병결</div>}
     </div>
   ));
 

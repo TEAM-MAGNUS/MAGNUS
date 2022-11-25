@@ -383,6 +383,7 @@ function ManageAttendance() {
       headers: { "content-type": "application/json" },
       body: JSON.stringify(post),
     }).then(() => {
+      window.alert("삭제 완료되었습니다.");
       window.location.reload();
     });
   };
@@ -479,7 +480,7 @@ function ManageAttendance() {
               }}
               style={{
                 backgroundColor:
-                  name != "" && pnum != "" ? "#e79b42" : "rgba(0, 0, 0, 0.2)",
+                  name != "" && pnum != "" ? "#e79b42" : "rgba(0, 0, 0, 0.05)",
               }}
             />
           </div>
