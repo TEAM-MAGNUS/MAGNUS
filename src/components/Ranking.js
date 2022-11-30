@@ -52,30 +52,52 @@ function Ranking() {
       });
 
     const post2 = {
-      y: year,
-      m: month + 1,
+      query:
+        "SELECT a.id, a.name, COUNT(a.id) AS c, b.id AS kakaoId from magnus_attendance a LEFT JOIN magnus_user b ON a.id = b.pnum WHERE (YEAR(attendance_date) = " +
+        year +
+        " AND MONTH(attendance_date) = " +
+        (month + 1) +
+        ") AND (attendance = 0) AND a.name != '관리자' GROUP BY id ORDER BY c DESC, a.name asc;"
     };
     console.log(JSON.stringify(post2));
-    fetch("https://teammagnus.net/getProfileImage", {
+    fetch("https://teammagnus.net/SQL2", {
       method: "post",
       headers: { "content-type": "application/json" },
-      body: JSON.stringify(post2),
+      body: JSON.stringify(post2)
     })
       .catch((err) => console.log(err))
       .then((res) => res.json())
       .then((json) => {
-        console.log("json: " + json);
         setRanking(json);
       });
   };
 
+  const setImage = () => {
+    ranking.map(async (user, idx) => {
+      await fetch("https://kapi.kakao.com/v2/user/me", {
+        body: `target_id_type=user_id&target_id=${user.kakaoId}`,
+        headers: {
+          Authorization: "KakaoAK eabdeb9db1b4c0b9c79cb13040171ddf",
+          "Content-Type": "application/x-www-form-urlencoded"
+        },
+        method: "POST"
+      })
+        .catch(err => console.log(err))
+        .then(res => res.json())
+        .then(data => {
+          user["image"] = data.properties.thumbnail_image;
+        });
+    });
+  }
+
   useEffect(() => {
     getRanking(thisYear, thisMonth);
+    console.log("start");
   }, []);
 
   useEffect(() => {
     console.log(ranking);
-    console.log(total);
+    setImage();
   }, [ranking]);
 
   var rank = 1;
@@ -84,10 +106,11 @@ function Ranking() {
     if (idx > 0 && ranking[idx].c < ranking[idx - 1].c) {
       rank += sameCount;
       sameCount = 1;
-      console.log("not same");
+      // console.log("not same");
     } else {
       sameCount++;
-      console.log("same");
+
+      // console.log("same");
     }
     return (
       <div key={idx} className="div-ranking-section-02">
