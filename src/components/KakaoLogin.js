@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { HiCheck } from "react-icons/hi";
+import { BiCheck } from "react-icons/bi";
 
 import { REST_API_KEY, REDIRECT_URI } from "./LoginData";
 import profile from "./Profile";
@@ -238,7 +238,7 @@ function KaKaoLogin() {
             />
             {visible && (
               <>
-                <HiCheck className="icon-login-check" />
+                <BiCheck className="icon-login-check" />
               </>
             )}
             {visible && !smsClick && (
@@ -271,7 +271,7 @@ function KaKaoLogin() {
                 />
                 {verified && (
                   <>
-                    <HiCheck className="icon-login-check" />
+                    <BiCheck className="icon-login-check" />
                   </>
                 )}
               </div>

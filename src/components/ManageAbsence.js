@@ -1,13 +1,13 @@
 import React, { useCallback, useEffect, useState } from "react";
 import {
-  HiPlus,
-  HiX,
-  HiMinus,
-  HiCheck,
-  HiOutlineArrowLeft,
-  HiChevronLeft,
-  HiChevronRight,
-} from "react-icons/hi";
+  BiPlus,
+  BiX,
+  BiMinus,
+  BiCheck,
+  BiLeftArrowAlt,
+  BiChevronLeft,
+  BiChevronRight,
+} from "react-icons/bi";
 import { PieChart, Pie, Sector, Cell } from "recharts";
 import { NavLink } from "react-router-dom";
 
@@ -521,7 +521,7 @@ function ManageAbsence() {
           placeholder="000-0000-0000"
         />
         {name != "" && date != "" && (
-          <HiCheck
+          <BiCheck
             className="icon-absence-close"
             onClick={() => addAttendance(name, pnum)}
             style={{ backgroundColor: "#e79b42" }}
@@ -535,7 +535,7 @@ function ManageAbsence() {
     <div key={idx} className="div-manage-attendance-section">
       <div className="div-member-name">{user.name}</div>
       <div className="div-member-pnum">{user.p}</div>
-      <HiMinus
+      <BiMinus
         className="button-manage_attendance-minus"
         onClick={() => {
           if (window.confirm("정말 삭제하시겠습니까?")) {
@@ -549,17 +549,17 @@ function ManageAbsence() {
     <div className="div-attendance-section">
       <div className="div-notice-header"></div>
       <NavLink to="/manage" className="link-header">
-        <HiOutlineArrowLeft size="20" className="icon-back" />
+        <BiLeftArrowAlt size="20" className="icon-back" />
       </NavLink>
       <div className="div-month">
-        <HiChevronLeft
+        <BiChevronLeft
           className="icon-left"
           size="20"
           onClick={() => preMonth()}
         />
         {year}.{month + 1}
         {(year != thisYear || month != thisMonth) && (
-          <HiChevronRight
+          <BiChevronRight
             className="icon-right"
             size="20"
             onClick={() => nextMonth()}
@@ -573,14 +573,14 @@ function ManageAbsence() {
         <>
           <div className="div-manage-attendance-section">
             {isOpen ? (
-              <HiX
+              <BiX
                 className="button-manage-attendance-write"
                 onClick={() => {
                   setOpen(false);
                 }}
               />
             ) : (
-              <HiPlus
+              <BiPlus
                 className="button-manage-attendance-write"
                 onClick={() => {
                   setOpen(true);
@@ -592,7 +592,7 @@ function ManageAbsence() {
             className="div-manage-attendance-section"
             style={{ justifyContent: " right" }}
           >
-            <HiCheck
+            <BiCheck
               className="button-manage-attendance-check"
               onClick={() => {
                 setOpen(true);

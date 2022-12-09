@@ -1,11 +1,11 @@
 import React, { useCallback, useEffect, useState } from "react";
 import dayjs from "dayjs";
 import {
-  HiChevronDown,
-  HiChevronLeft,
-  HiChevronRight,
-  HiOutlineInformationCircle,
-} from "react-icons/hi";
+  BiChevronDown,
+  BiChevronLeft,
+  BiChevronRight,
+  BiInfoCircle,
+} from "react-icons/bi";
 import { PieChart, Pie, Sector, Cell } from "recharts";
 import ReactFullpage from "@fullpage/react-fullpage";
 import All from "./All";
@@ -403,15 +403,21 @@ function Attendance() {
               <div className="div-attendance-section">
                 <div className="div-month">
                   {!isLast && (
-                    <HiChevronLeft
+                    <BiChevronLeft
                       className="icon-left"
                       size="20"
                       onClick={() => preMonth()}
                     />
                   )}
                   {year}.{month + 1}
-                  {(year != thisYear || month != thisMonth) && (
-                    <HiChevronRight
+                  {year == thisYear && month == thisMonth ? (
+                    <BiChevronRight
+                      className="icon-right"
+                      size="20"
+                      style={{ color: "transparent" }}
+                    />
+                  ) : (
+                    <BiChevronRight
                       className="icon-right"
                       size="20"
                       onClick={() => nextMonth()}
@@ -423,7 +429,7 @@ function Attendance() {
                   {((attendance0 / attendance.length) * 100).toFixed(1)}%
                 </div>
               </div>
-              <HiChevronDown
+              <BiChevronDown
                 className="icon-main-arrow-down"
                 size="20"
                 onClick={() => fullpageApi.moveSectionDown()}
@@ -432,16 +438,20 @@ function Attendance() {
             <div className="section">
               <div className="div-attendance-section">
                 <div className="div-month">
-                  <HiChevronLeft
+                  <BiChevronLeft
                     className="icon-left"
                     size="20"
                     onClick={() => preMonth()}
                   />
                   {year}.{month + 1}
                   {year == thisYear && month == thisMonth ? (
-                    <></>
+                    <BiChevronRight
+                      className="icon-right"
+                      size="20"
+                      style={{ color: "transparent" }}
+                    />
                   ) : (
-                    <HiChevronRight
+                    <BiChevronRight
                       className="icon-right"
                       size="20"
                       onClick={() => nextMonth()}
@@ -451,13 +461,13 @@ function Attendance() {
                 {isOpen && info}
                 <div className="div-attendance-section-01">
                   {showCalendar}
-                  <HiOutlineInformationCircle
+                  <BiInfoCircle
                     className="icon-attendance-info"
                     onClick={() => setIsOpen(!isOpen)}
                   />
                 </div>
               </div>
-              <HiChevronDown
+              <BiChevronDown
                 className="icon-main-arrow-down"
                 size="20"
                 onClick={() => fullpageApi.moveSectionDown()}

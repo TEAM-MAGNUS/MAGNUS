@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import {
-  HiPlus,
-  HiX,
-  HiMinus,
-  HiCheck,
-  HiChevronLeft,
-  HiChevronRight,
-} from "react-icons/hi";
+  BiPlus,
+  BiX,
+  BiMinus,
+  BiCheck,
+  BiChevronLeft,
+  BiChevronRight,
+} from "react-icons/bi";
 
 const td = new Date();
 
@@ -238,7 +238,7 @@ function Calendar() {
       {schedule === "등록된 일정이 없습니다." ? (
         isOpen2 ? (
           <>
-            <HiX
+            <BiX
               className="button-calendar-schedule-write"
               onClick={() => {
                 setOpen2(false);
@@ -248,7 +248,7 @@ function Calendar() {
             {text === "" ? (
               <></>
             ) : (
-              <HiCheck
+              <BiCheck
                 className="button-calendar-schedule-write"
                 style={{ backgroundColor: "#e79b42" }}
                 onClick={() => addSchedule(now.date, text)}
@@ -257,7 +257,7 @@ function Calendar() {
           </>
         ) : (
           window.localStorage.getItem("m") == 1 && (
-            <HiPlus
+            <BiPlus
               className="button-calendar-schedule-write"
               onClick={() => {
                 setOpen2(true);
@@ -267,7 +267,7 @@ function Calendar() {
         )
       ) : (
         window.localStorage.getItem("m") == 1 && (
-          <HiMinus
+          <BiMinus
             className="button-calendar-schedule-write"
             onClick={() => {
               if (window.confirm("정말 삭제하시겠습니까?")) {
@@ -363,15 +363,21 @@ function Calendar() {
   return (
     <div className="div-calendar-section">
       <div className="div-month">
-        {(year != thisYear || month != thisMonth) && (
-          <HiChevronLeft
-            className="icon-left"
+        {year == thisYear && month == thisMonth ? (
+          <BiChevronLeft
+            className="icon-right"
+            size="20"
+            style={{ color: "transparent" }}
+          />
+        ) : (
+          <BiChevronLeft
+            className="icon-right"
             size="20"
             onClick={() => preMonth()}
           />
         )}
         {year}.{month + 1}
-        <HiChevronRight
+        <BiChevronRight
           className="icon-right"
           size="20"
           onClick={() => nextMonth()}

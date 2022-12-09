@@ -1,5 +1,5 @@
 import { React, useEffect, useState } from "react";
-import { HiX, HiRefresh, HiOutlineArrowLeft } from "react-icons/hi";
+import { BiX, BiRefresh, BiLeftArrowAlt } from "react-icons/bi";
 import { NavLink } from "react-router-dom";
 import MemberAttendance from "./MemberAttendance";
 
@@ -46,7 +46,7 @@ function Warning() {
       {isDetailOpen ? (
         <>
           <MemberAttendance name={name} pnum={pnum} />
-          <HiX
+          <BiX
             size="20"
             className="icon-back"
             onClick={() => setIsDetailOpen(false)}
@@ -56,9 +56,9 @@ function Warning() {
         <div className="div-attendance-section">
           <div className="div-notice-header"></div>
           <NavLink to="/manage" className="link-header">
-            <HiOutlineArrowLeft size="20" className="icon-back" />
+            <BiLeftArrowAlt size="20" className="icon-back" />
           </NavLink>
-          <div className="div-month">경고자</div>
+          <div className="div-month-title">경고자</div>
           <div className="div-warning-section-01">
             {td.getDay() === 0 || td.getDay() === 5 || td.getDay() === 6 ? (
               <>
@@ -70,7 +70,7 @@ function Warning() {
                 </div>
               </>
             ) : user.length == 0 ? (
-              <HiRefresh onClick={() => window.location.reload()} size="25" />
+              <BiRefresh onClick={() => window.location.reload()} size="25" />
             ) : (
               showWarning
             )}

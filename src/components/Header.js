@@ -1,7 +1,8 @@
 import { React, useState } from "react";
 import { NavLink, useLocation } from "react-router-dom";
 
-import { HiX, HiOutlineUser, HiOutlineMenuAlt4 } from "react-icons/hi";
+import { BiX, HiOutlineUser, BiMenu } from "react-icons/bi";
+import profile from "../asset/header/profile1.png";
 
 function Header() {
   let location = useLocation();
@@ -39,13 +40,9 @@ function Header() {
       >
         <div className="div-header-wrap">
           {open ? (
-            <HiX size="22" onClick={onToggle} className={`${animation0}`} />
+            <BiX size="22" onClick={onToggle} className={`${animation0}`} />
           ) : (
-            <HiOutlineMenuAlt4
-              size="22"
-              onClick={onToggle}
-              className={`${animation00}`}
-            />
+            <BiMenu size="22" onClick={onToggle} className={`${animation00}`} />
           )}
           <NavLink
             className="link-header div-header-logo"
@@ -57,7 +54,8 @@ function Header() {
             TEAM MAGNUS
           </NavLink>
           <NavLink className="link-header" to="/profile">
-            <HiOutlineUser size="22" />
+            {/* <HiOutlineUser size="22" /> */}
+            <img src={profile} alt="" style={{ width: "22px" }} />
           </NavLink>
         </div>
       </div>

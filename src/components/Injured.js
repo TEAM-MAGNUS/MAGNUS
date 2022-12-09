@@ -1,7 +1,7 @@
 import { React, useEffect, useState } from "react";
-import { HiOutlineArrowLeft } from "react-icons/hi";
+import { BiLeftArrowAlt } from "react-icons/bi";
 import { NavLink } from "react-router-dom";
-import { HiPlus, HiX, HiMinus, HiCheck } from "react-icons/hi";
+import { BiPlus, BiX, BiMinus, BiCheck } from "react-icons/bi";
 
 function Injured() {
   const [name, setName] = useState("");
@@ -79,7 +79,7 @@ function Injured() {
         <div className="div-absence-pnum ">{user.p}</div>
       </div>
       <div className="div-absence-date">{user.date}</div>
-      <HiMinus
+      <BiMinus
         className="button-absence-minus"
         onClick={() => {
           if (window.confirm("정말 삭제하시겠습니까?")) {
@@ -93,9 +93,9 @@ function Injured() {
     <div className="div-absence">
       <div className="div-attendance-section">
         <div className="div-notice-header"></div>
-        <div className="div-month">
+        <div className="div-month-title">
           <NavLink to="/manage" className="link-header">
-            <HiOutlineArrowLeft size="20" className="icon-back" />
+            <BiLeftArrowAlt size="20" className="icon-back" />
           </NavLink>
           병결
         </div>
@@ -131,7 +131,7 @@ function Injured() {
                 placeholder="YYYY.MM.DD"
               />
             </div>
-            <HiPlus
+            <BiPlus
               className="button-absence-minus"
               onClick={() => {
                 if (name != "" && pnum != "" && date != "") addInjured();

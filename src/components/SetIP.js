@@ -1,5 +1,5 @@
 import { React, useEffect, useState } from "react";
-import { HiOutlineArrowLeft, HiPlus, HiMinus } from "react-icons/hi";
+import { BiLeftArrowAlt, BiPlus, BiMinus } from "react-icons/bi";
 import { NavLink } from "react-router-dom";
 function SetIP() {
   const [currentIP, setCurrentIP] = useState("currentIP");
@@ -69,7 +69,7 @@ function SetIP() {
   const showIP = ipList.map((i, idx) => (
     <div key={idx} className="div-ip-section-02">
       {i.ip}
-      <HiMinus
+      <BiMinus
         className="button-ip-minus"
         onClick={() => {
           if (window.confirm("정말 삭제하시겠습니까?")) {
@@ -84,9 +84,9 @@ function SetIP() {
     <div>
       <div className="div-attendance-section">
         <NavLink to="/manage" className="link-header">
-          <HiOutlineArrowLeft size="20" className="icon-back" />
+          <BiLeftArrowAlt size="20" className="icon-back" />
         </NavLink>
-        <div className="div-month" style={{ marginBottom: "60px" }}>
+        <div className="div-month-title" style={{ marginBottom: "60px" }}>
           IP 변경
         </div>
         {showIP}
@@ -99,7 +99,7 @@ function SetIP() {
               value={ip}
               placeholder={"IP를 입력해주세요."}
             />
-            <HiPlus
+            <BiPlus
               className="button-ip-minus"
               onClick={() => {
                 if (ip != "") addIP();

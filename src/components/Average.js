@@ -1,9 +1,5 @@
 import React, { useCallback, useEffect, useState } from "react";
-import {
-  HiOutlineArrowLeft,
-  HiChevronLeft,
-  HiChevronRight,
-} from "react-icons/hi";
+import { BiLeftArrowAlt, BiChevronLeft, BiChevronRight } from "react-icons/bi";
 import { PieChart, Pie, Sector, Cell } from "recharts";
 import { NavLink } from "react-router-dom";
 
@@ -444,19 +440,23 @@ function Average() {
   return (
     <div className="div-attendance-section">
       <NavLink to="/manage" className="link-header">
-        <HiOutlineArrowLeft size="20" className="icon-back" />
+        <BiLeftArrowAlt size="20" className="icon-back" />
       </NavLink>
       <div className="div-month">
-        <HiChevronLeft
+        <BiChevronLeft
           className="icon-left"
           size="20"
           onClick={() => preMonth()}
         />
         {year}.{month + 1}
         {year == thisYear && month == thisMonth ? (
-          <></>
+          <BiChevronRight
+            className="icon-right"
+            size="20"
+            style={{ color: "transparent" }}
+          />
         ) : (
-          <HiChevronRight
+          <BiChevronRight
             className="icon-right"
             size="20"
             onClick={() => nextMonth()}

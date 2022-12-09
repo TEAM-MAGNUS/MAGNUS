@@ -1,12 +1,11 @@
 import React, { useCallback, useEffect, useState } from "react";
 import dayjs from "dayjs";
 import {
-  HiOutlineChartPie,
-  HiOutlineArrowRight,
-  HiChevronLeft,
-  HiChevronRight,
-  HiOutlineCalendar,
-} from "react-icons/hi";
+  BiPieChartAlt,
+  BiChevronLeft,
+  BiChevronRight,
+  BiCalendarAlt,
+} from "react-icons/bi";
 import { PieChart, Pie, Sector, Cell } from "recharts";
 import MemberAll from "./MemberAll";
 
@@ -373,13 +372,13 @@ function MemberAttendance(props) {
 
   return (
     <div className="div-member-attendance-section">
-      <HiOutlineChartPie
+      <BiPieChartAlt
         size="20"
         className="icon-pie"
         onClick={() => setDetailOpen(false)}
         style={{ color: !detailOpen && "#d2000f" }}
       />
-      <HiOutlineCalendar
+      <BiCalendarAlt
         size="20"
         className="icon-calendar"
         onClick={() => setDetailOpen(true)}
@@ -387,8 +386,14 @@ function MemberAttendance(props) {
       />
       <div className="div-attendance-section">
         <div className="div-month">
-          {!isLast && (
-            <HiChevronLeft
+          {join == thisYear + "." + (thisMonth + 1) || isLast ? (
+            <BiChevronLeft
+              className="icon-left"
+              size="20"
+              style={{ color: "transparent" }}
+            />
+          ) : (
+            <BiChevronLeft
               className="icon-left"
               size="20"
               onClick={() => preMonth()}
@@ -396,9 +401,13 @@ function MemberAttendance(props) {
           )}
           {year}.{month + 1}
           {year == thisYear && month == thisMonth ? (
-            <></>
+            <BiChevronRight
+              className="icon-right"
+              size="20"
+              style={{ color: "transparent" }}
+            />
           ) : (
-            <HiChevronRight
+            <BiChevronRight
               className="icon-right"
               size="20"
               onClick={() => nextMonth()}

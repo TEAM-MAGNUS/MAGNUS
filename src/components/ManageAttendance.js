@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 import {
-  HiPlus,
-  HiMinus,
-  HiOutlineArrowLeft,
-  HiChevronLeft,
-  HiChevronRight,
-} from "react-icons/hi";
+  BiPlus,
+  BiMinus,
+  BiLeftArrowAlt,
+  BiChevronLeft,
+  BiChevronRight,
+} from "react-icons/bi";
 import { NavLink } from "react-router-dom";
 
 const td = new Date();
@@ -406,7 +406,7 @@ function ManageAttendance() {
     <div key={idx} className="div-manage-attendance-section">
       <div className="div-member-name">{user.name}</div>
       <div className="div-member-pnum">{user.p}</div>
-      <HiMinus
+      <BiMinus
         className="button-manage_attendance-minus"
         onClick={() => {
           if (window.confirm("정말 삭제하시겠습니까?")) {
@@ -421,17 +421,23 @@ function ManageAttendance() {
     <div className="div-attendance-section">
       <div className="div-notice-header"></div>
       <NavLink to="/manage" className="link-header">
-        <HiOutlineArrowLeft size="20" className="icon-back" />
+        <BiLeftArrowAlt size="20" className="icon-back" />
       </NavLink>
       <div className="div-month">
-        <HiChevronLeft
+        <BiChevronLeft
           className="icon-left"
           size="20"
           onClick={() => preMonth()}
         />
         {year}.{month + 1}
-        {(year != thisYear || month != thisMonth) && (
-          <HiChevronRight
+        {year == thisYear && month == thisMonth ? (
+          <BiChevronRight
+            className="icon-right"
+            size="20"
+            style={{ color: "transparent" }}
+          />
+        ) : (
+          <BiChevronRight
             className="icon-right"
             size="20"
             onClick={() => nextMonth()}
@@ -462,7 +468,7 @@ function ManageAttendance() {
                 placeholder="000-0000-0000"
               />
             </div>
-            <HiPlus
+            <BiPlus
               className="button-manage-attendance-check"
               onClick={() => {
                 if (name != "" && pnum != "") {

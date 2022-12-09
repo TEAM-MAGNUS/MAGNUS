@@ -1,12 +1,12 @@
 import React from "react";
 import { useEffect } from "react";
 import { useState } from "react";
-import { HiPlus, HiX, HiCheck, HiMinus } from "react-icons/hi";
+import { BiPlus, BiX, BiCheck, BiMinus } from "react-icons/bi";
 function Technique() {
-  const [technique, setTechnique] = useState(["asdf", "qwer"]);
-  const [test, setTest] = useState([]);
+  const [technique, setTechnique] = useState([]);
   const [addPageOpen, setAddPageOpen] = useState(false);
   const [newTechnique, setNewTechnique] = useState("");
+  const id = window.localStorage.getItem("id");
   const onChange = (e) => {
     setNewTechnique(e.target.value);
   };
@@ -19,11 +19,13 @@ function Technique() {
           name="technique"
           value={newTechnique}
           placeholder="기술명"
+          type="text"
+          maxLength="15"
         />
-        <HiCheck
+        <BiCheck
           className="button-technique-add-check"
           onClick={() => {
-            addTechnique();
+            newTechnique != "" && addTechnique();
           }}
           style={newTechnique != "" && { backgroundColor: "#e79b42" }}
         />
@@ -38,10 +40,9 @@ function Technique() {
       .then((res) => res.json())
       .then((json) => {
         console.log(json);
-        setTest(json);
+        setTechnique(json);
       });
   };
-  console.log(technique);
 
   const addTechnique = () => {
     const post = {
@@ -55,19 +56,21 @@ function Technique() {
       body: JSON.stringify(post),
     }).then(() => {
       window.alert("작성 완료되었습니다.");
-      //   window.location.reload();
+      window.location.reload();
     });
   };
 
-  const removeTechnique = (ip) => {
+  const removeTechnique = (id, num) => {
     const post = {
-      ip: ip,
+      id: id,
+      num: num,
     };
     fetch("https://teammagnus.net/removeTechnique", {
       method: "post",
       headers: { "content-type": "application/json" },
       body: JSON.stringify(post),
     }).then(() => {
+      window.alert("삭제 완료되었습니다.");
       window.location.reload();
     });
   };
@@ -76,10 +79,20 @@ function Technique() {
     getTechnique();
   }, []);
 
-  const showTechnique = test.map((t, idx) => {
+  const showTechnique = technique.map((t, idx) => {
     return (
       <div key={idx} className="div-technique-section-02">
         <div>{t.technique}</div>
+        {id == t.id && (
+          <BiMinus
+            className="button-technique-remove-check"
+            onClick={() => {
+              if (window.confirm("정말 삭제하시겠습니까?")) {
+                removeTechnique(id, t.t_num);
+              }
+            }}
+          />
+        )}
       </div>
     );
   });
@@ -89,28 +102,29 @@ function Technique() {
       <div className="div-title">TECHNIQUE</div>
       {addPageOpen ? (
         <>
-          <HiX
-            className="button-member-plus"
+          <BiX
+            className="button-technique-plus"
             onClick={() => {
               setAddPageOpen(false);
             }}
           />
         </>
       ) : (
-        <HiPlus
-          className="button-member-plus"
+        <BiPlus
+          className="button-technique-plus"
           onClick={() => {
             setAddPageOpen(true);
           }}
         />
       )}
-      <div className="div-title-sub">
-        배우고 싶은 기술, 관심 있는 기술을 자유롭게 적어주세요.
-      </div>
-      <div className="div-technique-section-01">
-        {addPageOpen && addPage}
-        {showTechnique}
-      </div>
+      {!addPageOpen && (
+        <div className="div-title-sub">
+          배우고 싶은 기술, 관심 있는 기술을 자유롭게 적어주세요.
+        </div>
+      )}
+      {addPageOpen && addPage}
+
+      <div className="div-technique-section-01">{showTechnique}</div>
     </div>
   );
 }

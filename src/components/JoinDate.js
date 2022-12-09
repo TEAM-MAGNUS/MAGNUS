@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useCallback } from "react";
-import { HiX, HiOutlineArrowLeft } from "react-icons/hi";
+import { BiX, BiLeftArrowAlt } from "react-icons/bi";
 import { NavLink } from "react-router-dom";
 import MemberAttendance from "./MemberAttendance";
 import { PieChart, Pie, Sector, Cell } from "recharts";
@@ -263,7 +263,7 @@ function JoinDate() {
       {isDetailOpen ? (
         <>
           <MemberAttendance name={name} pnum={pnum} />
-          <HiX
+          <BiX
             size="20"
             className="icon-back"
             onClick={() => setIsDetailOpen(false)}
@@ -274,21 +274,23 @@ function JoinDate() {
           <div className="div-notice-header"></div>
           {isMemberOpen ? (
             <>
-              <HiOutlineArrowLeft
+              <BiLeftArrowAlt
                 size="20"
                 className="icon-back"
                 onClick={() => setIsMemberOpen(false)}
               />
-              <div className="div-month">{joinDate}</div>
+              <div className="div-month-title" style={{ fontSize: "25px" }}>
+                {joinDate}
+              </div>
               {pieChart}
               <div style={{ paddingBottom: "5vh" }}>{showMember}</div>
             </>
           ) : (
             <>
               <NavLink to="/manage" className="link-header">
-                <HiOutlineArrowLeft size="20" className="icon-back" />
+                <BiLeftArrowAlt size="20" className="icon-back" />
               </NavLink>
-              <div className="div-month">가입 기수</div>
+              <div className="div-month-title">가입 기수</div>
               <div className="div-member-section-01">{showJoinDate}</div>
             </>
           )}

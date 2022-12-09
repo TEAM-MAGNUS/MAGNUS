@@ -12,6 +12,10 @@ body {
   font-size: 25px;
   text-align: center;
   font-weight: 600;
+  width: 150px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 .div-title {
   margin-top: 100px;
@@ -27,17 +31,9 @@ body {
   text-align: center;
 }
 .icon-left {
-  position: absolute;
-  top: 96px;
-  left: 90px;
-  transform: translateY(50%);
   z-index: 10;
 }
 .icon-right {
-  position: absolute;
-  top: 96px;
-  right: 90px;
-  transform: translateY(50%);
   z-index: 10;
 }
 
@@ -347,6 +343,10 @@ body {
   justify-content: center;
   font-size: 20px;
 }
+.div-profile-adfit-section {
+  margin-top: 40px;
+  width: 100vw;
+}
 .button-profile-check {
   display: flex;
   justify-content: center;
@@ -547,8 +547,8 @@ th {
 }
 .button-calendar-schedule-write {
   margin-top: 10px;
-  width: 15px;
-  height: 15px;
+  width: 12px;
+  height: 12px;
   padding: 5px;
   background-color: #d2000f;
   text-align: center;
@@ -557,8 +557,8 @@ th {
 }
 
 .button-calendar-schedule-add {
-  width: 15px;
-  height: 15px;
+  width: 12px;
+  height: 12px;
   padding: 5px;
   background-color: #e79b42;
   text-align: center;
@@ -790,8 +790,8 @@ th {
   font-weight: 600;
 }
 .icon-notice-close {
-  width: 15px;
-  height: 15px;
+  width: 12px;
+  height: 12px;
   background-color: #d2000f;
   padding: 5px;
   border-radius: 100%;
@@ -842,8 +842,8 @@ th {
   position: absolute;
   top: 105px;
   right: 10vw;
-  width: 15px;
-  height: 15px;
+  width: 12px;
+  height: 12px;
   padding: 5px;
   background-color: #d2000f;
   text-align: center;
@@ -851,8 +851,8 @@ th {
   border-radius: 100%;
 }
 .button-manage-attendance-write {
-  width: 15px;
-  height: 15px;
+  width: 12px;
+  height: 12px;
   padding: 5px;
   background-color: #d2000f;
   text-align: center;
@@ -896,8 +896,8 @@ th {
   position: absolute;
   margin-top: 5px;
   right: 5vw;
-  width: 15px;
-  height: 15px;
+  width: 12px;
+  height: 12px;
   padding: 5px;
   background-color: #d2000f;
   text-align: center;
@@ -905,8 +905,8 @@ th {
   border-radius: 100%;
 }
 .button-absence-minus {
-  width: 15px;
-  height: 15px;
+  width: 12px;
+  height: 12px;
   padding: 5px;
   background-color: #d2000f;
   text-align: center;
@@ -916,8 +916,8 @@ th {
 .button-ip-minus {
   position: absolute;
   right: 10vw;
-  width: 15px;
-  height: 15px;
+  width: 12px;
+  height: 12px;
   padding: 5px;
   background-color: #d2000f;
   text-align: center;
@@ -925,8 +925,8 @@ th {
   border-radius: 100%;
 }
 .button-manage_attendance-minus {
-  width: 15px;
-  height: 15px;
+  width: 12px;
+  height: 12px;
   padding: 5px;
   background-color: #d2000f;
   text-align: center;
@@ -1004,6 +1004,29 @@ th {
 /* Technique.js */ /*------------------------------*/
 ::-webkit-scrollbar {
   display: none;
+}
+.button-technique-plus {
+  position: absolute;
+  top: 102px;
+  right: 10vw;
+  width: 12px;
+  height: 12px;
+  padding: 5px;
+  background-color: #d2000f;
+  text-align: center;
+  font-size: 15px;
+  border-radius: 100%;
+
+  animation: rotate-button 0.2s ease-in;
+}
+
+@keyframes rotate-button {
+  from {
+    transform: rotate(-45deg);
+  }
+  to {
+    transform: rotate(0);
+  }
 }
 
 .div-ranking-img {
@@ -1083,11 +1106,14 @@ th {
   display: flex;
   justify-content: center;
   align-items: center;
+
+  animation: fadein 0.125s ease-out;
 }
+
 .input-technique-write {
-  width: 25vw;
+  width: 60vw;
   border: none;
-  font-size: 20px;
+  font-size: 18px;
   background: none;
   /* font-family: "Nh"; */
   font-family: "Pretendard";
@@ -1095,11 +1121,22 @@ th {
 }
 .button-technique-add-check {
   position: absolute;
-  right: 5vw;
-  width: 15px;
-  height: 15px;
+  right: 10vw;
+  width: 12px;
+  height: 12px;
   padding: 5px;
   background-color: rgba(0, 0, 0, 0.2);
+  text-align: center;
+  font-size: 15px;
+  border-radius: 100%;
+}
+.button-technique-remove-check {
+  position: absolute;
+  right: 5vw;
+  width: 12px;
+  height: 12px;
+  padding: 5px;
+  background-color: #d2000f;
   text-align: center;
   font-size: 15px;
   border-radius: 100%;
@@ -1238,10 +1275,10 @@ th {
   top: 100px;
   display: grid;
   grid: ". .";
-  gap: 2vw;
+  gap: 6px;
 }
 .div-manage-grid-item {
-  width: 44vw;
+  width: calc(45vw - 3px);
   height: 18vh;
   background-color: rgba(0, 0, 0, 0.05);
   display: flex;
@@ -1321,8 +1358,8 @@ th {
 }
 .button-absence-add {
   margin-top: 30px;
-  width: 15px;
-  height: 15px;
+  width: 12px;
+  height: 12px;
   padding: 5px;
   background-color: #e79b42;
   text-align: center;
@@ -1465,8 +1502,8 @@ th {
 }
 .button-member-attendance-detail {
   margin-top: 20px;
-  width: 15px;
-  height: 15px;
+  width: 12px;
+  height: 12px;
   padding: 5px;
   background-color: #d2000f;
   text-align: center;
@@ -1478,8 +1515,8 @@ th {
   position: absolute;
   top: 102px;
   right: 10vw;
-  width: 15px;
-  height: 15px;
+  width: 12px;
+  height: 12px;
   padding: 5px;
   background-color: #d2000f;
   text-align: center;
@@ -1490,20 +1527,21 @@ th {
   position: absolute;
   top: 135px;
   right: 10vw;
-  width: 15px;
-  height: 15px;
+  width: 12px;
+  height: 12px;
   padding: 5px;
   background-color: #d2000f;
   text-align: center;
   font-size: 15px;
   border-radius: 100%;
 }
+
 .button-member-check {
   position: absolute;
   top: 140px;
   right: 10vw;
-  width: 15px;
-  height: 15px;
+  width: 12px;
+  height: 12px;
   padding: 5px;
   background-color: #e79b42;
   text-align: center;
@@ -1511,15 +1549,15 @@ th {
   border-radius: 100%;
 }
 .icon-login-check {
-  width: 15px;
-  height: 15px;
+  width: 12px;
+  height: 12px;
   margin-top: 15px;
   color: #ae0000;
 }
 .button-login-check {
   margin-top: 50px;
-  width: 15px;
-  height: 15px;
+  width: 12px;
+  height: 12px;
   padding: 5px;
   background-color: #e79b42;
   text-align: center;
@@ -1527,8 +1565,8 @@ th {
   border-radius: 100%;
 }
 .button-manage-attendance-check {
-  width: 15px;
-  height: 15px;
+  width: 12px;
+  height: 12px;
   padding: 5px;
   background-color: #e79b42;
   text-align: center;
@@ -1536,8 +1574,8 @@ th {
   border-radius: 100%;
 }
 .button-member-remove-check {
-  width: 15px;
-  height: 15px;
+  width: 12px;
+  height: 12px;
   padding: 5px;
   margin-left: 10px;
   background-color: rgba(0, 0, 0, 0.2);

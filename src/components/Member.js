@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from "react";
 import {
-  HiPlus,
-  HiX,
-  HiCheck,
-  HiMinus,
-  HiChevronDown,
-  HiChevronUp,
-  HiOutlineArrowLeft,
-} from "react-icons/hi";
+  BiPlus,
+  BiX,
+  BiCheck,
+  BiMinus,
+  BiChevronDown,
+  BiChevronUp,
+  BiLeftArrowAlt,
+} from "react-icons/bi";
 import { NavLink } from "react-router-dom";
 import MemberAttendance from "./MemberAttendance";
 
@@ -142,7 +142,7 @@ function Member() {
           <div className="div-member-pnum">{user.pnum}</div>
           <div className="div-member-join">{user.join_date}</div>
           {isRemoveOpen && (
-            <HiCheck
+            <BiCheck
               className="button-member-remove-check"
               onClick={() => {
                 if (checkedList[idx] == 1) {
@@ -178,7 +178,7 @@ function Member() {
       {isAddOpen ? (
         <>
           <MemberAttendance name={name} pnum={pnum} />
-          <HiX
+          <BiX
             size="20"
             className="icon-back"
             onClick={() => setIsAddOpen(false)}
@@ -188,12 +188,12 @@ function Member() {
         <div className="div-ranking">
           <div className="div-notice-header"></div>
           <NavLink to="/manage" className="link-header">
-            <HiOutlineArrowLeft size="20" className="icon-back" />
+            <BiLeftArrowAlt size="20" className="icon-back" />
           </NavLink>
-          <div className="div-month">회원 관리</div>
+          <div className="div-month-title">회원 관리</div>
           {addPageOpen ? (
             <>
-              <HiX
+              <BiX
                 className="button-member-plus"
                 onClick={() => {
                   setAddPageOpen(false);
@@ -202,7 +202,7 @@ function Member() {
                   setNewJoindate("");
                 }}
               />
-              <HiCheck
+              <BiCheck
                 className="button-member-check"
                 onClick={() => {
                   if (newName != "" && newPnum != "" && newJoindate != "")
@@ -229,13 +229,13 @@ function Member() {
           ) : (
             !isRemoveOpen && (
               <>
-                <HiPlus
+                <BiPlus
                   className="button-member-plus"
                   onClick={() => {
                     setAddPageOpen(true);
                   }}
                 />
-                <HiMinus
+                <BiMinus
                   className="button-member-minus"
                   onClick={() => {
                     setIsRemoveOpen(true);
@@ -246,7 +246,7 @@ function Member() {
           )}
           {isRemoveOpen && (
             <>
-              <HiCheck
+              <BiCheck
                 className="button-member-plus"
                 onClick={() => {
                   if (removeMemberList.length != 0) {
@@ -262,7 +262,7 @@ function Member() {
                       : "rgba(0, 0, 0, 0.05)",
                 }}
               />
-              <HiX
+              <BiX
                 className="button-member-minus"
                 onClick={() => {
                   setIsRemoveOpen(false);
@@ -276,7 +276,7 @@ function Member() {
             {addPageOpen && addPage}
             <div className="div-member-updown-section">
               <div className="div-member-updown">
-                <HiChevronUp
+                <BiChevronUp
                   className={isColor == 0 && "icon-color"}
                   onClick={() => {
                     setIsColor(0);
@@ -285,7 +285,7 @@ function Member() {
                     checkedList = [];
                   }}
                 />
-                <HiChevronDown
+                <BiChevronDown
                   className={isColor == 1 && "icon-color"}
                   onClick={() => {
                     setIsColor(1);
@@ -296,7 +296,7 @@ function Member() {
                 />
               </div>
               <div className="div-member-updown">
-                <HiChevronUp
+                <BiChevronUp
                   className={isColor == 2 && "icon-color"}
                   onClick={() => {
                     setIsColor(2);
@@ -305,7 +305,7 @@ function Member() {
                     checkedList = [];
                   }}
                 />
-                <HiChevronDown
+                <BiChevronDown
                   className={isColor == 3 && "icon-color"}
                   onClick={() => {
                     setIsColor(3);

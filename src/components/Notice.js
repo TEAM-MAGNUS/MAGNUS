@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { HiPlus, HiX, HiMinus, HiCheck } from "react-icons/hi";
+import { BiPlus, BiX, BiMinus, BiCheck } from "react-icons/bi";
 
 function Notice() {
   const [notice, setNotice] = useState([{}]);
@@ -104,12 +104,12 @@ function Notice() {
       <div className="div-notice-content">
         <pre className="pre-notice-content">{content}</pre>
       </div>
-      <HiX
+      <BiX
         className="icon-notice-close"
         onClick={() => setContentOpen(false)}
       />
       {window.localStorage.getItem("m") == 1 && (
-        <HiMinus
+        <BiMinus
           className="icon-notice-close"
           onClick={() => {
             isManager();
@@ -156,7 +156,7 @@ function Notice() {
           placeholder="내용"
         />
       </div>
-      <HiX
+      <BiX
         className="icon-notice-close"
         onClick={() => {
           setWriteOpen(false);
@@ -165,7 +165,7 @@ function Notice() {
         }}
       />
       {newTitle != "" && newContent != "" && (
-        <HiCheck
+        <BiCheck
           className="icon-notice-close"
           onClick={() => writeNotice()}
           style={{ backgroundColor: "#e79b42" }}
@@ -187,7 +187,7 @@ function Notice() {
       {writeOpen
         ? writePage
         : window.localStorage.getItem("m") == 1 && (
-            <HiPlus
+            <BiPlus
               className="button-notice-write"
               onClick={() => {
                 setWriteOpen(true);

@@ -1,7 +1,7 @@
 import { React, useState, useEffect } from "react";
 import ReactFullpage from "@fullpage/react-fullpage";
 
-import { HiChevronDown } from "react-icons/hi";
+import { BiChevronDown } from "react-icons/bi";
 
 import { REST_API_KEY, REDIRECT_URI } from "./LoginData";
 import isLogin from "./Login.js";
@@ -43,8 +43,8 @@ function Main() {
                 )}
               </div>
               <div onClick={() => fullpageApi.moveSectionDown()}>
-                <HiChevronDown className="icon-main-arrow-down1" size="20" />
-                <HiChevronDown className="icon-main-arrow-down2" size="20" />
+                <BiChevronDown className="icon-main-arrow-down1" size="20" />
+                <BiChevronDown className="icon-main-arrow-down2" size="20" />
               </div>
             </div>
             <div className="section">
@@ -85,8 +85,8 @@ function Main() {
               </div>
 
               <div onClick={() => fullpageApi.moveSectionDown()}>
-                <HiChevronDown className="icon-main-arrow-down1" size="20" />
-                <HiChevronDown className="icon-main-arrow-down2" size="20" />
+                <BiChevronDown className="icon-main-arrow-down1" size="20" />
+                <BiChevronDown className="icon-main-arrow-down2" size="20" />
               </div>
             </div>
             <div className="section">
@@ -107,8 +107,8 @@ function Main() {
                 재미있는 뒷풀이가 종종 있습니다!
               </div>
               <div onClick={() => fullpageApi.moveSectionDown()}>
-                <HiChevronDown className="icon-main-arrow-down1" size="20" />
-                <HiChevronDown className="icon-main-arrow-down2" size="20" />
+                <BiChevronDown className="icon-main-arrow-down1" size="20" />
+                <BiChevronDown className="icon-main-arrow-down2" size="20" />
               </div>
             </div>
             <div className="section">

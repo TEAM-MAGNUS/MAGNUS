@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { HiChevronLeft, HiChevronRight } from "react-icons/hi";
+import { BiChevronLeft, BiChevronRight } from "react-icons/bi";
 import { TbCrown } from "react-icons/tb";
 import SuperEllipse from "react-superellipse";
 
@@ -64,7 +64,7 @@ function Ranking() {
       .catch((err) => console.log(err))
       .then((res) => res.json())
       .then((json) => {
-        console.log("json: " + json);
+        console.log(json);
         setRanking(json);
       });
   };
@@ -131,14 +131,20 @@ function Ranking() {
     <div className="div-ranking">
       <div className="div-notice-header"></div>
       <div className="div-month">
-        <HiChevronLeft
+        <BiChevronLeft
           className="icon-left"
           size="20"
           onClick={() => preMonth()}
         />
         {year}.{month + 1}
-        {(year != thisYear || month != thisMonth) && (
-          <HiChevronRight
+        {year == thisYear && month == thisMonth ? (
+          <BiChevronRight
+            className="icon-right"
+            size="20"
+            style={{ color: "transparent" }}
+          />
+        ) : (
+          <BiChevronRight
             className="icon-right"
             size="20"
             onClick={() => nextMonth()}
