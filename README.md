@@ -113,7 +113,6 @@
 <img width="120px" src="https://user-images.githubusercontent.com/84197474/207039775-d287ed9f-6b33-42b0-b2cb-c477deb8c10f.jpg">
 <img width="120px" src="https://user-images.githubusercontent.com/84197474/207039778-366ee054-6be5-43a6-b073-c594920cf3d5.jpg">
 <img width="120px" src="https://user-images.githubusercontent.com/84197474/207039780-1d6a66f1-0e53-4058-b44f-bfcedd01871b.jpg">
-<img width="120px" src="https://user-images.githubusercontent.com/84197474/198351293-d51e84d3-8d1b-4d79-96d7-898a63be34bc.png">
 <div>
 
 * 이름, 가입기수를 기준으로 정렬하여 조회가 가능하다.
