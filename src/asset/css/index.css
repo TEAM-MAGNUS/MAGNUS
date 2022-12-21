@@ -197,6 +197,7 @@ body {
   top: 0;
   left: 5%;
   z-index: 200;
+  background-color: white;
 }
 .div-header-wrap {
   width: 100%;
@@ -419,15 +420,15 @@ body {
 }
 .div-ranking-section-01 {
   position: absolute;
-  top: 180px;
-  padding-bottom: 5vh;
+  top: 150px;
+  height: calc(100vh - 150px);
+  overflow: scroll;
 }
 .div-ranking-section-02 {
   width: 80vw;
   height: 5vh;
   padding: 0 5vw 1vh 5vw;
   /* border-bottom: 1.5px solid rgba(0, 0, 0, 0.2); */
-
   font-size: 18px;
   display: flex;
   justify-content: space-between;
@@ -939,6 +940,8 @@ th {
   justify-content: center;
 }
 .input-absence-write-name {
+  height: 6vh;
+  width: 25vw;
   border: none;
   font-size: 20px;
   background: none;
@@ -950,7 +953,7 @@ th {
 }
 .input-absence-write-pnum {
   border: none;
-  font-size: 10px;
+  font-size: 12px;
   background: none;
   /* font-family: "Nh"; */
   font-family: "Pretendard";
@@ -958,6 +961,7 @@ th {
 ::placeholder {
   color: rgba(0, 0, 0, 0.2);
 }
+
 .input-absence-write-date {
   text-align: right;
   width: 30vw;
@@ -1056,15 +1060,10 @@ th {
   flex-direction: column;
   align-items: center;
 }
-.icon-ranking-crown {
-  color: #e79b42;
-  font-size: 20px;
-}
 
 .div-technique-section-01 {
   position: absolute;
   top: 200px;
-  padding-bottom: 5vh;
 }
 .div-technique-section-02 {
   width: 80vw;
@@ -1233,6 +1232,7 @@ th {
 .div-absence-section-01 {
   position: absolute;
   top: 180px;
+  padding-bottom: 5vh;
 }
 .div-warning-section-01 {
   position: absolute;
@@ -1408,7 +1408,7 @@ th {
 }
 .div-member-name {
   font-size: 20px;
-  width: 25vw;
+  width: 20vw;
   text-align: left;
 }
 
@@ -1417,17 +1417,12 @@ th {
   margin-bottom: 10px;
 }
 .div-absence-pnum {
-  font-size: 10px;
-}
-.div-absence-name-pnum {
-  height: 6vh;
-  width: 25vw;
+  font-size: 12px;
 }
 
 .div-member-pnum {
-  font-size: 12px;
+  font-size: 15px;
   width: 35vw;
-  text-align: center;
 }
 .div-joindate-pnum {
   font-size: 15px;
@@ -1585,16 +1580,8 @@ th {
 }
 
 /*///////*/
-.div-member-input {
-  width: 90vw;
-  height: 6vh;
-  display: flex;
-  justify-content: space-between;
-  margin-top: 15px;
-  margin-bottom: 15px;
-}
 .input-member-write-name {
-  width: 25vw;
+  width: 20vw;
   border: none;
   font-size: 20px;
   background: none;
@@ -1606,12 +1593,11 @@ th {
 .input-member-write-pnum {
   width: 30vw;
   border: none;
-  font-size: 12px;
+  font-size: 15px;
   background: none;
   /* border-radius: 5px; */
   /* font-family: "Nh"; */
   font-family: "Pretendard";
-  text-align: center;
 }
 
 .input-member-write-joindate {
@@ -1633,4 +1619,177 @@ th {
   width: 80px;
   height: 80px;
   object-fit: cover;
+}
+
+.div-modal-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.3);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.div-modal {
+  padding: 20px 15px 10px 15px;
+  background-color: white;
+  text-align: center;
+}
+.div-samename-section {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  margin-top: 10px;
+}
+.div-samename-name {
+  font-size: 20px;
+}
+.div-samename-pnum {
+  font-size: 20px;
+}
+.div-samename-button-section {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  gap: 5px;
+}
+.div-samename-button-cancel {
+  padding: 5px 10px;
+  font-family: "Pretendard";
+  border: none;
+  color: white;
+  background-color: black;
+}
+.div-samename-button-check {
+  padding: 5px 10px;
+  font-family: "Pretendard";
+  border: none;
+  color: white;
+  background-color: #d2000f;
+}
+.snowflake {
+  color: #fff;
+  font-size: 1em;
+  font-family: Arial;
+  text-shadow: 0 0 0.2px #000;
+}
+
+@-webkit-keyframes snowflakes-fall {
+  0% {
+    top: -10%;
+  }
+  100% {
+    top: 100%;
+  }
+}
+@-webkit-keyframes snowflakes-shake {
+  0% {
+    -webkit-transform: translateX(0px);
+    transform: translateX(0px);
+  }
+  50% {
+    -webkit-transform: translateX(80px);
+    transform: translateX(80px);
+  }
+  100% {
+    -webkit-transform: translateX(0px);
+    transform: translateX(0px);
+  }
+}
+@keyframes snowflakes-fall {
+  0% {
+    top: -10%;
+  }
+  100% {
+    top: 100%;
+  }
+}
+@keyframes snowflakes-shake {
+  0% {
+    transform: translateX(0px);
+  }
+  50% {
+    transform: translateX(80px);
+  }
+  100% {
+    transform: translateX(0px);
+  }
+}
+.snowflake {
+  position: fixed;
+  top: -10%;
+  z-index: 9999;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  cursor: default;
+  -webkit-animation-name: snowflakes-fall, snowflakes-shake;
+  -webkit-animation-duration: 10s, 3s;
+  -webkit-animation-timing-function: linear, ease-in-out;
+  -webkit-animation-iteration-count: infinite, infinite;
+  -webkit-animation-play-state: running, running;
+  animation-name: snowflakes-fall, snowflakes-shake;
+  animation-duration: 10s, 3s;
+  animation-timing-function: linear, ease-in-out;
+  animation-iteration-count: infinite, infinite;
+  animation-play-state: running, running;
+}
+.snowflake:nth-of-type(0) {
+  left: 1%;
+  -webkit-animation-delay: 0s, 0s;
+  animation-delay: 0s, 0s;
+}
+.snowflake:nth-of-type(1) {
+  left: 10%;
+  -webkit-animation-delay: 1s, 1s;
+  animation-delay: 1s, 1s;
+  font-size: 1.2em;
+}
+.snowflake:nth-of-type(2) {
+  left: 20%;
+  -webkit-animation-delay: 6s, 0.5s;
+  animation-delay: 6s, 0.5s;
+  font-size: 0.9em;
+}
+.snowflake:nth-of-type(3) {
+  left: 30%;
+  -webkit-animation-delay: 4s, 2s;
+  animation-delay: 4s, 2s;
+}
+.snowflake:nth-of-type(4) {
+  left: 40%;
+  -webkit-animation-delay: 2s, 2s;
+  animation-delay: 2s, 2s;
+  font-size: 1.15em;
+}
+.snowflake:nth-of-type(5) {
+  left: 50%;
+  -webkit-animation-delay: 8s, 3s;
+  animation-delay: 8s, 3s;
+  font-size: 0.95em;
+}
+.snowflake:nth-of-type(6) {
+  left: 60%;
+  -webkit-animation-delay: 6s, 2s;
+  animation-delay: 6s, 2s;
+}
+.snowflake:nth-of-type(7) {
+  left: 70%;
+  -webkit-animation-delay: 2.5s, 1s;
+  animation-delay: 2.5s, 1s;
+}
+.snowflake:nth-of-type(8) {
+  left: 80%;
+  -webkit-animation-delay: 1s, 0s;
+  animation-delay: 1s, 0s;
+  font-size: 1.1em;
+}
+.snowflake:nth-of-type(9) {
+  left: 90%;
+  -webkit-animation-delay: 3s, 1.5s;
+  animation-delay: 3s, 1.5s;
 }

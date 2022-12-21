@@ -2,7 +2,8 @@ import { React, useState } from "react";
 import { NavLink, useLocation } from "react-router-dom";
 
 import { BiX, HiOutlineUser, BiMenu } from "react-icons/bi";
-import profile from "../asset/header/profile1.png";
+// import profile from "../asset/header/profile1.png";
+import profile from "../asset/header/profile_christmas.png";
 
 function Header() {
   let location = useLocation();

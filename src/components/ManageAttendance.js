@@ -5,10 +5,13 @@ import {
   BiLeftArrowAlt,
   BiChevronLeft,
   BiChevronRight,
+  BiCheck,
 } from "react-icons/bi";
 import { NavLink } from "react-router-dom";
+import FormatPnum from "./FormatPnum";
 
 const td = new Date();
+var checkedList = [100];
 
 function ManageAttendance() {
   const thisYear = td.getFullYear();
@@ -355,7 +358,30 @@ function ManageAttendance() {
     </table>
   );
 
-  const addAttendance = () => {
+  const [isSameName, setIsSameName] = useState([]);
+  const checkAttendance = (name) => {
+    const post = {
+      name: name,
+    };
+    fetch("https://teammagnus.net/checkSameName", {
+      method: "post",
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify(post),
+    })
+      .then((res) => res.json())
+      .then((json) => {
+        if (json.length === 0) window.alert("이름을 다시 확인해주세요.");
+        else if (json.length === 1) {
+          addAttendance(name, json[0].pnum);
+          window.alert("추가 완료되었습니다.");
+          window.location.reload();
+        } else {
+          setIsSameName(json);
+        }
+      });
+  };
+
+  const addAttendance = (name, pnum) => {
     const post = {
       name: name,
       pnum: pnum,
@@ -366,11 +392,9 @@ function ManageAttendance() {
       method: "post",
       headers: { "content-type": "application/json" },
       body: JSON.stringify(post),
-    }).then(() => {
-      window.alert("추가 완료되었습니다.");
-      window.location.reload();
     });
   };
+
   const removeAttendance = (name, pnum) => {
     const post = {
       name: name,
@@ -396,6 +420,7 @@ function ManageAttendance() {
         setName(e.target.value);
         break;
       case "pnum":
+        e.target.value = FormatPnum(e.target.value);
         setPnum(e.target.value);
         break;
       default:
@@ -417,89 +442,126 @@ function ManageAttendance() {
     </div>
   ));
 
-  return (
-    <div className="div-attendance-section">
-      <div className="div-notice-header"></div>
-      <NavLink to="/manage" className="link-header">
-        <BiLeftArrowAlt size="20" className="icon-back" />
-      </NavLink>
-      <div className="div-month">
-        <BiChevronLeft
-          className="icon-left"
-          size="20"
-          onClick={() => preMonth()}
-        />
-        {year}.{month + 1}
-        {year == thisYear && month == thisMonth ? (
-          <BiChevronRight
-            className="icon-right"
-            size="20"
-            style={{ color: "transparent" }}
-          />
-        ) : (
-          <BiChevronRight
-            className="icon-right"
-            size="20"
-            onClick={() => nextMonth()}
-          />
-        )}
-      </div>
-      <div className="div-manage-attendance-section-01">{showCalendar}</div>
-      {clicked.date != null && showAttendance}
-      {clicked.date != null && (
-        <>
-          <div className="div-manage-attendance-section">
-            <div className="div-member-name">
-              <input
-                className="input-absence-write-name"
-                onChange={onChange}
-                name="name"
-                value={name}
-                placeholder="이름"
-                style={{ textAlign: "left" }}
-              />
-            </div>
-            <div className="div-member-pnum">
-              <input
-                className="input-absence-write-pnum"
-                onChange={onChange}
-                name="pnum"
-                value={pnum}
-                placeholder="000-0000-0000"
-              />
-            </div>
-            <BiPlus
-              className="button-manage-attendance-check"
+  const [addList, setAddList] = useState([]);
+  const showModal = (
+    <div className="div-modal-background">
+      <div className="div-modal">
+        회원을 선택해주세요.
+        <br />
+        <br />
+        {isSameName.map((m, idx) => (
+          <div className="div-samename-section">
+            <div className="div-samename-name">{m.name}</div>
+            <div className="div-samename-pnum">{m.pnum}</div>
+            <BiCheck
+              className="button-member-remove-check"
               onClick={() => {
-                if (name != "" && pnum != "") {
-                  if (
-                    window.confirm(
-                      "이름, 번호를 확인해주세요. \n이름: " +
-                        name +
-                        "\n번호: " +
-                        pnum
-                    )
-                  ) {
-                    addAttendance();
-                  }
+                if (checkedList[idx] == 1) {
+                  checkedList[idx] = 0;
+                  setAddList(addList.filter((r) => r.pnum != m.pnum));
+                } else {
+                  setAddList([
+                    ...addList,
+                    {
+                      name: m.name,
+                      pnum: m.pnum,
+                    },
+                  ]);
+                  checkedList[idx] = 1;
                 }
               }}
-              style={{
-                backgroundColor:
-                  name != "" && pnum != "" ? "#e79b42" : "rgba(0, 0, 0, 0.05)",
-              }}
+              style={checkedList[idx] == 1 && { backgroundColor: "#d2000f" }}
             />
           </div>
-          <div
-            className="div-manage-attendance-section"
-            style={{
-              background: "none",
-              paddingBottom: "4vh",
+        ))}
+        <br />
+        <div className="div-samename-button-section">
+          <button
+            className="div-samename-button-cancel"
+            onClick={() => setIsSameName([])}
+          >
+            취소
+          </button>
+          <button
+            className="div-samename-button-check"
+            onClick={() => {
+              addList.map((m) => addAttendance(m.name, m.pnum));
+              window.alert("추가 완료되었습니다.");
+              window.location.reload();
             }}
-          ></div>
-        </>
-      )}
+          >
+            확인
+          </button>
+        </div>
+      </div>
     </div>
+  );
+
+  return (
+    <>
+      {isSameName.length > 0 && showModal}
+      <div className="div-attendance-section">
+        <div className="div-notice-header"></div>
+        <NavLink to="/manage" className="link-header">
+          <BiLeftArrowAlt size="20" className="icon-back" />
+        </NavLink>
+        <div className="div-month">
+          <BiChevronLeft
+            className="icon-left"
+            size="20"
+            onClick={() => preMonth()}
+          />
+          {year}.{month + 1}
+          {year == thisYear && month == thisMonth ? (
+            <BiChevronRight
+              className="icon-right"
+              size="20"
+              style={{ color: "transparent" }}
+            />
+          ) : (
+            <BiChevronRight
+              className="icon-right"
+              size="20"
+              onClick={() => nextMonth()}
+            />
+          )}
+        </div>
+        <div className="div-manage-attendance-section-01">{showCalendar}</div>
+        {clicked.date != null && showAttendance}
+        {clicked.date != null && (
+          <>
+            <div
+              className="div-manage-attendance-section"
+              style={{ marginBottom: "5vh" }}
+            >
+              <div className="div-member-name">
+                <input
+                  className="input-absence-write-name"
+                  onChange={onChange}
+                  name="name"
+                  value={name}
+                  placeholder="이름"
+                  style={{ textAlign: "left" }}
+                  maxLength={5}
+                />
+              </div>
+              <BiPlus
+                className="button-manage-attendance-check"
+                onClick={() => {
+                  if (name != "") {
+                    checkAttendance(name);
+                  }
+                }}
+                style={{
+                  backgroundColor:
+                    name != "" ? "#e79b42" : "rgba(0, 0, 0, 0.05)",
+                }}
+              />
+            </div>
+          </>
+        )}
+      </div>
+    </>
   );
 }
 

@@ -123,7 +123,6 @@ function Technique() {
         </div>
       )}
       {addPageOpen && addPage}
-
       <div className="div-technique-section-01">{showTechnique}</div>
     </div>
   );

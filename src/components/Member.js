@@ -9,6 +9,8 @@ import {
   BiLeftArrowAlt,
 } from "react-icons/bi";
 import { NavLink } from "react-router-dom";
+import FormatDate from "./FormatDate";
+import FormatPnum from "./FormatPnum";
 import MemberAttendance from "./MemberAttendance";
 
 var checkedList = [100];
@@ -48,9 +50,11 @@ function Member() {
         setNewName(e.target.value);
         break;
       case "pnum":
+        e.target.value = FormatPnum(e.target.value);
         setNewPnum(e.target.value);
         break;
       case "joindate":
+        e.target.value = FormatDate(e.target.value);
         setNewJoindate(e.target.value);
         break;
       default:
@@ -82,6 +86,7 @@ function Member() {
           name="name"
           value={newName}
           placeholder="이름"
+          maxLength={5}
         />
         <input
           className="input-member-write-pnum"
@@ -89,6 +94,7 @@ function Member() {
           name="pnum"
           value={newPnum}
           placeholder="000-0000-0000"
+          maxLength={13}
         />
         <input
           className="input-member-write-joindate"
@@ -96,6 +102,7 @@ function Member() {
           name="joindate"
           value={newJoindate}
           placeholder="YYYY.MM.DD"
+          maxLength={10}
         />
       </div>
     </>
