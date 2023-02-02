@@ -752,6 +752,26 @@ th {
   text-align: center;
 }
 
+/* Regulations.js */ /*------------------------------*/
+.div-regulations-section {
+  position: absolute;
+  top: 180px;
+  width: 90vw;
+  text-align: left;
+  font-weight: 400;
+}
+.div-regulations-seal-section {
+  text-align: right;
+  position: relative;
+}
+.img-regulations-seal {
+  position: absolute;
+  right: 5px;
+  bottom: 5px;
+  width: 50px;
+}
+/*------------------------------*/ /* Regulations.js */
+
 /* Notice.js */ /*------------------------------*/
 .div-notice-section-01 {
   position: absolute;
@@ -1023,6 +1043,18 @@ th {
 
   animation: rotate-button 0.2s ease-in;
 }
+.button-technique-checked {
+  position: absolute;
+  top: 102px;
+  left: 10vw;
+  width: 12px;
+  height: 12px;
+  padding: 5px;
+  background-color: rgba(0, 0, 0, 0.05);
+  text-align: center;
+  font-size: 15px;
+  border-radius: 100%;
+}
 
 @keyframes rotate-button {
   from {
@@ -1124,7 +1156,7 @@ th {
   width: 12px;
   height: 12px;
   padding: 5px;
-  background-color: rgba(0, 0, 0, 0.2);
+  background-color: rgba(0, 0, 0, 0.05);
   text-align: center;
   font-size: 15px;
   border-radius: 100%;
@@ -1136,6 +1168,17 @@ th {
   height: 12px;
   padding: 5px;
   background-color: #d2000f;
+  text-align: center;
+  font-size: 15px;
+  border-radius: 100%;
+}
+.button-technique-check {
+  position: absolute;
+  left: 5vw;
+  width: 12px;
+  height: 12px;
+  padding: 5px;
+  background-color: #e79b42;
   text-align: center;
   font-size: 15px;
   border-radius: 100%;
@@ -1233,6 +1276,15 @@ th {
   position: absolute;
   top: 180px;
   padding-bottom: 5vh;
+}
+.div-warning-refresh-section {
+  width: 100%;
+  display: flex;
+  justify-content: right;
+  align-items: center;
+  gap: 5px;
+  margin-right: 10vw;
+  font-size: 12px;
 }
 .div-warning-section-01 {
   position: absolute;

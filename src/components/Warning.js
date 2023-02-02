@@ -2,8 +2,10 @@ import { React, useEffect, useState } from "react";
 import { BiX, BiRefresh, BiLeftArrowAlt } from "react-icons/bi";
 import { NavLink } from "react-router-dom";
 import MemberAttendance from "./MemberAttendance";
+import dayjs from "dayjs";
 
 function Warning() {
+  var today = dayjs(new Date());
   const td = new Date();
 
   const [user, setUser] = useState([]);
@@ -72,7 +74,26 @@ function Warning() {
             ) : user.length == 0 ? (
               <BiRefresh onClick={() => window.location.reload()} size="25" />
             ) : (
-              showWarning
+              <>
+                <div className="div-warning-refresh-section">
+                  최종 업데이트: {today.format("YYYY.MM.DD")}
+                  <BiRefresh
+                    onClick={() => window.location.reload()}
+                    size="20"
+                  />
+                </div>
+                <div
+                  style={{
+                    fontSize: "15px",
+                    width: "100%",
+                    textAlign: "right",
+                    margin: "5px 0 10px 0",
+                  }}
+                >
+                  {user.length}명
+                </div>
+                {showWarning}
+              </>
             )}
           </div>
         </div>

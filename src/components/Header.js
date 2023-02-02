@@ -1,9 +1,8 @@
 import { React, useState } from "react";
 import { NavLink, useLocation } from "react-router-dom";
 
-import { BiX, HiOutlineUser, BiMenu } from "react-icons/bi";
-// import profile from "../asset/header/profile1.png";
-import profile from "../asset/header/profile_christmas.png";
+import { BiX, BiMenu } from "react-icons/bi";
+import profile from "../asset/header/profile1.png";
 
 function Header() {
   let location = useLocation();
@@ -126,6 +125,17 @@ function Header() {
               }}
             >
               NOTICE
+            </NavLink>
+            <br />
+            <br />
+            <NavLink
+              className="link-header"
+              to="/regulations"
+              onClick={() => {
+                onToggle();
+              }}
+            >
+              REGULATIONS
             </NavLink>
             {window.localStorage.getItem("m") == 1 && (
               <>

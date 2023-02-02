@@ -75,6 +75,7 @@ function Absence() {
       headers: { "content-type": "application/json" },
       body: JSON.stringify(post),
     }).then(() => {
+      window.alert("삭제 완료되었습니다.");
       window.location.reload();
     });
   };
@@ -140,7 +141,6 @@ function Absence() {
             className="div-samename-button-check"
             onClick={() => {
               addList.map((m) => addAbsence(m.name, m.pnum));
-              window.alert("추가 완료되었습니다.");
               window.location.reload();
             }}
           >

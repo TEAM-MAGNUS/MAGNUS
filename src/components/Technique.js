@@ -1,12 +1,34 @@
 import React from "react";
 import { useEffect } from "react";
 import { useState } from "react";
-import { BiPlus, BiX, BiCheck, BiMinus } from "react-icons/bi";
+import { BiPlus, BiX, BiCheck, BiMinus, BiRedo } from "react-icons/bi";
 function Technique() {
   const [technique, setTechnique] = useState([]);
   const [addPageOpen, setAddPageOpen] = useState(false);
   const [newTechnique, setNewTechnique] = useState("");
+  const [showChecked, setShowChecked] = useState(false);
+  const [isManager, setIsManager] = useState(false);
+
   const id = window.localStorage.getItem("id");
+
+  const checkManager = () => {
+    const post = {
+      id: id,
+    };
+    fetch("https://teammagnus.net/IsManager", {
+      method: "post",
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify(post),
+    })
+      .then((res) => res.json())
+      .then((json) => {
+        console.log(json.m);
+        if (json.m == 1) {
+          setIsManager(true);
+        }
+      });
+  };
+
   const onChange = (e) => {
     setNewTechnique(e.target.value);
   };
@@ -75,31 +97,101 @@ function Technique() {
     });
   };
 
+  const checkTechnique = (num, checked) => {
+    const post = {
+      num: num,
+      checked: checked,
+    };
+    console.log(post);
+    fetch("https://teammagnus.net/checkTechnique", {
+      method: "post",
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify(post),
+    }).then(() => {
+      window.location.reload();
+      window.scrollTo(0, 0);
+    });
+  };
+
   useEffect(() => {
+    checkManager();
     getTechnique();
   }, []);
 
   const showTechnique = technique.map((t, idx) => {
     return (
-      <div key={idx} className="div-technique-section-02">
-        <div>{t.technique}</div>
-        {id == t.id && (
-          <BiMinus
-            className="button-technique-remove-check"
-            onClick={() => {
-              if (window.confirm("정말 삭제하시겠습니까?")) {
-                removeTechnique(id, t.t_num);
-              }
-            }}
-          />
+      <>
+        {t.checked === 0 && (
+          <div key={idx} className="div-technique-section-02">
+            <div>
+              {t.technique}
+              {isManager && (
+                <BiCheck
+                  className="button-technique-check"
+                  onClick={() => {
+                    checkTechnique(t.t_num, 1);
+                  }}
+                />
+              )}
+              {id == t.id && (
+                <BiMinus
+                  className="button-technique-remove-check"
+                  onClick={() => {
+                    if (window.confirm("정말 삭제하시겠습니까?")) {
+                      removeTechnique(id, t.t_num);
+                    }
+                  }}
+                />
+              )}
+            </div>{" "}
+          </div>
         )}
-      </div>
+      </>
+    );
+  });
+
+  const showCheckedTechnique = technique.map((t, idx) => {
+    return (
+      <>
+        {t.checked === 1 && (
+          <div key={idx} className="div-technique-section-02">
+            <div>
+              {t.technique}
+              {isManager && (
+                <BiRedo
+                  className="button-technique-check"
+                  onClick={() => {
+                    checkTechnique(t.t_num, 0);
+                  }}
+                />
+              )}
+              {id == t.id && (
+                <BiMinus
+                  className="button-technique-remove-check"
+                  onClick={() => {
+                    if (window.confirm("정말 삭제하시겠습니까?")) {
+                      removeTechnique(id, t.t_num);
+                    }
+                  }}
+                />
+              )}
+            </div>
+          </div>
+        )}
+      </>
     );
   });
 
   return (
     <div className="div-ranking">
       <div className="div-title">TECHNIQUE</div>
+      <BiCheck
+        className="button-technique-checked"
+        style={{ backgroundColor: showChecked && "#d2000f" }}
+        onClick={() => {
+          setShowChecked(!showChecked);
+        }}
+      />
       {addPageOpen ? (
         <>
           <BiX
@@ -123,7 +215,9 @@ function Technique() {
         </div>
       )}
       {addPageOpen && addPage}
-      <div className="div-technique-section-01">{showTechnique}</div>
+      <div className="div-technique-section-01">
+        {showChecked ? showCheckedTechnique : showTechnique}
+      </div>
     </div>
   );
 }

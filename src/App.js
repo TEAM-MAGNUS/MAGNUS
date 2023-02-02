@@ -25,6 +25,7 @@ import JoinDate from "./components/JoinDate";
 import Injured from "./components/Injured";
 import Technique from "./components/Technique";
 import ComingSoon from "./components/ComingSoon";
+import Regulations from "./components/Regulations";
 
 function App() {
   return (
@@ -47,6 +48,10 @@ function App() {
           />
           <Route path="/calendar" element={<Protected element={Calendar} />} />
           <Route path="/notice" element={<Protected element={Notice} />} />
+          <Route
+            path="/regulations"
+            element={<Protected element={Regulations} />}
+          />
           <Route path="/manage" element={<ProtectedM element={Manage} />} />
           <Route path="/warning" element={<ProtectedM element={Warning} />} />
           <Route path="/average" element={<ProtectedM element={Average} />} />
