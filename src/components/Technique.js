@@ -69,6 +69,7 @@ function Technique() {
   const addTechnique = () => {
     const post = {
       id: window.localStorage.getItem("id"),
+      name: window.localStorage.getItem("name"),
       t: newTechnique,
     };
     console.log(post);
@@ -143,7 +144,8 @@ function Technique() {
                   }}
                 />
               )}
-            </div>{" "}
+            </div>
+            <div style={{ fontSize: "10px" }}>{t.name}</div>
           </div>
         )}
       </>
@@ -176,6 +178,7 @@ function Technique() {
                 />
               )}
             </div>
+            <div style={{ fontSize: "10px" }}>{t.name}</div>
           </div>
         )}
       </>
@@ -212,6 +215,8 @@ function Technique() {
       {!addPageOpen && (
         <div className="div-title-sub">
           배우고 싶은 기술, 관심 있는 기술을 자유롭게 적어주세요.
+          <br />
+          (5/17부터 작성자 이름이 공개됩니다.)
         </div>
       )}
       {addPageOpen && addPage}

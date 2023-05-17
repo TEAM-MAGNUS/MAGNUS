@@ -29,6 +29,7 @@ body {
   margin-top: 20px;
   font-size: 15px;
   text-align: center;
+  line-height: 150%;
 }
 .icon-left {
   z-index: 10;
@@ -1105,6 +1106,8 @@ th {
 
   font-size: 18px;
   display: flex;
+  flex-direction: column;
+  gap: 4px;
   justify-content: center;
   align-items: center;
   margin-top: 20px;
