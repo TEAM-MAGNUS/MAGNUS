@@ -120,8 +120,11 @@ function Ranking() {
             )}
           </>
         )}
-        <div className="div-ranking-percent">
-          {((user.c / total) * 100).toFixed(1)}%
+        <div className="div-ranking-count">
+          {user.c}
+          <div className="div-ranking-percent">
+            {((user.c / total) * 100).toFixed(1)}%
+          </div>
         </div>
       </div>
     );
