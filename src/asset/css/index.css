@@ -405,8 +405,8 @@ body {
   align-items: center;
 }
 .icon-ranking-crown {
-  /* color: #e79b42; */
-  color: #d2000f;
+  color: #e79b42;
+  /* color: #d2000f; */
   font-size: 18px;
 }
 
@@ -857,13 +857,12 @@ th {
 .div-ranking-count {
   width: 40px;
   display: flex;
-  justify-content: right;
+  justify-content: space-between;
   align-items: center;
   gap: 6px;
 }
 .div-ranking-percent {
   font-size: 10px;
-  /* color: #d2000f; */
 }
 .button-notice-write {
   position: absolute;

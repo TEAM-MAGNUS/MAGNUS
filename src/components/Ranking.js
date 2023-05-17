@@ -78,8 +78,9 @@ function Ranking() {
     console.log(total);
   }, [ranking]);
 
-  var rank = 1;
-  var sameCount = 0;
+  let rank = 1;
+  let sameCount = 0;
+  let isSole = ranking[0].c !== ranking[1].c;
   const showRanking = ranking.map((user, idx) => {
     if (idx > 0 && ranking[idx].c < ranking[idx - 1].c) {
       rank += sameCount;
@@ -99,9 +100,14 @@ function Ranking() {
                 <img className="img-ranking-squircle" src={user.image} alt="" />
               </SuperEllipse>
             </div>
-            {rank == 1 ? (
+            {rank === 1 ? (
               <div className="div-ranking-crown-name">
-                <TbCrown className="icon-ranking-crown" />
+                <TbCrown
+                  className="icon-ranking-crown"
+                  style={{
+                    color: isSole && "#d2000f",
+                  }}
+                />
                 {user.name}
               </div>
             ) : (
@@ -110,9 +116,14 @@ function Ranking() {
           </div>
         ) : (
           <>
-            {rank == 1 ? (
+            {rank === 1 ? (
               <div className="div-ranking-crown-name">
-                <TbCrown className="icon-ranking-crown" />
+                <TbCrown
+                  className="icon-ranking-crown"
+                  style={{
+                    color: isSole && "#d2000f",
+                  }}
+                />
                 {user.name}
               </div>
             ) : (
