@@ -80,7 +80,12 @@ function Ranking() {
 
   let rank = 1;
   let sameCount = 0;
-  let isSole = ranking[0].c !== ranking[1].c;
+  const [isSole, setIsSole] = useState(true);
+
+  useEffect(() => {
+    ranking.length > 1 && setIsSole(ranking[0].c !== ranking[1].c);
+  }, [ranking]);
+
   const showRanking = ranking.map((user, idx) => {
     if (idx > 0 && ranking[idx].c < ranking[idx - 1].c) {
       rank += sameCount;
