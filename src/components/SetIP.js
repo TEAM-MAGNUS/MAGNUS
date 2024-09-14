@@ -1,21 +1,15 @@
 import { React, useEffect, useState } from "react";
 import { BiLeftArrowAlt, BiPlus, BiMinus } from "react-icons/bi";
 import { NavLink } from "react-router-dom";
+import Connection from "./Connection";
 function SetIP() {
   const [currentIP, setCurrentIP] = useState("currentIP");
-  function getCurrentIP() {
-    console.log("current!");
-    fetch("https://teammagnus.net/getCurrentIP", {
-      method: "post",
-      headers: { "content-type": "application/json" },
-    })
-      .then((res) => res.json())
-      .then((json) => {
-        setIP(json.ip);
-        setCurrentIP(json.ip);
-        console.log("current: " + json.ip);
-      });
-  }
+  const getCurrentIP = () => {
+    Connection("/getCurrentIP").then((res) => {
+      setIP(res.ip);
+      setCurrentIP(res.ip);
+    });
+  };
 
   const [ip, setIP] = useState("");
   const onChange = (e) => {
@@ -23,44 +17,35 @@ function SetIP() {
   };
 
   const addIP = () => {
-    const post = {
-      ip: ip,
-    };
-
-    fetch("https://teammagnus.net/addIP", {
-      method: "post",
-      headers: { "content-type": "application/json" },
-      body: JSON.stringify(post),
-    }).then(() => {
-      window.alert("추가 완료되었습니다.");
-      window.location.reload();
-    });
+    Connection(
+      "/addIP",
+      {
+        ip: ip,
+      },
+      true
+    );
+    window.alert("추가 완료되었습니다.");
+    window.location.reload();
   };
 
   const [ipList, setIpList] = useState([]);
 
   const getIP = () => {
-    fetch("https://teammagnus.net/getIP", {
-      method: "post",
-      headers: { "content-type": "application/json" },
-    })
-      .then((res) => res.json())
-      .then((json) => {
-        setIpList(json);
-      });
-  };
-  console.log(ipList);
-  const removeIP = (ip) => {
-    const post = {
-      ip: ip,
-    };
-    fetch("https://teammagnus.net/removeIP", {
-      method: "post",
-      headers: { "content-type": "application/json" },
-      body: JSON.stringify(post),
-    }).then(() => {
-      window.location.reload();
+    Connection("/getIP").then((res) => {
+      setIpList(res);
     });
+  };
+
+  const removeIP = (ip) => {
+    Connection(
+      "/removeIP",
+      {
+        ip: ip,
+      },
+      true
+    );
+    window.alert("삭제 완료되었습니다.");
+    window.location.reload();
   };
 
   useEffect(() => {

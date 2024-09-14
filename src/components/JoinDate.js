@@ -3,6 +3,7 @@ import { BiX, BiLeftArrowAlt } from "react-icons/bi";
 import { NavLink } from "react-router-dom";
 import MemberAttendance from "./MemberAttendance";
 import { PieChart, Pie, Sector, Cell } from "recharts";
+import Connection from "./Connection";
 
 function JoinDate() {
   const [member, setMember] = useState([{}]);
@@ -13,34 +14,30 @@ function JoinDate() {
   const [name, setName] = useState("");
   const [pnum, setPnum] = useState("");
 
-  const getJoinDate = () => {
-    fetch("https://teammagnus.net/getJoinDate", {
-      method: "post",
-      headers: { "content-type": "application/json" },
-    })
-      .then((res) => res.json())
-      .then((json) => {
-        console.log(json);
-        setJoinDateList(json);
-      });
+  const getJoinDate = (name, date, pnum) => {
+    Connection(
+      "/getJoinDate",
+      {
+        name: name,
+        date: date,
+        pnum: pnum,
+      },
+      true
+    ).then((res) => {
+      setJoinDateList(res);
+    });
   };
-
   const getJoinDateMember = (date) => {
-    const post = {
-      j: date,
-      id: window.localStorage.getItem("id"),
-    };
-    console.log(post.j);
-    fetch("https://teammagnus.net/getJoinDateMember", {
-      method: "post",
-      headers: { "content-type": "application/json" },
-      body: JSON.stringify(post),
-    })
-      .then((res) => res.json())
-      .then((json) => {
-        console.log(json);
-        setMember(json);
-      });
+    Connection(
+      "/getJoinDateMember",
+      {
+        j: date,
+        id: window.localStorage.getItem("id"),
+      },
+      true
+    ).then((res) => {
+      setMember(res);
+    });
   };
 
   const [attendance, setAttendance] = useState([{}]);
@@ -51,7 +48,6 @@ function JoinDate() {
   var attendance3 = 0;
 
   const update = () => {
-    console.log("update");
     attendance.map((a) => {
       switch (a.attendance) {
         case 0:
@@ -77,21 +73,18 @@ function JoinDate() {
     attendance2 = 0;
     attendance3 = 0;
 
-    const post = {
-      j: date,
-    };
-    console.log(post.j);
-    fetch("https://teammagnus.net/getJoinDateAttendance", {
-      method: "post",
-      headers: { "content-type": "application/json" },
-      body: JSON.stringify(post),
-    })
-      .then((res) => res.json())
-      .then((json) => {
-        setAttendance(json);
-        update();
-      });
+    Connection(
+      "/getJoinDateAttendance",
+      {
+        j: date,
+      },
+      true
+    ).then((res) => {
+      setAttendance(res);
+      update();
+    });
   };
+
   update();
 
   const data = [
@@ -194,10 +187,10 @@ function JoinDate() {
     );
   };
 
-  console.log("0: " + attendance0);
-  console.log("1: " + attendance1);
-  console.log("2: " + attendance2);
-  console.log("3: " + attendance3);
+  // console.log("0: " + attendance0);
+  // console.log("1: " + attendance1);
+  // console.log("2: " + attendance2);
+  // console.log("3: " + attendance3);
 
   const pieChart = (
     <PieChart width={400} height={200}>

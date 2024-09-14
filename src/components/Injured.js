@@ -3,6 +3,7 @@ import { BiLeftArrowAlt } from "react-icons/bi";
 import { NavLink } from "react-router-dom";
 import { BiPlus, BiX, BiMinus, BiCheck } from "react-icons/bi";
 import FormatDate from "./FormatDate";
+import Connection from "./Connection";
 
 var checkedList = [100];
 function Injured() {
@@ -12,70 +13,53 @@ function Injured() {
   const [user, setUser] = useState([]);
 
   const getInjured = () => {
-    fetch("https://teammagnus.net/getInjured", {
-      method: "post",
-      headers: { "content-type": "application/json" },
-    })
-      .then((res) => res.json())
-      .then((json) => {
-        setUser(json);
-      });
+    Connection("/getInjured", {}, true).then((res) => {
+      setUser(res);
+    });
   };
 
   const [isSameName, setIsSameName] = useState([]);
   const checkInjured = (name) => {
-    const post = {
+    Connection("/checkSameName", {
       name: name,
-    };
-    fetch("https://teammagnus.net/checkSameName", {
-      method: "post",
-      headers: { "content-type": "application/json" },
-      body: JSON.stringify(post),
-    })
-      .then((res) => res.json())
-      .then((json) => {
-        if (json.length === 0) window.alert("이름을 다시 확인해주세요.");
-        else if (json.length === 1) {
-          addInjured(name, json[0].pnum);
-          window.alert("추가 완료되었습니다.");
-          window.location.reload();
-        } else {
-          setIsSameName(json);
-        }
-      });
+    }).then((res) => {
+      if (res.length === 0) window.alert("이름을 다시 확인해주세요.");
+      else if (res.length === 1) {
+        addInjured(name, res[0].pnum);
+        window.alert("추가 완료되었습니다.");
+        window.location.reload();
+      } else {
+        setIsSameName(res);
+      }
+    });
   };
 
   const addInjured = (name, pnum) => {
-    const post = {
-      name: name,
-      pnum: pnum,
-      date: date,
-    };
-    console.log(post);
-    fetch("https://teammagnus.net/addInjured", {
-      method: "post",
-      headers: { "content-type": "application/json" },
-      body: JSON.stringify(post),
-    }).then(() => {
-      window.alert("추가 완료되었습니다.");
-      window.location.reload();
-    });
+    Connection(
+      "/addInjured",
+      {
+        name: name,
+        pnum: pnum,
+        date: date,
+      },
+      true
+    );
+    window.alert("추가 완료되었습니다.");
+    window.location.reload();
   };
 
   const cancelInjured = (name, date, pnum) => {
-    const post = {
-      name: name,
-      date: date,
-      pnum: pnum,
-    };
-    console.log(post.query);
-    fetch("https://teammagnus.net/cancelInjured", {
-      method: "post",
-      headers: { "content-type": "application/json" },
-      body: JSON.stringify(post),
-    }).then(() => {
-      window.location.reload();
-    });
+    Connection(
+      "/cancelInjured",
+      {
+        name: name,
+        date: date,
+        pnum: pnum,
+      },
+      true
+    );
+    window.alert("삭제 완료되었습니다.");
+    window.location.reload();
   };
 
   useEffect(() => {

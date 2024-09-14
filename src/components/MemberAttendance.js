@@ -8,6 +8,7 @@ import {
 } from "react-icons/bi";
 import { PieChart, Pie, Sector, Cell } from "recharts";
 import MemberAll from "./MemberAll";
+import Connection from "./Connection";
 
 const td = new Date();
 
@@ -17,9 +18,15 @@ function MemberAttendance(props) {
 
   const name = props.name;
   const pnum = props.pnum;
+
+  const isMemberPage = props.isMemberPage;
+
+  const [isManager, setIsManager] = useState(props.isManager ? 1 : 0);
   const [year, setYear] = useState(thisYear);
   const [month, setMonth] = useState(thisMonth);
   const [detailOpen, setDetailOpen] = useState(false);
+
+  // console.log("ismanager: " + isManager);
 
   const preMonth = () => {
     if (month == 0) {
@@ -47,9 +54,7 @@ function MemberAttendance(props) {
   };
   const [isLast, setIsLast] = useState(false);
   const [join, setJoin] = useState("");
-  console.log("join: " + join);
   const getPre = (year, month) => {
-    console.log("getpre");
     if (month == 0) {
       setIsLast(join.substring(0, 4) >= year);
     } else {
@@ -60,20 +65,29 @@ function MemberAttendance(props) {
     }
   };
   const getJoin = () => {
-    const post = {
+    Connection("/getJoin", {
       pnum: pnum,
-    };
-    fetch("https://teammagnus.net/getJoin", {
-      method: "post",
-      headers: { "content-type": "application/json" },
-      body: JSON.stringify(post),
-    })
-      .then((res) => res.json())
-      .then((json) => {
-        setJoin(json.date);
-        getPre();
-      });
+    }).then((res) => {
+      setJoin(res.date);
+      getPre();
+    });
   };
+
+  const updateManager = (update) => {
+    Connection(
+      "/updateManager",
+      {
+        id: window.localStorage.getItem("id"),
+        update: update,
+        pnum: pnum,
+      },
+      true
+    );
+    if (update === 0) window.alert("삭제 완료되었습니다.");
+    else window.alert("추가 완료되었습니다.");
+    window.location.reload();
+  };
+
   var calendar = [
     [
       { date: null, attendance: null },
@@ -117,30 +131,22 @@ function MemberAttendance(props) {
     attendance2 = 0;
     attendance3 = 0;
 
-    const post = {
+    Connection("/getAttendance", {
       year: year,
       month: month,
       name: name,
       pnum: pnum,
-    };
-    fetch("https://teammagnus.net/getAttendance", {
-      method: "post",
-      headers: { "content-type": "application/json" },
-      body: JSON.stringify(post),
-    })
-      .then((res) => res.json())
-      .then((json) => {
-        json.map((j) => {
-          j.attendance_date = dayjs(j.attendance_date).format("D");
-        });
-
-        setAttendance(json);
-        update();
+    }).then((res) => {
+      res.map((j) => {
+        j.attendance_date = dayjs(j.attendance_date).format("D");
       });
+
+      setAttendance(res);
+      update();
+    });
   };
 
   const update = () => {
-    console.log("update");
     attendance.map((a) => {
       switch (a.attendance) {
         case 0:
@@ -421,6 +427,24 @@ function MemberAttendance(props) {
             <div className="div-member-piechart-01">{pieChart}</div>
             <MemberAll name={name} pnum={pnum} />
           </>
+        )}
+        {!detailOpen && isMemberPage && (
+          <div
+            className="div-member-attendance-update-manager"
+            onClick={() => {
+              if (isManager === 0) {
+                if (window.confirm("정말 추가하시겠습니까?")) {
+                  updateManager(1);
+                }
+              } else {
+                if (window.confirm("정말 삭제하시겠습니까?")) {
+                  updateManager(0);
+                }
+              }
+            }}
+          >
+            {isManager === 0 ? "운영진 추가하기" : "운영진 삭제하기"}
+          </div>
         )}
       </div>
     </div>

@@ -9,7 +9,7 @@ import React, { useEffect } from "react";
 //       i: id
 //     }
 
-//     const result = fetch("https://teammagnus.net/searchUser", {
+//     const result = fetch("https://teammagnus.net/api2/searchUser", {
 //       method: "post",
 //       headers: { "content-type": "application/json" },
 //       body: JSON.stringify(post),

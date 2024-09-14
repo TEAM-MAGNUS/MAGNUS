@@ -2,6 +2,7 @@ import React, { useCallback, useEffect, useState } from "react";
 import dayjs from "dayjs";
 
 import { PieChart, Pie, Sector, Cell } from "recharts";
+import Connection from "./Connection";
 const td = new Date();
 
 function MemberAll(props) {
@@ -22,18 +23,11 @@ function MemberAll(props) {
 
   const [join, setJoin] = useState("");
   const getJoin = () => {
-    const post = {
+    Connection("/getJoin", {
       pnum: pnum,
-    };
-    fetch("https://teammagnus.net/getJoin", {
-      method: "post",
-      headers: { "content-type": "application/json" },
-      body: JSON.stringify(post),
-    })
-      .then((res) => res.json())
-      .then((json) => {
-        setJoin(json.date);
-      });
+    }).then((res) => {
+      setJoin(res.date);
+    });
   };
 
   const getAll = () => {
@@ -42,23 +36,16 @@ function MemberAll(props) {
     attendance2 = 0;
     attendance3 = 0;
 
-    const post = {
+    Connection("/getAll", {
       p: pnum,
-    };
-    fetch("https://teammagnus.net/getAll", {
-      method: "post",
-      headers: { "content-type": "application/json" },
-      body: JSON.stringify(post),
-    })
-      .then((res) => res.json())
-      .then((json) => {
-        json.map((j) => {
-          j.attendance_date = dayjs(j.attendance_date).format("D");
-        });
-
-        setAttendance(json);
-        update();
+    }).then((res) => {
+      res.map((j) => {
+        j.attendance_date = dayjs(j.attendance_date).format("D");
       });
+
+      setAttendance(res);
+      update();
+    });
   };
 
   const update = () => {
@@ -227,7 +214,7 @@ function MemberAll(props) {
 
   return (
     <>
-      <div className="div-member-piechart-01">{pieChart}</div>
+      <div className="div-member-piechart-02">{pieChart}</div>
     </>
   );
 }

@@ -216,7 +216,7 @@ body {
   left: 0; */
   background-color: #ede9d0;
   background-color: white;
-  /* border-radius: 0 0 5px 5px; */
+  border-radius: 0 0 5px 5px;
   padding-top: 90px;
   padding-bottom: 40px;
   width: 100vw;
@@ -331,19 +331,23 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  font-size: 20px;
+  font-size: 16px;
 }
 .div-profile-check-section {
-  margin-top: 15px;
+  margin-top: 8px;
   background-color: #d2000f;
   display: flex;
   width: 20vw;
-  padding: 5px 15px 5px 15px;
-  border-radius: 4px;
+  padding: 10px 15px 10px 15px;
+  border-radius: 16px;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  font-size: 20px;
+  font-size: 16px;
+}
+.img-profile-dongdle {
+  width: 24vw;
+  margin-top: 16px;
 }
 .div-profile-adfit-section {
   margin-top: 40px;
@@ -386,19 +390,18 @@ body {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  width: 20vw;
-  white-space: nowrap;
+  width: 25vw;
 }
 .div-ranking-name-font {
   font-size: 15px;
-  width: 10vw;
+  width: 15vw;
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 .div-ranking-crown-name {
   font-size: 15px;
-  width: 10vw;
+  width: 15vw;
   height: 6vh;
   display: flex;
   flex-direction: column;
@@ -472,22 +475,27 @@ thead th {
   text-align: center;
   height: 4vh;
   background-color: #d2000f;
+  border-radius: 5px;
 }
 th {
   width: 30vw;
   height: 10vh;
   background-color: rgba(0, 0, 0, 0.2);
+  border-radius: 5px;
 }
 .calendar-t {
   background-color: #d2000f;
+  border-radius: 5px;
 }
 .calendar-p {
   background-color: black;
   color: white;
+  border-radius: 5px;
 }
 .calendar-f {
   background-color: white;
   background-color: rgba(0, 0, 0, 0.05);
+  border-radius: 5px;
 }
 
 .div-calendar-schedule-section {
@@ -515,6 +523,7 @@ th {
   display: flex;
   align-items: center;
   justify-content: center;
+  border-radius: 5px;
 }
 
 .input-calendar-schedule-write {
@@ -612,7 +621,7 @@ th {
   background-color: white;
   color: white;
   color: black;
-  /* border-radius: 5px; */
+  border-radius: 5px;
 }
 
 .div-attendance-info {
@@ -743,7 +752,7 @@ th {
   position: absolute;
   bottom: 100px;
   width: 80vw;
-  height: 20vh;
+  height: 30vh;
   font-size: 25px;
   display: flex;
   justify-content: center;
@@ -845,7 +854,7 @@ th {
 
   font-size: 15px;
   padding: 0 5vw;
-  /* border-radius: 5px; */
+  border-radius: 5px;
   line-height: 150%;
   overflow-y: scroll;
 }
@@ -901,7 +910,7 @@ th {
   background-color: rgba(255, 255, 255, 0.3);
   background-color: rgba(0, 0, 0, 0.05);
 
-  /* border-radius: 5px; */
+  border-radius: 5px;
   padding: 5px 0;
 }
 ::placeholder {
@@ -1070,34 +1079,6 @@ th {
   }
 }
 
-.div-ranking-img {
-  width: 10vw;
-  display: flex;
-  justify-content: right;
-}
-.div-ranking-img-name {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  width: 20vw;
-  white-space: nowrap;
-}
-.div-ranking-name-font {
-  font-size: 15px;
-  width: 10vw;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-.div-ranking-crown-name {
-  font-size: 15px;
-  width: 10vw;
-  height: 6vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
 .div-technique-section-01 {
   position: absolute;
   top: 200px;
@@ -1146,6 +1127,7 @@ th {
   align-items: center;
 
   animation: fadein 0.125s ease-out;
+  border-radius: 5px;
 }
 
 .input-technique-write {
@@ -1242,7 +1224,7 @@ th {
   padding: 10px;
   resize: none;
   border: none;
-  /* border-radius: 5px; */
+  border-radius: 5px;
   font-size: 20px;
   text-align: center;
   margin-top: 15px;
@@ -1344,13 +1326,13 @@ th {
   align-items: center;
   justify-content: center;
   font-size: 25px;
-  /* border-radius: 5px; */
+  border-radius: 5px;
 }
 .div-absence-section-02 {
   width: 80vw;
   height: 7vh;
   padding: 10px 5vw 10px 5vw;
-  /* border-radius: 5px; */
+  border-radius: 5px;
   /* background-color: rgba(255, 255, 255, 0.3); */
   border-bottom: 1.5px solid rgba(0, 0, 0, 0.2);
   border-bottom: 1px solid rgba(0, 0, 0, 0.05);
@@ -1362,7 +1344,7 @@ th {
 .div-ip-section-02 {
   width: 90vw;
   height: 5vh;
-  /* border-radius: 5px; */
+  border-radius: 5px;
   /* background-color: rgba(255, 255, 255, 0.3);
   background-color: rgba(0, 0, 0, 0.05); */
   border-bottom: 1px solid rgba(0, 0, 0, 0.05);
@@ -1430,7 +1412,7 @@ th {
   width: 80vw;
   height: 6vh;
   padding: 10px 5vw 10px 5vw;
-  /* border-radius: 5px; */
+  border-radius: 5px;
   background-color: rgba(255, 255, 255, 0.3);
   background-color: rgba(0, 0, 0, 0.05);
 
@@ -1442,7 +1424,7 @@ th {
 .div-joindate-section {
   width: 80vw;
   padding: 20px 5vw 20px 5vw;
-  /* border-radius: 5px; */
+  border-radius: 5px;
   background-color: rgba(255, 255, 255, 0.3);
   background-color: rgba(0, 0, 0, 0.05);
 
@@ -1456,7 +1438,7 @@ th {
   width: 70vw;
   height: 6vh;
   padding: 10px 5vw 10px 5vw;
-  /* border-radius: 5px; */
+  border-radius: 5px;
   /* background-color: rgba(255, 255, 255, 0.3); */
   border-bottom: 1.5px solid rgba(0, 0, 0, 0.2);
   border-bottom: 1px solid rgba(0, 0, 0, 0.05);
@@ -1467,10 +1449,12 @@ th {
 }
 .div-member-name {
   font-size: 20px;
-  width: 20vw;
+  width: 25vw;
   text-align: left;
+  display: flex;
+  align-items: center;
+  gap: 4px;
 }
-
 .div-absence-name {
   font-size: 20px;
   margin-bottom: 10px;
@@ -1554,6 +1538,21 @@ th {
   background-color: white;
   z-index: 10;
 }
+.div-member-attendance-update-manager {
+  position: fixed;
+  bottom: 48px;
+  left: 50%;
+  transform: translateX(-50%);
+
+  background-color: #d2000f;
+  display: flex;
+  padding: 10px 15px 10px 15px;
+  border-radius: 16px;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+}
 .button-member-attendance-detail {
   margin-top: 20px;
   width: 12px;
@@ -1636,6 +1635,7 @@ th {
   text-align: center;
   font-size: 15px;
   border-radius: 100%;
+  flex-shrink: 0;
 }
 
 /*///////*/
@@ -1654,7 +1654,7 @@ th {
   border: none;
   font-size: 15px;
   background: none;
-  /* border-radius: 5px; */
+  border-radius: 5px;
   /* font-family: "Nh"; */
   font-family: "Pretendard";
 }
@@ -1729,6 +1729,8 @@ th {
   color: white;
   background-color: #d2000f;
 }
+
+/* 겨울(눈) */
 .snowflake {
   color: #fff;
   font-size: 1em;
@@ -1851,4 +1853,67 @@ th {
   left: 90%;
   -webkit-animation-delay: 3s, 1.5s;
   animation-delay: 3s, 1.5s;
+}
+
+/* 여름(물결) */
+.circle {
+  width: 150vw;
+  height: 20px;
+  position: fixed;
+  bottom: 0;
+  /* overflow: hidden; */
+  /* background: linear-gradient(#3c5aff, #52f2fd); */
+  z-index: 9999;
+  /* transform: rotate(180deg); */
+}
+
+.wave-one {
+  width: 150vw;
+  height: 150vw;
+  position: absolute;
+  top: 0;
+  left: 0;
+  border-radius: 45%;
+  background: rgba(214, 244, 255, 0.8);
+  animation: move 7s infinite linear;
+}
+
+.wave-two {
+  width: 150vw;
+  height: 150vw;
+  position: absolute;
+  top: 0;
+  left: -25%;
+  border-radius: 45%;
+  background: rgba(39, 164, 242, 0.8);
+  animation: move 7s infinite linear;
+}
+
+.wave-three {
+  width: 180vw;
+  height: 180vw;
+  position: absolute;
+  top: 0;
+  left: 10%;
+  border-radius: 45%;
+  background: rgba(0, 82, 181, 0.8);
+  /* border: 6px solid rgba(131, 119, 152, 0.7); */
+  animation: move 9s infinite linear;
+}
+
+.wave-four {
+  width: 180vw;
+  height: 180vw;
+  position: absolute;
+  top: 0;
+  left: -50%;
+  border-radius: 45%;
+  background: rgba(0, 82, 181, 0.8);
+  animation: move 9s infinite linear;
+}
+
+@keyframes move {
+  100% {
+    transform: rotate(360deg);
+  }
 }

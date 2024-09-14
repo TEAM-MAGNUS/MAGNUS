@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import { BiChevronLeft, BiChevronRight } from "react-icons/bi";
 import { TbCrown } from "react-icons/tb";
 import SuperEllipse from "react-superellipse";
+import img_sample from "../asset/main/logo.png";
+import Connection from "./Connection";
 
 const td = new Date();
 
@@ -37,46 +39,26 @@ function Ranking() {
   };
 
   const getRanking = (year, month) => {
-    const post1 = {
+    Connection("/getTotal", {
       year: year,
       month: month,
-    };
-    fetch("https://teammagnus.net/getTotal", {
-      method: "post",
-      headers: { "content-type": "application/json" },
-      body: JSON.stringify(post1),
-    })
-      .then((res) => res.json())
-      .then((json) => {
-        setTotal(json.t);
-      });
+    }).then((res) => {
+      setTotal(res.t);
+    });
 
-    const post2 = {
+    Connection("/getProfileImage", {
       y: year,
       m: month + 1,
-    };
-    console.log(JSON.stringify(post2));
-    fetch("https://teammagnus.net/getProfileImage", {
-      method: "post",
-      headers: { "content-type": "application/json" },
-      body: JSON.stringify(post2),
     })
       .catch((err) => console.log(err))
-      .then((res) => res.json())
-      .then((json) => {
-        console.log(json);
-        setRanking(json);
+      .then((res) => {
+        setRanking(res);
       });
   };
 
   useEffect(() => {
     getRanking(thisYear, thisMonth);
   }, []);
-
-  useEffect(() => {
-    console.log(ranking);
-    console.log(total);
-  }, [ranking]);
 
   let rank = 1;
   let sameCount = 0;
@@ -90,52 +72,42 @@ function Ranking() {
     if (idx > 0 && ranking[idx].c < ranking[idx - 1].c) {
       rank += sameCount;
       sameCount = 1;
-      console.log("not same");
+      // console.log("not same");
     } else {
       sameCount++;
-      console.log("same");
+      // console.log("same");
     }
     return (
       <div key={idx} className="div-ranking-section-02">
-        <div>{rank}</div>
-        {user.image ? (
-          <div className="div-ranking-img-name">
-            <div className="div-ranking-img">
+        <div className="div-ranking-count">{rank}</div>
+        <div className="div-ranking-img-name">
+          <div className="div-ranking-img">
+            {user.image ? (
               <SuperEllipse className="img-ranking" r1={0.14} r2={0.5}>
                 <img className="img-ranking-squircle" src={user.image} alt="" />
               </SuperEllipse>
-            </div>
-            {rank === 1 ? (
-              <div className="div-ranking-crown-name">
-                <TbCrown
-                  className="icon-ranking-crown"
-                  style={{
-                    color: isSole && "#d2000f",
-                  }}
-                />
-                {user.name}
-              </div>
             ) : (
-              <div className="div-ranking-name-font">{user.name}</div>
+              <img
+                className="img-ranking img-ranking-squircle"
+                src={img_sample}
+                alt=""
+              />
             )}
           </div>
-        ) : (
-          <>
-            {rank === 1 ? (
-              <div className="div-ranking-crown-name">
-                <TbCrown
-                  className="icon-ranking-crown"
-                  style={{
-                    color: isSole && "#d2000f",
-                  }}
-                />
-                {user.name}
-              </div>
-            ) : (
-              <div className="div-ranking-name-font">{user.name}</div>
-            )}
-          </>
-        )}
+          {rank === 1 ? (
+            <div className="div-ranking-crown-name">
+              <TbCrown
+                className="icon-ranking-crown"
+                style={{
+                  color: isSole && "#d2000f",
+                }}
+              />
+              {user.name}
+            </div>
+          ) : (
+            <div className="div-ranking-name-font">{user.name}</div>
+          )}
+        </div>
         <div className="div-ranking-count">
           {user.c}
           <div className="div-ranking-percent">
@@ -153,7 +125,12 @@ function Ranking() {
         <BiChevronLeft
           className="icon-left"
           size="20"
-          onClick={() => preMonth()}
+          onClick={() => {
+            preMonth();
+            document
+              .getElementById("div-ranking-section-01")
+              .scrollTo({ top: 0, left: 0, behavior: "smooth" });
+          }}
         />
         {year}.{month + 1}
         {year == thisYear && month == thisMonth ? (
@@ -166,11 +143,19 @@ function Ranking() {
           <BiChevronRight
             className="icon-right"
             size="20"
-            onClick={() => nextMonth()}
+            onClick={() => {
+              nextMonth();
+              document
+                .getElementById("div-ranking-section-01")
+                .scrollTo({ top: 0, left: 0, behavior: "smooth" });
+            }}
           />
         )}
       </div>
-      <div className="div-ranking-section-01">{showRanking}</div>
+      <div className="div-ranking-section-01" id="div-ranking-section-01">
+        {showRanking}
+        <div className="div-ranking-section-02"></div>
+      </div>
     </div>
   );
 }

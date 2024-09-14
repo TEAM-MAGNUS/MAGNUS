@@ -7,31 +7,25 @@ import {
   BiChevronLeft,
   BiChevronRight,
 } from "react-icons/bi";
+import Connection from "./Connection";
 
 const td = new Date();
 
-function isManager() {
-  const post = {
+const isManager = () => {
+  Connection("/isManager", {
     id: window.localStorage.getItem("id"),
-  };
-  fetch("https://teammagnus.net/isManager", {
-    method: "post",
-    headers: { "content-type": "application/json" },
-    body: JSON.stringify(post),
-  })
-    .then((res) => res.json())
-    .then((json) => {
-      if (json.m == 1) {
-        window.localStorage.setItem("m", 1);
-      } else {
-        if (window.localStorage.getItem("m") == 1) {
-          window.localStorage.setItem("m", 0);
-          window.location.reload();
-        }
+  }).then((res) => {
+    if (res.m == 1) {
+      window.localStorage.setItem("m", 1);
+    } else {
+      if (window.localStorage.getItem("m") == 1) {
         window.localStorage.setItem("m", 0);
+        window.location.reload();
       }
-    });
-}
+      window.localStorage.setItem("m", 0);
+    }
+  });
+};
 
 function Calendar() {
   const thisYear = td.getFullYear();
@@ -158,19 +152,13 @@ function Calendar() {
   };
 
   const getSchedule = (date) => {
-    const post = {
+    Connection("/getSchedule", {
       year: year,
       month: month,
       date: date,
-    };
-    fetch("https://teammagnus.net/getSchedule", {
-      method: "post",
-      headers: { "content-type": "application/json" },
-      body: JSON.stringify(post),
     })
-      .then((res) => res.json())
-      .then((json) => {
-        setSchedule(json.schedule);
+      .then((res) => {
+        setSchedule(res.schedule);
       })
       .catch((e) => {
         setSchedule("등록된 일정이 없습니다.");
@@ -194,37 +182,32 @@ function Calendar() {
   );
 
   const addSchedule = (date, schedule) => {
-    const post = {
-      year: year,
-      month: month,
-      date: date,
-      schedule: schedule,
-    };
-    console.log(post.query);
-    fetch("https://teammagnus.net/addSchedule", {
-      method: "post",
-      headers: { "content-type": "application/json" },
-      body: JSON.stringify(post),
-    }).then(() => {
-      window.alert("추가 완료되었습니다.");
-      window.location.reload();
-    });
+    Connection(
+      "/addSchedule",
+      {
+        year: year,
+        month: month,
+        date: date,
+        schedule: schedule,
+      },
+      true
+    );
+    window.alert("추가 완료되었습니다.");
+    window.location.reload();
   };
 
   const removeSchedule = (date) => {
-    const post = {
-      year: year,
-      month: month,
-      date: date,
-    };
-    console.log(post.query);
-    fetch("https://teammagnus.net/removeSchedule", {
-      method: "post",
-      headers: { "content-type": "application/json" },
-      body: JSON.stringify(post),
-    }).then(() => {
-      window.location.reload();
-    });
+    Connection(
+      "/removeSchedule",
+      {
+        year: year,
+        month: month,
+        date: date,
+      },
+      true
+    );
+    window.alert("삭제 완료되었습니다.");
+    window.location.reload();
   };
 
   const showSchedule = (

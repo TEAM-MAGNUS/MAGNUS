@@ -3,6 +3,7 @@ import { BiX, BiRefresh, BiLeftArrowAlt } from "react-icons/bi";
 import { NavLink } from "react-router-dom";
 import MemberAttendance from "./MemberAttendance";
 import dayjs from "dayjs";
+import Connection from "./Connection";
 
 function Warning() {
   var today = dayjs(new Date());
@@ -12,15 +13,11 @@ function Warning() {
   const [isDetailOpen, setIsDetailOpen] = useState(false);
   const [name, setName] = useState("");
   const [pnum, setPnum] = useState("");
+
   const getWarning = () => {
-    fetch("https://teammagnus.net/getWarningTest", {
-      method: "post",
-      headers: { "content-type": "application/json" },
-    })
-      .then((res) => res.json())
-      .then((json) => {
-        setUser(json);
-      });
+    Connection("/getWarningTest", {}, true).then((res) => {
+      setUser(res);
+    });
   };
 
   useEffect(() => {

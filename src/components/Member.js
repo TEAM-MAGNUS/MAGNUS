@@ -7,11 +7,14 @@ import {
   BiChevronDown,
   BiChevronUp,
   BiLeftArrowAlt,
+  BiBadgeCheck,
+  BiBadge,
 } from "react-icons/bi";
 import { NavLink } from "react-router-dom";
 import FormatDate from "./FormatDate";
 import FormatPnum from "./FormatPnum";
 import MemberAttendance from "./MemberAttendance";
+import Connection from "./Connection";
 
 var checkedList = [100];
 
@@ -19,20 +22,17 @@ function Member() {
   const [member, setMember] = useState([{}]);
 
   const getMember = (order1 = "name", order2 = "asc") => {
-    const post = {
-      order1: order1,
-      order2: order2,
-      id: window.localStorage.getItem("id"),
-    };
-    fetch("https://teammagnus.net/getMember", {
-      method: "post",
-      headers: { "content-type": "application/json" },
-      body: JSON.stringify(post),
-    })
-      .then((res) => res.json())
-      .then((json) => {
-        setMember(json);
-      });
+    Connection(
+      "/getMember",
+      {
+        order1: order1,
+        order2: order2,
+        id: window.localStorage.getItem("id"),
+      },
+      true
+    ).then((res) => {
+      setMember(res);
+    });
   };
 
   useEffect(() => {
@@ -62,19 +62,21 @@ function Member() {
   };
 
   const addMember = () => {
-    const post = {
-      name: newName,
-      pnum: newPnum,
-      join_date: newJoindate,
-    };
-    fetch("https://teammagnus.net/addMember", {
-      method: "post",
-      headers: { "content-type": "application/json" },
-      body: JSON.stringify(post),
-    }).then(() => {
-      window.alert("추가 완료되었습니다.");
-      window.location.reload();
-    });
+    Connection(
+      "/addMember",
+      {
+        name: newName,
+        pnum: newPnum,
+        join_date: newJoindate,
+      },
+      true
+    );
+    window.alert("추가 완료되었습니다.");
+    setAddPageOpen(false);
+    setNewJoindate("");
+    setNewName("");
+    setNewPnum("");
+    getMember();
   };
 
   const addPage = (
@@ -112,23 +114,27 @@ function Member() {
   const [isRemoveOpen, setIsRemoveOpen] = useState(false);
   const [name, setName] = useState("");
   const [pnum, setPnum] = useState("");
+  const [isManager, setIsManager] = useState(0);
 
   const [removeMemberList, setRemoveMemberList] = useState([]);
 
   const removeMember = () => {
     removeMemberList.map((user) => {
-      const post = {
-        name: user.name,
-        pnum: user.pnum,
-      };
-      fetch("https://teammagnus.net/removeMember", {
-        method: "post",
-        headers: { "content-type": "application/json" },
-        body: JSON.stringify(post),
-      }).then(() => {
-        window.location.reload();
-      });
+      Connection(
+        "/removeMember",
+        {
+          name: user.name,
+          pnum: user.pnum,
+        },
+        true
+      );
     });
+
+    window.alert("삭제 완료되었습니다.");
+    setIsRemoveOpen(false);
+    checkedList = [100];
+    setRemoveMemberList([]);
+    getMember();
   };
 
   const showMember = member.map((user, idx) => (
@@ -142,10 +148,19 @@ function Member() {
               setIsAddOpen(true);
               setName(user.name);
               setPnum(user.pnum);
+              setIsManager(user.is_manager);
             }
           }}
         >
-          <div className="div-member-name">{user.name}</div>
+          <div className="div-member-name">
+            {user.name}
+            {user.is_manager ? (
+              <BiBadgeCheck size="20" color="#d2000f" />
+            ) : (
+              <BiBadge size="20" visibility={"hidden"} />
+            )}
+          </div>
+
           <div className="div-member-pnum">{user.pnum}</div>
           <div className="div-member-join">{user.join_date}</div>
           {isRemoveOpen && (
@@ -184,7 +199,12 @@ function Member() {
     <>
       {isAddOpen ? (
         <>
-          <MemberAttendance name={name} pnum={pnum} />
+          <MemberAttendance
+            name={name}
+            pnum={pnum}
+            isManager={isManager}
+            isMemberPage={true}
+          />
           <BiX
             size="20"
             className="icon-back"

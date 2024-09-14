@@ -1,64 +1,49 @@
 import React, { useState, useEffect } from "react";
 import dayjs from "dayjs";
 import SuperEllipse from "react-superellipse";
+import dongdle from "../asset/profile/dongdle.png";
+import Connection from "./Connection";
 
-async function IsAttend(date) {
-  const post = {
+const IsAttend = async (date) => {
+  const result = await Connection("/IsAttend", {
     id: window.localStorage.getItem("pnum"),
     y: date.getFullYear(),
     m: date.getMonth() + 1,
     d: date.getDate(),
-  };
-
-  const result = await fetch("https://teammagnus.net/IsAttend", {
-    method: "post",
-    headers: { "content-type": "application/json" },
-    body: JSON.stringify(post),
-  }).then((res) => res.json());
-  console.log("result:    " + result.ISATTEND);
+  });
   return result.ISATTEND;
-}
+};
 
-function isManager() {
-  const post = {
+const isManager = () => {
+  Connection("/isManager", {
     id: window.localStorage.getItem("id"),
-  };
-  fetch("https://teammagnus.net/isManager", {
-    method: "post",
-    headers: { "content-type": "application/json" },
-    body: JSON.stringify(post),
-  })
-    .then((res) => res.json())
-    .then((json) => {
-      if (json.m == 1) {
-        window.localStorage.setItem("m", 1);
-      } else {
+  }).then((res) => {
+    if (res.m == 1) {
+      window.localStorage.setItem("m", 1);
+    } else {
+      if (window.localStorage.getItem("m") == 1) {
         window.localStorage.setItem("m", 0);
+        window.location.reload();
       }
-    });
-}
+      window.localStorage.setItem("m", 0);
+    }
+  });
+};
 
 function Profile() {
   const [absence, setAbsence] = useState(null);
   const [attendanceType, setAttendanceType] = useState("");
 
   const getDateAttendanceType = (date) => {
-    const post = {
+    Connection("/getDateAttendanceType", {
       id: window.localStorage.getItem("pnum"),
       name: window.localStorage.getItem("name"),
       y: date.getFullYear(),
       m: date.getMonth() + 1,
       d: date.getDate(),
-    };
-
-    fetch("https://teammagnus.net/getDateAttendanceType", {
-      method: "post",
-      headers: { "content-type": "application/json" },
-      body: JSON.stringify(post),
     })
-      .then((res) => res.json())
-      .then((json) => {
-        switch (json.a) {
+      .then((res) => {
+        switch (res.a) {
           case 0:
             setAttendanceType("출석");
             break;
@@ -77,64 +62,40 @@ function Profile() {
   };
 
   const getMyAbsence = () => {
-    const post = {
+    Connection("/getMyAbsence", {
       name: window.localStorage.getItem("name"),
       pnum: window.localStorage.getItem("pnum"),
-    };
-    fetch("https://teammagnus.net/getMyAbsence", {
-      method: "post",
-      headers: { "content-type": "application/json" },
-      body: JSON.stringify(post),
-    })
-      .then((res) => res.json())
-      .then((json) => {
-        console.log(json);
-        setAbsence(json.date);
-      });
+    }).then((res) => {
+      setAbsence(res.date);
+    });
   };
 
   const checkIP = () => {
-    const post = {
+    Connection("/checkIP", {
       id: window.localStorage.getItem("id"),
-    };
-
-    fetch("https://teammagnus.net/checkIP", {
-      method: "post",
-      headers: { "content-type": "application/json" },
-      body: JSON.stringify(post),
-    })
-      .then((res) => res.json())
-      .then((json) => {
-        console.log(json);
-        if (json.success) {
-          window.localStorage.setItem("isAttend", true);
-          window.alert("출석이 완료되었습니다.");
-          window.location.reload();
-        } else {
-          window.alert(
-            "'러쉬클랜_3F' 또는 '러쉬클랜_4F' 와이파이를 이용해주세요."
-          );
-        }
-      });
+    }).then((res) => {
+      if (res.success) {
+        window.localStorage.setItem("isAttend", true);
+        window.alert("출석이 완료되었습니다.");
+        window.location.reload();
+      } else {
+        window.alert(
+          "'러쉬클랜_3F' 또는 '러쉬클랜_4F' 와이파이를 이용해주세요."
+        );
+      }
+    });
   };
 
   const [isWarning, setIsWarning] = useState(false);
   const getMyWarning = () => {
-    const post = {
+    Connection("/getMyWarning", {
       name: window.localStorage.getItem("name"),
       p: window.localStorage.getItem("pnum"),
-    };
-    fetch("https://teammagnus.net/getMyWarning", {
-      method: "post",
-      headers: { "content-type": "application/json" },
-      body: JSON.stringify(post),
-    })
-      .then((res) => res.json())
-      .then((json) => {
-        console.log(json);
-        if (json.c == 6) setIsWarning(true);
-      });
+    }).then((res) => {
+      if (res.c == 6) setIsWarning(true);
+    });
   };
+
   useEffect(() => {
     isManager();
     getMyAbsence();
@@ -217,7 +178,12 @@ function Profile() {
             </div>
           )}
         </div>
-        {/* <div className="div-profile-adfit-section adfit"></div> */}
+        <img
+          src={dongdle}
+          alt=""
+          className="img-profile-dongdle"
+          onClick={() => (window.location.href = "https://dongdle.com")}
+        />
         <div
           className="button-profile-logout"
           onClick={() => {

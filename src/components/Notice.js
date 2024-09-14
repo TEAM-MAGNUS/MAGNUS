@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { BiPlus, BiX, BiMinus, BiCheck } from "react-icons/bi";
+import Connection from "./Connection";
 
 function Notice() {
   const [notice, setNotice] = useState([{}]);
@@ -7,38 +8,25 @@ function Notice() {
   const [writeOpen, setWriteOpen] = useState(false);
 
   const isManager = () => {
-    console.log("manager!");
-    const post = {
+    Connection("/isManager", {
       id: window.localStorage.getItem("id"),
-    };
-    fetch("https://teammagnus.net/isManager", {
-      method: "post",
-      headers: { "content-type": "application/json" },
-      body: JSON.stringify(post),
-    })
-      .then((res) => res.json())
-      .then((json) => {
-        if (json.m == 1) {
-          window.localStorage.setItem("m", 1);
-        } else {
-          if (window.localStorage.getItem("m") == 1) {
-            window.localStorage.setItem("m", 0);
-            window.location.reload();
-          }
+    }).then((res) => {
+      if (res.m == 1) {
+        window.localStorage.setItem("m", 1);
+      } else {
+        if (window.localStorage.getItem("m") == 1) {
           window.localStorage.setItem("m", 0);
+          window.location.reload();
         }
-      });
+        window.localStorage.setItem("m", 0);
+      }
+    });
   };
 
   const getNotice = () => {
-    fetch("https://teammagnus.net/getNotice", {
-      method: "post",
-      headers: { "content-type": "application/json" },
-    })
-      .then((res) => res.json())
-      .then((json) => {
-        setNotice(json);
-      });
+    Connection("/getNotice").then((res) => {
+      setNotice(res);
+    });
   };
 
   useEffect(() => {
@@ -50,32 +38,28 @@ function Notice() {
   const [newContent, setNewContent] = useState("");
 
   const writeNotice = () => {
-    const post = {
-      title: newTitle,
-      content: newContent,
-    };
-
-    fetch("https://teammagnus.net/writeNotice", {
-      method: "post",
-      headers: { "content-type": "application/json" },
-      body: JSON.stringify(post),
-    }).then(() => {
-      window.alert("작성 완료되었습니다.");
-      window.location.reload();
-    });
+    Connection(
+      "/writeNotice",
+      {
+        title: newTitle,
+        content: newContent,
+      },
+      true
+    );
+    window.alert("작성 완료되었습니다.");
+    window.location.reload();
   };
 
-  const removeNotice = (num) => {
-    const post = {
-      num: num,
-    };
-    fetch("https://teammagnus.net/removeNotice", {
-      method: "post",
-      headers: { "content-type": "application/json" },
-      body: JSON.stringify(post),
-    }).then(() => {
-      window.location.reload();
-    });
+  const removeNotice = () => {
+    Connection(
+      "/removeNotice",
+      {
+        num: num,
+      },
+      true
+    );
+    window.alert("삭제 완료되었습니다.");
+    window.location.reload();
   };
 
   const [num, setNum] = useState("");

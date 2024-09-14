@@ -22,7 +22,6 @@ function KaKaoLogin() {
 
   const [verified, setVerified] = useState(false);
 
-  console.log(info.name);
   const onChange = (e) => {
     switch (e.target.name) {
       case "name":
@@ -47,19 +46,17 @@ function KaKaoLogin() {
   };
 
   const smsAuth = () => {
-    console.log("sms!");
     const post = {
       p: info.pnum,
     };
 
-    fetch("https://teammagnus.net/smsAuth", {
+    fetch("https://teammagnus.net/api2/smsAuth", {
       method: "post",
       headers: { "content-type": "application/json" },
       body: JSON.stringify(post),
     })
       .then((res) => res.json())
       .then((json) => {
-        console.log(json);
         if (json.result) {
           window.alert("인증번호가 발송되었습니다.");
         } else {
@@ -70,25 +67,28 @@ function KaKaoLogin() {
   };
 
   const codeCheck = () => {
-    const post = {
-      code: sms,
-      p: info.pnum,
-    };
+    window.alert("번호인증이 완료되었습니다.");
+    setVerified(true);
 
-    fetch("https://teammagnus.net/codeCheck", {
-      method: "post",
-      headers: { "content-type": "application/json" },
-      body: JSON.stringify(post),
-    })
-      .then((res) => res.json())
-      .then((json) => {
-        if (json.result) {
-          window.alert("번호인증이 완료되었습니다.");
-          setVerified(true);
-        } else {
-          window.alert("인증번호를 다시 확인해주세요.");
-        }
-      });
+    // const post = {
+    //   code: sms,
+    //   p: info.pnum,
+    // };
+
+    // fetch("https://teammagnus.net/api2/codeCheck", {
+    //   method: "post",
+    //   headers: { "content-type": "application/json" },
+    //   body: JSON.stringify(post),
+    // })
+    //   .then((res) => res.json())
+    //   .then((json) => {
+    //     if (json.result) {
+    //       window.alert("번호인증이 완료되었습니다.");
+    //       setVerified(true);
+    //     } else {
+    //       window.alert("인증번호를 다시 확인해주세요.");
+    //     }
+    //   });
   };
 
   const login = () => {
@@ -97,8 +97,7 @@ function KaKaoLogin() {
       id: info.id,
     };
 
-    console.log(post.query);
-    fetch("https://teammagnus.net/login", {
+    fetch("https://teammagnus.net/api2/login", {
       method: "post",
       headers: { "content-type": "application/json" },
       body: JSON.stringify(post),
@@ -124,7 +123,7 @@ function KaKaoLogin() {
   };
 
   const getUserInfo = (ACCESS_TOKEN) => {
-    console.log(ACCESS_TOKEN);
+    // console.log(ACCESS_TOKEN);
 
     fetch("https://kapi.kakao.com/v2/user/me", {
       headers: {
@@ -139,7 +138,6 @@ function KaKaoLogin() {
           imageUrl:
             "https" + data.kakao_account.profile.thumbnail_image_url.substr(4),
         });
-        console.log(data);
       })
       .catch(() => {
         window.localStorage.clear();
@@ -152,14 +150,13 @@ function KaKaoLogin() {
       id: id,
     };
 
-    fetch("https://teammagnus.net/searchUser", {
+    fetch("https://teammagnus.net/api2/searchUser", {
       method: "post",
       headers: { "content-type": "application/json" },
       body: JSON.stringify(post),
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
         data.ISREGISTER ? login() : setLoading(false);
       });
   }
@@ -170,14 +167,13 @@ function KaKaoLogin() {
     const post1 = {
       p: p,
     };
-    fetch("https://teammagnus.net/isMember", {
+    fetch("https://teammagnus.net/api2/isMember", {
       method: "post",
       headers: { "content-type": "application/json" },
       body: JSON.stringify(post1),
     })
       .then((res) => res.json())
       .then((json) => {
-        console.log(json);
         if (json.ISMEMBER) {
           const post = {
             i: id,
@@ -185,7 +181,7 @@ function KaKaoLogin() {
             img: image,
           };
 
-          fetch("https://teammagnus.net/saveKakaoUserInfo", {
+          fetch("https://teammagnus.net/api2/saveKakaoUserInfo", {
             method: "post",
             headers: { "content-type": "application/json" },
             body: JSON.stringify(post),
@@ -207,11 +203,10 @@ function KaKaoLogin() {
     getKakaoToken();
   }, []);
   useEffect(() => {
-    console.log(info);
     info.id ? searchUser(info.id) : console.log("no id");
   }, [info.id]);
 
-  console.log("v: " + verified);
+  // console.log("v: " + verified);
   return (
     <div className="div-kakaologin-body">
       {Loading ? (
@@ -243,7 +238,7 @@ function KaKaoLogin() {
             )}
             {visible && !smsClick && (
               <div className="div-login-input-pnum">
-                <div
+                {/* <div
                   className="button-login-sms "
                   onClick={() => {
                     if (!smsClick) {
@@ -253,12 +248,21 @@ function KaKaoLogin() {
                   }}
                 >
                   인증번호 받기
+                </div> */}
+                <div
+                  className="button-login-sms "
+                  onClick={() => {
+                    if (window.confirm("회원가입을 진행하시겠습니까?"))
+                      saveKakaoUserInfo(info);
+                  }}
+                >
+                  회원가입
                 </div>
               </div>
             )}
           </div>
 
-          {smsClick && (
+          {/* {smsClick && (
             <>
               <div className="div-login-input-pnum">
                 인증번호를 입력해주세요.
@@ -288,8 +292,8 @@ function KaKaoLogin() {
                 </div>
               )}
             </>
-          )}
-          {verified && (
+          )} */}
+          {/* {verified && (
             <div className="div-login-input-pnum">
               <div
                 className="button-login-sms "
@@ -301,7 +305,7 @@ function KaKaoLogin() {
                 회원가입
               </div>
             </div>
-          )}
+          )} */}
         </div>
       )}
     </div>

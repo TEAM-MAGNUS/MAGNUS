@@ -4,6 +4,7 @@ import { NavLink } from "react-router-dom";
 import { BiPlus, BiX, BiMinus, BiCheck } from "react-icons/bi";
 import FormatPnum from "./FormatPnum";
 import FormatDate from "./FormatDate";
+import Connection from "./Connection";
 
 var checkedList = [100];
 function Absence() {
@@ -13,71 +14,57 @@ function Absence() {
   const [user, setUser] = useState([]);
 
   const getAbsence = () => {
-    fetch("https://teammagnus.net/getAbsence", {
-      method: "post",
-      headers: { "content-type": "application/json" },
-    })
-      .then((res) => res.json())
-      .then((json) => {
-        setUser(json);
-      });
+    Connection("/getAbsence", {}, true).then((res) => {
+      setUser(res);
+    });
   };
 
   const [isSameName, setIsSameName] = useState([]);
+
   const checkAbsence = (name) => {
-    const post = {
+    Connection("/checkSameName", {
       name: name,
-    };
-    fetch("https://teammagnus.net/checkSameName", {
-      method: "post",
-      headers: { "content-type": "application/json" },
-      body: JSON.stringify(post),
-    })
-      .then((res) => res.json())
-      .then((json) => {
-        if (json.length === 0) window.alert("이름을 다시 확인해주세요.");
-        else if (json.length === 1) {
-          addAbsence(name, json[0].pnum);
-          window.alert("추가 완료되었습니다.");
-          window.location.reload();
-        } else {
-          setIsSameName(json);
-        }
-      });
+    }).then((res) => {
+      if (res.length === 0) window.alert("이름을 다시 확인해주세요.");
+      else if (res.length === 1) {
+        addAbsence(name, res[0].pnum);
+        getAbsence();
+      } else {
+        setIsSameName(res);
+      }
+    });
   };
 
   const addAbsence = (name, pnum) => {
-    const post = {
-      name: name,
-      pnum: pnum,
-      date: date,
-    };
-    console.log(post.query);
-    fetch("https://teammagnus.net/addAbsence", {
-      method: "post",
-      headers: { "content-type": "application/json" },
-      body: JSON.stringify(post),
-    }).then(() => {
-      window.alert("추가 완료되었습니다.");
-      window.location.reload();
-    });
+    Connection(
+      "/addAbsence",
+      {
+        name: name,
+        pnum: pnum,
+        date: date,
+      },
+      true
+    );
+    window.alert("추가 완료되었습니다.");
+    setName("");
+    setPnum("");
+    setDate("");
+    getAbsence();
   };
 
   const cancelAbsence = (name, date, pnum) => {
-    const post = {
-      name: name,
-      date: date,
-      pnum: pnum,
-    };
-    console.log(post.query);
-    fetch("https://teammagnus.net/cancelAbsence", {
-      method: "post",
-      headers: { "content-type": "application/json" },
-      body: JSON.stringify(post),
-    }).then(() => {
-      window.alert("삭제 완료되었습니다.");
-      window.location.reload();
-    });
+    Connection(
+      "/cancelAbsence",
+      {
+        name: name,
+        date: date,
+        pnum: pnum,
+      },
+      true
+    );
+    window.alert("삭제 완료되었습니다.");
+    window.scrollTo(0, 0);
+    getAbsence();
   };
 
   useEffect(() => {

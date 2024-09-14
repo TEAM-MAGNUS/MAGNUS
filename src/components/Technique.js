@@ -2,6 +2,7 @@ import React from "react";
 import { useEffect } from "react";
 import { useState } from "react";
 import { BiPlus, BiX, BiCheck, BiMinus, BiRedo } from "react-icons/bi";
+import Connection from "./Connection";
 function Technique() {
   const [technique, setTechnique] = useState([]);
   const [addPageOpen, setAddPageOpen] = useState(false);
@@ -12,21 +13,11 @@ function Technique() {
   const id = window.localStorage.getItem("id");
 
   const checkManager = () => {
-    const post = {
-      id: id,
-    };
-    fetch("https://teammagnus.net/IsManager", {
-      method: "post",
-      headers: { "content-type": "application/json" },
-      body: JSON.stringify(post),
-    })
-      .then((res) => res.json())
-      .then((json) => {
-        console.log(json.m);
-        if (json.m == 1) {
-          setIsManager(true);
-        }
-      });
+    Connection("/IsManager", { id: id }).then((res) => {
+      if (res.m === 1) {
+        setIsManager(true);
+      }
+    });
   };
 
   const onChange = (e) => {
@@ -55,63 +46,43 @@ function Technique() {
     </>
   );
   const getTechnique = () => {
-    fetch("https://teammagnus.net/getTechnique", {
-      method: "post",
-      headers: { "content-type": "application/json" },
-    })
-      .then((res) => res.json())
-      .then((json) => {
-        console.log(json);
-        setTechnique(json);
-      });
+    Connection("/getTechnique").then((res) => {
+      setTechnique(res);
+    });
   };
 
   const addTechnique = () => {
-    const post = {
+    Connection("/addTechnique", {
       id: window.localStorage.getItem("id"),
       name: window.localStorage.getItem("name"),
       t: newTechnique,
-    };
-    console.log(post);
-    fetch("https://teammagnus.net/addTechnique", {
-      method: "post",
-      headers: { "content-type": "application/json" },
-      body: JSON.stringify(post),
-    }).then(() => {
-      window.alert("작성 완료되었습니다.");
-      window.location.reload();
     });
+    window.alert("작성 완료되었습니다.");
+    setAddPageOpen(false);
+    setNewTechnique("");
+    getTechnique();
   };
 
   const removeTechnique = (id, num) => {
-    const post = {
+    Connection("/removeTechnique", {
       id: id,
       num: num,
-    };
-    fetch("https://teammagnus.net/removeTechnique", {
-      method: "post",
-      headers: { "content-type": "application/json" },
-      body: JSON.stringify(post),
-    }).then(() => {
-      window.alert("삭제 완료되었습니다.");
-      window.location.reload();
     });
+    window.alert("삭제 완료되었습니다.");
+    getTechnique();
   };
 
   const checkTechnique = (num, checked) => {
-    const post = {
-      num: num,
-      checked: checked,
-    };
-    console.log(post);
-    fetch("https://teammagnus.net/checkTechnique", {
-      method: "post",
-      headers: { "content-type": "application/json" },
-      body: JSON.stringify(post),
-    }).then(() => {
-      window.location.reload();
-      window.scrollTo(0, 0);
-    });
+    Connection(
+      "/checkTechnique",
+      {
+        num: num,
+        checked: checked,
+      },
+      true
+    );
+    window.location.reload();
+    window.scrollTo(0, 0);
   };
 
   useEffect(() => {
@@ -215,8 +186,8 @@ function Technique() {
       {!addPageOpen && (
         <div className="div-title-sub">
           배우고 싶은 기술, 관심 있는 기술을 자유롭게 적어주세요.
-          <br />
-          (5/17부터 작성자 이름이 공개됩니다.)
+          {/* <br /> */}
+          {/* (5/17부터 작성자 이름이 공개됩니다.) */}
         </div>
       )}
       {addPageOpen && addPage}

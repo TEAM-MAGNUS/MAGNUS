@@ -10,6 +10,7 @@ import {
 } from "react-icons/bi";
 import { PieChart, Pie, Sector, Cell } from "recharts";
 import { NavLink } from "react-router-dom";
+import Connection from "./Connection";
 
 const td = new Date();
 
@@ -85,56 +86,36 @@ function ManageAbsence() {
 
   const [userNum, setUserNum] = useState(0);
   const getUserNum = (year, month) => {
-    const post = {
+    Connection("/getUserNum", {
       year: year,
       month: month,
-    };
-    fetch("https://teammagnus.net/getUserNum", {
-      method: "post",
-      headers: { "content-type": "application/json" },
-      body: JSON.stringify(post),
-    })
-      .then((res) => res.json())
-      .then((json) => {
-        setUserNum(json.t);
-      });
+    }, true).then((res) => {
+      setUserNum(res.t);
+    });
   };
 
   const [user, setUser] = useState([{}]);
   const getDateMember = (date) => {
-    const post = {
+    Connection("/getDateMember", {
       date: year + "-" + (month + 1) + "-" + date,
-    };
-    fetch("https://teammagnus.net/getDateMember", {
-      method: "post",
-      headers: { "content-type": "application/json" },
-      body: JSON.stringify(post),
-    })
-      .then((res) => res.json())
-      .then((json) => {
-        setUser(json);
-      });
+    }, true).then((res) => {
+      setUser(res);
+    });
   };
+
   const getWholeAttendance = (year, month) => {
     attendance0 = 0;
     attendance1 = 0;
     attendance2 = 0;
     attendance3 = 0;
 
-    const post = {
+    Connection("/getWholeAttendance", {
       year: year,
       month: month,
-    };
-    fetch("https://teammagnus.net/getWholeAttendance", {
-      method: "post",
-      headers: { "content-type": "application/json" },
-      body: JSON.stringify(post),
-    })
-      .then((res) => res.json())
-      .then((json) => {
-        setAttendance(json);
-        update();
-      });
+    }, true).then((res) => {
+      setAttendance(res);
+      update();
+    });
   };
 
   const update = () => {
@@ -205,18 +186,11 @@ function ManageAbsence() {
 
   const [count, setCount] = useState(null);
   const getDateAttendance = (date) => {
-    const post = {
+    Connection("/getDateAttendance", {
       date: year + "-" + (month + 1) + "-" + date,
-    };
-    fetch("https://teammagnus.net/getDateAttendance", {
-      method: "post",
-      headers: { "content-type": "application/json" },
-      body: JSON.stringify(post),
-    })
-      .then((res) => res.json())
-      .then((json) => {
-        setCount(json.c);
-      });
+    }, true).then((res) => {
+      setCount(res.c);
+    });
   };
 
   useEffect(() => {
@@ -464,29 +438,21 @@ function ManageAbsence() {
     </PieChart>
   );
 
-  const addAttendance = (name, pnum) => {
-    const post = {
+  const addAttendance = (name) => {
+    Connection("/addAttendance", {
       name: name,
       date: date,
-    };
-    fetch("https://teammagnus.net/addAttendance", {
-      method: "post",
-      headers: { "content-type": "application/json" },
-      body: JSON.stringify(post),
-    }).then(window.location.reload());
+    }, true);
+    window.location.reload();
   };
   const removeAttendance = (name, date) => {
-    const post = {
+    Connection("/removeAttendance", {
       name: name,
       date: date,
-    };
-    fetch("https://loaclhost/removeAttendance", {
-      // fetch("https://teammagnus.net/removeAttendance", {
-      method: "post",
-      headers: { "content-type": "application/json" },
-      body: JSON.stringify(post),
-    }).then(window.location.reload());
+    }, true);
+    window.location.reload();
   };
+
   const [isOpen, setOpen] = useState(false);
   const [name, setName] = useState("");
   const [pnum, setPnum] = useState("");

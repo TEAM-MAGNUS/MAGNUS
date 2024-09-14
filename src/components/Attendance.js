@@ -10,6 +10,7 @@ import { PieChart, Pie, Sector, Cell } from "recharts";
 import ReactFullpage from "@fullpage/react-fullpage";
 import All from "./All";
 import IsMe from "./IsMe";
+import Connection from "./Connection";
 
 const td = new Date();
 
@@ -49,36 +50,29 @@ function Attendance() {
   };
   const [isLast, setIsLast] = useState(false);
   const [join, setJoin] = useState("");
-  console.log("join: " + join);
   const getPre = (year, month) => {
-    console.log("getpre");
     if (month == 0) {
       setIsLast(join.substring(0, 4) >= year);
     } else {
-      console.log(
-        join.substring(0, 4) >= year && join.substring(5, 7) - 1 > month
-      );
+      // console.log(
+      //   join.substring(0, 4) >= year && join.substring(5, 7) - 1 > month
+      // );
       setIsLast(
         join.substring(0, 4) >= year &&
           parseInt(join.substring(5, 7) - 1) >= parseInt(month)
       );
     }
   };
+
   const getJoin = () => {
-    const post = {
+    Connection("/getJoin", {
       pnum: pnum,
-    };
-    fetch("https://teammagnus.net/getJoin", {
-      method: "post",
-      headers: { "content-type": "application/json" },
-      body: JSON.stringify(post),
-    })
-      .then((res) => res.json())
-      .then((json) => {
-        setJoin(json.date);
-        getPre();
-      });
+    }).then((res) => {
+      setJoin(res.date);
+      getPre();
+    });
   };
+
   var calendar = [
     [
       { date: null, attendance: null },
@@ -122,26 +116,18 @@ function Attendance() {
     attendance2 = 0;
     attendance3 = 0;
 
-    const post = {
+    Connection("/getAttendance", {
       year: year,
       month: month,
       name: name,
       pnum: pnum,
-    };
-    fetch("https://teammagnus.net/getAttendance", {
-      method: "post",
-      headers: { "content-type": "application/json" },
-      body: JSON.stringify(post),
-    })
-      .then((res) => res.json())
-      .then((json) => {
-        json.map((j) => {
-          j.attendance_date = dayjs(j.attendance_date).format("D");
-        });
-
-        setAttendance(json);
-        update();
+    }).then((res) => {
+      res.map((j) => {
+        j.attendance_date = dayjs(j.attendance_date).format("D");
       });
+      setAttendance(res);
+      update();
+    });
   };
 
   const update = () => {

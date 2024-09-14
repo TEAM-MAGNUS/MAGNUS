@@ -2,6 +2,7 @@ import React, { useCallback, useEffect, useState } from "react";
 import dayjs from "dayjs";
 
 import { PieChart, Pie, Sector, Cell } from "recharts";
+import Connection from "./Connection";
 const td = new Date();
 
 function All(props) {
@@ -10,8 +11,8 @@ function All(props) {
   const thisYear = td.getFullYear();
   const thisMonth = td.getMonth();
 
-  console.log("name: " + name);
-  console.log("pnum: " + pnum);
+  // console.log("name: " + name);
+  // console.log("pnum: " + pnum);
 
   const [year, setYear] = useState(thisYear);
   const [month, setMonth] = useState(thisMonth);
@@ -26,18 +27,11 @@ function All(props) {
 
   const [join, setJoin] = useState("");
   const getJoin = () => {
-    const post = {
+    Connection("/getJoin", {
       pnum: pnum,
-    };
-    fetch("https://teammagnus.net/getJoin", {
-      method: "post",
-      headers: { "content-type": "application/json" },
-      body: JSON.stringify(post),
-    })
-      .then((res) => res.json())
-      .then((json) => {
-        setJoin(json.date);
-      });
+    }).then((res) => {
+      setJoin(res.date);
+    });
   };
 
   const getAll = () => {
@@ -46,23 +40,16 @@ function All(props) {
     attendance2 = 0;
     attendance3 = 0;
 
-    const post = {
-      p: pnum,
-    };
-    fetch("https://teammagnus.net/getAll", {
-      method: "post",
-      headers: { "content-type": "application/json" },
-      body: JSON.stringify(post),
-    })
-      .then((res) => res.json())
-      .then((json) => {
-        json.map((j) => {
-          j.attendance_date = dayjs(j.attendance_date).format("D");
-        });
-
-        setAttendance(json);
-        update();
+    Connection("/getAll", {
+      pnum: pnum,
+    }).then((res) => {
+      res.map((j) => {
+        j.attendance_date = dayjs(j.attendance_date).format("D");
       });
+
+      setAttendance(res);
+      update();
+    });
   };
 
   const update = () => {

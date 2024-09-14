@@ -9,6 +9,7 @@ import {
 } from "react-icons/bi";
 import { NavLink } from "react-router-dom";
 import FormatPnum from "./FormatPnum";
+import Connection from "./Connection";
 
 const td = new Date();
 var checkedList = [100];
@@ -82,36 +83,30 @@ function ManageAttendance() {
 
   const [userNum, setUserNum] = useState(0);
   const getUserNum = (year, month) => {
-    const post = {
-      year: year,
-      month: month,
-    };
-    fetch("https://teammagnus.net/getUserNum", {
-      method: "post",
-      headers: { "content-type": "application/json" },
-      body: JSON.stringify(post),
-    })
-      .then((res) => res.json())
-      .then((json) => {
-        setUserNum(json.t);
-      });
+    Connection(
+      "/getUserNum",
+      {
+        year: year,
+        month: month,
+      },
+      true
+    ).then((res) => {
+      setUserNum(res.t);
+    });
   };
 
   const [user, setUser] = useState([{}]);
   const getDateMember = (date) => {
-    const post = {
-      date: year + "-" + (month + 1) + "-" + date,
-      atype: attendanceType,
-    };
-    fetch("https://teammagnus.net/getDateMember", {
-      method: "post",
-      headers: { "content-type": "application/json" },
-      body: JSON.stringify(post),
-    })
-      .then((res) => res.json())
-      .then((json) => {
-        setUser(json);
-      });
+    Connection(
+      "/getDateMember",
+      {
+        date: year + "-" + (month + 1) + "-" + date,
+        atype: attendanceType,
+      },
+      true
+    ).then((red) => {
+      setUser(red);
+    });
   };
 
   const update = () => {
@@ -182,19 +177,16 @@ function ManageAttendance() {
 
   const [count, setCount] = useState(null);
   const getDateAttendance = (date) => {
-    const post = {
-      date: year + "-" + (month + 1) + "-" + date,
-      atype: attendanceType,
-    };
-    fetch("https://teammagnus.net/getDateAttendance", {
-      method: "post",
-      headers: { "content-type": "application/json" },
-      body: JSON.stringify(post),
-    })
-      .then((res) => res.json())
-      .then((json) => {
-        setCount(json.c);
-      });
+    Connection(
+      "/getDateAttendance",
+      {
+        date: year + "-" + (month + 1) + "-" + date,
+        atype: attendanceType,
+      },
+      true
+    ).then((res) => {
+      setCount(res.c);
+    });
   };
 
   useEffect(() => {
@@ -360,57 +352,48 @@ function ManageAttendance() {
 
   const [isSameName, setIsSameName] = useState([]);
   const checkAttendance = (name) => {
-    const post = {
+    Connection("/checkSameName", {
       name: name,
-    };
-    fetch("https://teammagnus.net/checkSameName", {
-      method: "post",
-      headers: { "content-type": "application/json" },
-      body: JSON.stringify(post),
-    })
-      .then((res) => res.json())
-      .then((json) => {
-        if (json.length === 0) window.alert("이름을 다시 확인해주세요.");
-        else if (json.length === 1) {
-          addAttendance(name, json[0].pnum);
-          window.alert("추가 완료되었습니다.");
-          window.location.reload();
-        } else {
-          setIsSameName(json);
-        }
-      });
+    }).then((res) => {
+      if (res.length === 0) window.alert("이름을 다시 확인해주세요.");
+      else if (res.length === 1) {
+        addAttendance(name, res[0].pnum);
+        window.alert("추가 완료되었습니다.");
+        window.location.reload();
+      } else {
+        setIsSameName(res);
+      }
+    });
   };
 
   const addAttendance = (name, pnum) => {
-    const post = {
-      name: name,
-      pnum: pnum,
-      atype: attendanceType,
-      date: year + "-" + (month + 1) + "-" + clicked.date,
-    };
-    fetch("https://teammagnus.net/addAttendance", {
-      method: "post",
-      headers: { "content-type": "application/json" },
-      body: JSON.stringify(post),
-    });
+    Connection(
+      "/addAttendance",
+      {
+        name: name,
+        pnum: pnum,
+        atype: attendanceType,
+        date: year + "-" + (month + 1) + "-" + clicked.date,
+      },
+      true
+    );
   };
 
   const removeAttendance = (name, pnum) => {
-    const post = {
-      name: name,
-      pnum: pnum,
-      atype: attendanceType,
-      date: year + "-" + (month + 1) + "-" + clicked.date,
-    };
-    fetch("https://teammagnus.net/removeAttendance", {
-      method: "post",
-      headers: { "content-type": "application/json" },
-      body: JSON.stringify(post),
-    }).then(() => {
-      window.alert("삭제 완료되었습니다.");
-      window.location.reload();
-    });
+    Connection(
+      "/removeAttendance",
+      {
+        name: name,
+        pnum: pnum,
+        atype: attendanceType,
+        date: year + "-" + (month + 1) + "-" + clicked.date,
+      },
+      true
+    );
+    window.alert("삭제 완료되었습니다.");
+    window.location.reload();
   };
+
   const [name, setName] = useState("");
   const [pnum, setPnum] = useState("");
 
