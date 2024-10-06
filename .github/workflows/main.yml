@@ -21,7 +21,7 @@ jobs:
           username: ${{ secrets.USER }}
           script: |
             cd MAGNUS
-            git pull origin main
+            sudo git pull origin main
             yarn
             yarn build
   
