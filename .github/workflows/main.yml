@@ -22,4 +22,5 @@ jobs:
           script: |
             cd MAGNUS
             git pull origin main
+            yarn build
   
