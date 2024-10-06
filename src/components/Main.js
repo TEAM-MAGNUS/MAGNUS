@@ -49,12 +49,12 @@ function Main() {
             </div>
             <div className="section">
               <div className="div-main-section-01-01-01">
-                <div className="div-main-section-01-01-01-schedule">
+                {/* <div className="div-main-section-01-01-01-schedule">
                   <div className="div-main-section-01-01-01-left">금</div>
                   <div className="div-main-section-01-01-01-right">
                     20:00~21:30
                   </div>
-                </div>
+                </div> */}
                 <div className="div-main-section-01-01-01-schedule">
                   <div className="div-main-section-01-01-01-left">토</div>
                   <div className="div-main-section-01-01-01-right">
@@ -95,16 +95,14 @@ function Main() {
                 <br /> 신입부원들도 함께 운동을 하고 있습니다.
                 <br />
                 <br />
-                금요일의 경우 블랙벨트 관장님이 훈련을 지도하시고 <br />
-                토,일에는 코치진이 훈련을 진행하고 있습니다. <br />
+                블루벨트 이상의 코치진이 훈련을 진행하고 있습니다. <br />
                 <br />
-                추가로 주말에는 3층에 있는 헬스장을
+                추가로 3층에 있는 헬스장을
                 <br />
                 무료로 마음껏 이용하실 수 있습니다.
                 <br />
                 <br />
-                토요일, 일요일에는 훈련 후 <br />
-                재미있는 뒷풀이가 종종 있습니다!
+                훈련 후 재미있는 뒷풀이가 종종 있습니다!
               </div>
               <div onClick={() => fullpageApi.moveSectionDown()}>
                 <BiChevronDown className="icon-main-arrow-down1" size="20" />
