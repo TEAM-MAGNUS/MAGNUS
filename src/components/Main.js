@@ -58,7 +58,7 @@ function Main() {
                 <div className="div-main-section-01-01-01-schedule">
                   <div className="div-main-section-01-01-01-left">토</div>
                   <div className="div-main-section-01-01-01-right">
-                    testest 14:00~16:00
+                    testtest testest 14:00~16:00
                   </div>
                 </div>
                 <div className="div-main-section-01-01-01-schedule">
